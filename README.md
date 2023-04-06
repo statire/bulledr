@@ -1,4 +1,4 @@
-# Bulle d'R <img src='img/logo-bulledr.png' align="right" width="20%" />
+# Bulle d'R <img src='img/logo-bulledr-2.png' align="right" width="20%" />
 
 
 # Quelques ressources
