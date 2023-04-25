@@ -3,4 +3,4 @@
 
 # Quelques ressources
 
-- Package [{InraeThemes}](https://github.com/InraeThemes) pour des thèmes ggplot, Rmarkdown, Quarto et HTML/CSS suivants la charte graphique INRAE
+- Package [{InraeThemes}](https://github.com/davidcarayon/InraeThemes) pour des thèmes ggplot, Rmarkdown, Quarto et HTML/CSS suivants la charte graphique INRAE
