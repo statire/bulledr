@@ -1,18 +1,18 @@
 ---
-title: "Bulle d'R"
+title: "Bulle d'R n°1 : Bonnes pratiques à ETTIS"
 date: "2023-06-01"
 date-format: long
 lang: fr  
 author:
-  - name: Premier auteur
-    orcid: 0000-xxxx-xxxx-xxxx
-    email: prenom.nom@inrae.fr
-  - name: Second auteur
-    email: prenom.nom@inrae.fr
-    orcid: 0000-xxxx-xxxx-xxxx
+  - name: Sandrine LYSER
+    orcid: 0000-0001-6820-0672
+    email: sandrine.lyser@inrae.fr
+  - name: David CARAYON
+    email: david.carayon@inrae.fr
+    orcid: 0000-0003-0217-2175
 format: 
   inrae-revealjs:
-    footer: "Bulle d'R"
+    footer: "Bulle d'R n°1 | Bonnes pratiques"
     # theme: [custom.scss]
     transition: none
 revealjs-plugins:
@@ -20,24 +20,55 @@ revealjs-plugins:
 from: markdown+emoji
 ---
 
-## Quarto
+## Présentation : Bulle d'R, concept, mattermost
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+## Introduction R -  Rstudio 
 
-## Running Code
+Cf. TWIX qui sera disponible ce lien : *lien TWIX* (S)
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
 
-```{r}
-1 + 1
-```
+## Rappel sur les projets : RProject (D)
 
-You can add options to executable code like this
+	1) Architectures : simple à compliqué 
+	2) InraeThemes : Un template proposé
 
-```{r}
-#| echo: false
-2 * 2
-```
+## Importer ses données (S)
+	1) Le concept de données tidy
+	2) Importer proprement ses données (xlsx, csv)
+	3) Viewxl : pour vérifier son import ou explorer
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Conventions de nommage (S)
+	1) Fichiers : explicites, milésimés, numérotés
+	2) Pour les variables : snakeCase, CamelCase 
+	
+##  Gestion des packages (D)
+	1) Version de R : Quelques gros changements (> 4)
+	2) Rappel sur le fonctionnement des packages : install / library
+	3) Prefixage :: (conflits etc.)
+	4) Le tidyverse *vs* base
 
+##  Structuration des scripts (S)
+	1) Esquisse, FactoShiny... Reproductibilité => Stocker le code dans 1 script quand même
+	2) Packages + session_info pour les versions
+	3) Créer des sections : CTRL + MAJ + R (+ addin)
+	4) Commentaires
+	5) Aller plus loin : CompileReport et/ou Programmation lettrée (Rmd) => Session dédiée (si interêt)
+
+##  L'export (hors Rmd) (S)
+	1) Les plots (base + ggplot)
+	2) Les tableaux :  XLSX / CSV
+	3) Packages export auto : dataExplorer
+
+##  Quelques packages conseils (D)
+	1) questionr
+	2) skimr
+	3) easystats
+	4) ggstatsplots
+	5) FactoMineR + factoextra pour le factoriel + PCAmixdata
+
+##  Pour aller (beaucoup) plus loin (D)
+	1) Rmd / Quarto
+	2) Renv
+	3) git
+
+##  La suite ? avec les liens 
