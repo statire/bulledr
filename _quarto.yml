@@ -1,0 +1,10 @@
+project:
+  title: "slides"
+  output-dir: docs
+  render:
+    - "*.qmd"
+
+
+
+
+
