@@ -4,3 +4,5 @@
 # Quelques ressources
 
 - Package [{InraeThemes}](https://github.com/davidcarayon/InraeThemes) pour des thèmes ggplot, Rmarkdown, Quarto et HTML/CSS suivants la charte graphique INRAE
+
+- Présentation TWIX du 1er juin 2023 [Travailler sous R avec RStudio : comment ça marche ?](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01#/title-slide)
