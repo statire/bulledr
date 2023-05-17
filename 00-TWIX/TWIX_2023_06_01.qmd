@@ -1,5 +1,5 @@
 ---
-title: "Travailler sur R avec RStudio"
+title: "Travailler sous R avec RStudio : comment ça marche ?"
 author: "Sandrine Lyser"
 # Dernière modification : le 17/05/2023
 format: 
