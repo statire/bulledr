@@ -1,0 +1,232 @@
+---
+title: "Travailler sur R avec RStudio"
+author: "Sandrine Lyser"
+# Dernière modification : le 17/05/2023
+format: 
+  inrae-revealjs:
+    transition: none
+    footer: "Twix - 01 juin 2023"
+    toc: false
+    slide-number: c/t
+    slide-level: 3
+    smaller: true
+    incremental: false
+    link-external-icon: true
+    link-external-newwindow: true
+---
+
+# Introduction {.inverse}
+
+## Un bref rappel de ce qu'est ![](./img/Rlogo.png){height="50"} 
+
+-   Un **langage de programmation open source**
+-   Un **logiciel de calcul scientifique interactif et interprété**, dédié aux analyses statistiques et aux visualisations de données
+-   Un logiciel **libre** (licence AGPLv3), **gratuit**, constamment mis à jour et amélioré
+-   Disponible en téléchargement sur le site du CRAN (*Comprehensive R Archive Network*) : <http://cran.r-project.org>{target="_blank"}
+-   Compatible avec la plupart des systèmes d'exploitation (Windows, MacOS, Linux)
+
+## Utilisation de **R**
+
+:::: {.columns}
+
+::: {.column width="40%"}
+-   Avec l'installation de base 
+
+![](./img/Rbase.png)
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="55%"}
+-   Avec un **éditeur de script** distinct, pour écrire et éxécuter le code
+
+    -   [Notepad++](https://notepad-plus-plus.org/){target="_blank"}
+
+    -   [VSCode](https://code.visualstudio.com/){target="_blank"}
+
+    -   [Vim](https://www.vim.org/){target="_blank"}
+
+    -   [Atom](https://atom.io/){target="_blank"}
+
+    -   [Sublime Text](https://www.sublimetext.com/){target="_blank"}
+
+-   Avec un **IDE** (*Integrated Development Environment*) pour un environnement plus puissant et plus riche
+
+    -   [Tinn-R](https://tinn-r.org){target="_blank"}
+    -   [Emacs](https://www.gnu.org/software/emacs/index.html){target="_blank"}
+    -   [**RStudio**](https://posit.co){target="_blank"}
+:::
+
+::::
+
+
+# RStudio {.inverse}
+
+## Présentation rapide ![](./img/RStudiologo.png){width="103" height="34"}
+
+-   Conçu spécialement pour **`R`**
+
+-   Disponible en version "locale" *RStudio Desktop* ou en version "serveur" *RStudio Server* 
+
+- Téléchargerment sur le site de posit : <https://posit.co/downloads/>{target="_blank"}
+
+-   Permet
+
+    -   d'utiliser le langage **`R`**
+
+    -   de réaliser des analyses statistiques
+
+    -   de visualiser des tableaux et des figures
+
+
+<h4>Avantages</h4>
+
+-   Interface plutôt simple, intuitive et conviviale et surtout **configurable**
+-   Éditeur de script avec coloration syntaxique
+-   Fonctionnalités pratiques d'édition et d'exécution du code
+-   Affichage simultané du code, de la console, des fichiers, graphiques et des pages d'aide
+
+[**NB : Installer `R` avant d'installer `RStudio`**]{style="color:#ed6e6c"}
+
+## Interface en 4 quadrants
+
+::: columns
+::: {.column width="75%"}
+![](./img/RStudiointerface.png)
+:::
+
+::: {.column width="25%"}
+[**1.**]{style="color:#ed6e6c;"} Éditeur de texte ou de code
+
+[**2.**]{style="color:#ed6e6c;"} Environnement de travail, historique, fichiers, ...
+
+[**3.**]{style="color:#ed6e6c;"} Aide, graphiques, packages installés, visualisation...
+
+[**4.**]{style="color:#ed6e6c;"} Console, ...
+:::
+:::
+
+
+
+### 1. Les scripts
+
+Des fichiers "texte" pour des traitements qui vont nécessiter des modifications. 
+
+<h4>Avantages</h4>
+
+  -   garder la trace des lignes de code
+  -   exécuter une/des ligne(s) de code : bouton `Run` ou raccourci clavier `Ctrl + Entrée` ou `Ctrl + R`
+  -   modifier le code
+  -   ajouter des commentaires
+  -   réutiliser le code sur d'autres jeux de données
+
+[\#**Reproductibilité**]{style="color:#66c1bf"}
+
+[**NB : Il est vivement recommandé de commencer l'écriture du script par les packages utilisés, pour les identifier plus rapidement**]{style="color:#ed6e6c"}
+
+------------------------------------------------------------------------
+
+### 2. L'environnement / L'historique / Les connexions
+
+-   <h4>Onglet *Environment*</h4>
+
+    -   objets (données, fonctions, résultats) créés dans cet environnement
+    -   2 affichages possibles : liste ou grille (permet de supprimer des objets en cochant la case à côté du nom + clic sur l'icone `Balai`)
+
+-   <h4>Onglet *History*</h4>
+
+    -   historique des commandes exécutées
+    -   on peut renvoyer le code dans la console ou la source
+
+-  <h4>Onglet *Connections*</h4>
+
+    -   pour se connecter à diverses sources de données (par ex. bases de données externes)
+
+------------------------------------------------------------------------
+
+### 3. Les graphiques/ Les packages / L'aide
+
+-   <h4>Onglet *Plots*</h4>
+
+    -   fenêtre où s'affichent les graphiques créés
+    -   possibilité de zoomer, de naviguer entre les graphiques ou de les copier
+    -   export des graphiques au format image (jpeg, png, tiff) ou pdf
+
+-  <h4>Onglet *Packages*</h4>
+
+    -   liste des packages installés sur la machine
+    -   installation de nouveaux packages ; mise à jour des packages installés
+    -   un clic sur le nom d'un package affiche les pages d'aide correspondant
+
+-   <h4>Onglet *Help*</h4>
+
+    -   pour afficher la documentation de chaque fonction
+    -   accès à des manuels ou des à aides-mémoire (*cheatsheets*)
+    
+------------------------------------------------------------------------
+
+### 4. La console
+
+-   Pour effectuer et afficher les résultats de calculs de base (+, -, \*, /, etc. )
+-   Pour utiliser des fonctions spécifiques : `sum()`, `abs()`, `round()`, etc.
+-   Les commandes sont exécutées au fur et à mesure qu'elles sont écrites en appuyant sur la touche `Entrée` = calculatrice
+
+[***Astuce*** **: On peut remonter dans l'historique des commandes pour en rappeler une, à l'aide des flèches haut/bas**]{style="color:#66c1bf"}
+
+
+## Projet
+
+-   Pour organiser son travail pour chaque projet d'analyse de données
+
+-   Regroupe en un seul endroit tous les scripts **`R`**, documents `Rmarkdown`/`Quarto`, fonctions, données, résultats et fichiers de sortie
+
+-   Chaque projet possède son propre répertoire, espace de travail, historique et ses propres documents sources
+
+    -   les différentes analyses sont complètement séparées les unes des autres
+    -   possibilité de passer d'un projet à l'autre sans craindre qu'ils n'interfèrent les uns avec les autres
+
+-   La création d'un nouveau projet se fait à partir de l'icône dédiée en haut à droite de **`RStudio`**, en sélectionnant l'option `New project`
+
+-   Il est recommandé d'organiser son projet, de le structurer en (sous-)dossiers pour ranger efficacement les différents documents liés à l'analyse
+
+------------------------------------------------------------------------
+
+### Exemples de structuration
+
+::: columns
+::: {.column width="50%"}
+-   <h4>Minimale</h4>
+
+![](./img/ProjectMini.png)
+:::
+
+::: {.column width="50%"}
+-   <h4>Optimale</h4>
+
+![](./img/ProjectOptimal.png)
+:::
+:::
+
+Source : <https://learn.r-journalism.com/en/publishing/workflow/r-projects/>{target="_blank"}
+
+[**Chacun s'organise de la façon qu'il juge la plus adaptée à ses usages !**]{style="color:#66c1bf"}
+
+## Addins
+
+-   Extensions proposées par **`RStudio`** pour simplifier certaines manipulations <https://github.com/daattali/addinslist#readme>{target="_blank"}
+
+-   **Exemples**
+
+    -   `addinslist` : parcourir et installer les addins de **`RStudio`**
+    -   `colourpicker`: sélectionner une couleur dans les graphiques
+    -   `esquisse` : créer un graphique ggplot2
+    -   `questionr` : discrétiser un variable ; réordonner ou recoder un facteur
+    -   `remedy` : simplifier l'écriture `markdown` (convertir le texte sélectionné en titre1, titre2, etc.)
+    -   `ReplaceInFiles` : rechercher et remplacer une valeur dans plusieurs fichiers
+    -   `strcode` : structurer le code (sauts de section avec titre en en-tête)
+    -   `viewxl`: voir les *dataframes* sous Excel en un clic
+
+# Des questions ? {.inverse}
+
