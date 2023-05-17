@@ -6,7 +6,9 @@
 <script src="01-bonnes_pratiques_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="01-bonnes_pratiques_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="01-bonnes_pratiques_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="01-bonnes_pratiques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="01-bonnes_pratiques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Sandrine LYSER">
@@ -29,6 +31,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="01-bonnes_pratiques_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="01-bonnes_pratiques_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -352,14 +418,87 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <section id="présentation-bulle-dr-concept-mattermost" class="slide level2">
 <h2>Présentation : Bulle d’R, concept, mattermost</h2>
 </section>
-<section id="introduction-r---rstudio" class="slide level2">
-<h2>Introduction R - Rstudio</h2>
-<p>Cf. TWIX qui sera disponible ce lien : <em>lien TWIX</em> (S)</p>
+<section>
+<section id="introduction" class="title-slide slide level1 inverse center">
+<h1>Introduction</h1>
+
 </section>
-<section id="rappel-sur-les-projets-rproject-d" class="slide level2">
-<h2>Rappel sur les projets : RProject (D)</h2>
-<pre><code>1) Architectures : simple à compliqué 
-2) InraeThemes : Un template proposé</code></pre>
+<section id="r---rstudio" class="slide level2">
+<h2>R - Rstudio</h2>
+<p>Cf. Présentation TWIX qui sera disponible ce lien :</p>
+<p><br> <br></p>
+<center>
+<p><i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01">https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01</a> <i class="fa-solid fa-globe" aria-label="globe"></i></p>
+</center>
+</section></section>
+<section>
+<section id="travailler-en-projets" class="title-slide slide level1 inverse center">
+<h1>1. Travailler en projets</h1>
+
+</section>
+<section id="créer-un-projet-sous-rstudio" class="slide level2">
+<h2>Créer un projet sous RStudio</h2>
+<p>À partir de l’icône dédiée en haut à droite de RStudio</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./img/screenshot_RStudio_01NewProject.png" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
+<section id="créer-un-projet-sous-rstudio-1" class="slide level2">
+<h2>Créer un projet sous RStudio</h2>
+<p>Sélectionner l’option “<em>New project</em>”, puis l’option “<em>New Directory</em>” et enfin “<em>Empty Project</em>”</p>
+<p><img data-src="./img/screenshot_RStudio_02CreateProject.png" style="width:32.0%"> <img data-src="./img/screenshot_RStudio_03ProjectType.png" style="width:32.0%"> <img data-src="./img/screenshot_RStudio_04ProjectDirectory.png" style="width:32.0%"></p>
+</section>
+<section id="exemples-darborescence" class="slide level2">
+<h2>Exemples d’arborescence</h2>
+<p><strong>Exemples de structurations</strong><br>
+(chacun s’organisera de la façon qu’il juge la plus adaptée à ses usages)</p>
+<p><img data-src="./img/screenshot_RStudio_05ProjectStructureMini.png" style="width:48.0%"> <img data-src="./img/screenshot_RStudio_05ProjectStructureOptim.png" style="width:48.0%"></p>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>Le plus important, ce sont les <strong>données initiales</strong> et les <strong>scripts de traitements</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="coup-de-pouce-le-package-inraethemes" class="slide level2">
+<h2>Coup de pouce : Le package {InraeThemes}</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/logo_hex.png" style="width:50.0%"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/cap_project_IT.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/project_IT.png" style="width:45.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="télécharger-inraethemes" class="slide level2">
+<h2>Télécharger InraeThemes</h2>
+<p><br> <br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"davidcarayon/InraeThemes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> Plus d’infos sur son utilisation sur <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://davidcarayon.github.io/InraeThemes/">La documentation d’InraeThemes</a></p>
 </section>
 <section id="importer-ses-données-s" class="slide level2">
 <h2>Importer ses données (S)</h2>
@@ -371,13 +510,117 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <h2>Conventions de nommage (S)</h2>
 <pre><code>1) Fichiers : explicites, milésimés, numérotés
 2) Pour les variables : snakeCase, CamelCase </code></pre>
+</section></section>
+<section>
+<section id="gestion-des-packages" class="title-slide slide level1 inverse center">
+<h1>Gestion des packages</h1>
+
 </section>
-<section id="gestion-des-packages-d" class="slide level2">
-<h2>Gestion des packages (D)</h2>
-<pre><code>1) Version de R : Quelques gros changements (&gt; 4)
-2) Rappel sur le fonctionnement des packages : install / library
-3) Prefixage :: (conflits etc.)
-4) Le tidyverse *vs* base</code></pre>
+<section id="préambule-version-de-r" class="slide level2">
+<h2>Préambule : Version de R</h2>
+<ul>
+<li>Les packages R peuvent dépendre d’une version spécifique de R (ou version minimale)</li>
+</ul>
+<p><img data-src="img/vers_R.png"></p>
+<div class="fragment">
+<div class="callout callout-caution callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Les Breaking Changes</strong></p>
+</div>
+<div class="callout-content">
+<p>Certaines versions de R apportent des <strong>breaking changes</strong> qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : <code>stringAsFactor = FALSE</code> au lieu de <code>TRUE</code> avant la version 4.0). A l’inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe <code>|&gt;</code> à partir de R 4.1.0)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="rappels-sur-le-fonctionnement-des-packages" class="slide level2">
+<h2>Rappels sur le fonctionnement des packages</h2>
+<ol type="1">
+<li>On <strong>Installe</strong> le package</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Cela place les fonctions du package sur votre PC.</p>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Analogie : on <strong>achète</strong> un livre <span class="emoji" data-emoji="notebook">📓</span> pour le mettre dans sa bibliothèque <span class="emoji" data-emoji="books">📚</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>On <strong>Charge</strong> le package</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(remotes)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>On évite au lancement de R de lancer <em>tous</em> les packages installés, il faut donc indiquer lors de chaque session les packages à charger</p>
+<div class="callout callout-tip no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<p>Analogie : on <strong>sors</strong> le livre de la bibliothèque et on l’ouvre pour utiliser son contenu <span class="emoji" data-emoji="book">📖</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="alternative-au-library-le-prefixage" class="slide level2">
+<h2>Alternative au <code>library</code>, le prefixage</h2>
+<p><br></p>
+<p>La notation</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Peut remplacer le code</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="callout callout-tip callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Trois avantages</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Eviter les conflits si 2 packages ont une fonction au même nom (ex : <code>filter()</code> existe également dans le package <code>{stats}</code>)</li>
+<li>Identifier quelle fonction provient de quel package</li>
+<li>Ne pas charger tout un package pour une seule fonction</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quelques-mises-en-gardes" class="slide level2">
+<h2>Quelques mises en gardes</h2>
+<ul>
+<li>Les fonctions provenant de packages tels que ceux du <code>tidyverse</code> proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités <em>classiques</em> de R</li>
+<li><strong>MAIS</strong> ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement <code>deprecated</code> ou <code>superseded</code></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/lifecycle.png" style="width:50.0%"></p>
+</figure>
+</div>
+<div class="fragment">
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Privilégier, lorsque c’est possible, les fonction/packages les plus <strong>stables</strong> possible</li>
+<li>Alternative à {dplyr} + {tidyr} sans aucune dépendance : <a href="https://cran.r-project.org/web/packages/data.table/index.html">{data.table}</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="structuration-des-scripts-s" class="slide level2">
 <h2>Structuration des scripts (S)</h2>
@@ -392,28 +635,170 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <pre><code>1) Les plots (base + ggplot)
 2) Les tableaux :  XLSX / CSV
 3) Packages export auto : dataExplorer</code></pre>
+</section></section>
+<section>
+<section id="quelques-packages-conseils" class="title-slide slide level1 inverse center">
+<h1>Quelques packages conseils</h1>
+
 </section>
-<section id="quelques-packages-conseils-d" class="slide level2">
-<h2>Quelques packages conseils (D)</h2>
-<pre><code>1) questionr
-2) skimr
-3) easystats
-4) ggstatsplots
-5) FactoMineR + factoextra pour le factoriel + PCAmixdata</code></pre>
+<section id="questionr-outils-de-traitement-de-données-denquêtes" class="slide level2">
+<h2><a href="https://juba.github.io/questionr/index.html">{questionr}</a> : Outils de traitement de données d’enquêtes</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(questionr)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">data</span>(hdv2003)</span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span><span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                            n     %  val%  %cum val%cum
+Employe                   594  29.7  35.9  29.7    35.9
+Ouvrier qualifie          292  14.6  17.7  44.3    53.6
+Cadre                     260  13.0  15.7  57.3    69.3
+Ouvrier specialise        203  10.2  12.3  67.4    81.6
+Profession intermediaire  160   8.0   9.7  75.4    91.3
+Technicien                 86   4.3   5.2  79.8    96.5
+Autre                      58   2.9   3.5  82.7   100.0
+NA                        347  17.3    NA 100.0      NA
+Total                    2000 100.0 100.0 100.0   100.0</code></pre>
+</div>
+</div>
+<!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 </section>
-<section id="pour-aller-beaucoup-plus-loin-d" class="slide level2">
-<h2>Pour aller (beaucoup) plus loin (D)</h2>
-<pre><code>1) Rmd / Quarto
-2) Renv
-3) git</code></pre>
+<section id="skimr-un-summary-sous-stéroïdes" class="slide level2">
+<h2><a href="https://docs.ropensci.org/skimr/">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img data-src="img/skimr.png"></p>
 </section>
-<section id="la-suite-avec-les-liens" class="slide level2">
-<h2>La suite ? avec les liens</h2>
+<section id="easystats-les-statistiques-faciles" class="slide level2">
+<h2><a href="https://easystats.github.io/easystats/">{easystats}</a> : Les statistiques “faciles” <span class="emoji" data-emoji="star_struck">🤩</span></h2>
+<p><br></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(easystats)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/easystats.png" style="width:50.0%"></p>
+</figure>
+</div>
+</section>
+<section id="ggstatsplots-combiner-statistiques-et-dataviz" class="slide level2">
+<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/">{ggstatsplots}</a> : Combiner statistiques et dataviz <span class="emoji" data-emoji="bar_chart">📊</span></h2>
+<p><br></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/ggstatsplot.png" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/ggscatter.png" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analyses-factorielles" class="slide level2">
+<h2>Analyses factorielles</h2>
+<p><strong>Deux grandes écoles</strong></p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="fragment">
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img data-src="img/ade4.png"></p>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="fragment">
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img data-src="img/facto.png"></p>
+<p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> <span class="emoji" data-emoji="trophy">🏆</span> en général privilégié</p>
+</div>
+</div>
+</div>
+</section>
+<section id="pcamixdata-lanalyse-mixte" class="slide level2">
+<h2><a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html">{PCAmixdata}</a> : L’analyse mixte</h2>
+<blockquote>
+<p>Chavent, M., Kuentz-Simonet, V., Labenne, A., &amp; Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.</p>
+</blockquote>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/pcamix.png" style="width:40.0%"></p>
+</figure>
+</div>
+</section></section>
+<section>
+<section id="pour-aller-beaucoup-plus-loin" class="title-slide slide level1 inverse center">
+<h1>Pour aller (beaucoup) plus loin</h1>
+
+</section>
+<section id="rmdquarto" class="slide level2">
+<h2>Rmd/Quarto</h2>
+</section>
+<section id="renv" class="slide level2">
+<h2>Renv</h2>
+<p><img data-src="img/renv.png"></p>
+</section>
+<section id="git" class="slide level2">
+<h2>Git</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/finaldoc.png" style="width:90.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/logo_git.png"> <img data-src="img/gitworkflow.png" style="width:90.0%" data-fig-align="center"></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="conclusion" class="title-slide slide level1 inverse center">
+<h1>Conclusion</h1>
+
+</section>
+<section id="il-y-a-théorie-et-réalité" class="slide level2">
+<h2>Il y a théorie… et réalité</h2>
+<p><img data-src="img/mess.png"></p>
+</section>
+<section id="merci-des-questions" class="slide level2">
+<h2>Merci ! Des questions ?</h2>
+<p><br></p>
+<div class="callout callout-note no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Les liens</strong></p>
+</div>
+<div class="callout-content">
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/statire/bulledr">https://github.com/statire/bulledr</a></p>
+<p><i class="fa-solid fa-comment-dots" aria-label="comment-dots"></i> <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></p>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><i class="fa-brands fa-slideshare" aria-label="slideshare"></i> Slides consultables ici : <br> <a href="https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html">https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html</a></p>
+</section>
+<section id="slides-made-with" class="slide level2 plain">
+<h2>Slides made with …</h2>
+<center>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/logo_hex.png" width="400"></p>
+</figure>
+</div>
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes">https://github.com/davidcarayon/InraeThemes</a></p>
+</center>
 <p><img src="../_extensions/davidcarayon/inrae/ressources/bloc-etat.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>Bulle d’R n°1 | Bonnes pratiques</p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -627,6 +1012,44 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

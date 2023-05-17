@@ -22,15 +22,77 @@ from: markdown+emoji
 
 ## Présentation : Bulle d'R, concept, mattermost
 
-## Introduction R -  Rstudio 
+# Introduction {.inverse}
 
-Cf. TWIX qui sera disponible ce lien : *lien TWIX* (S)
+## R -  Rstudio
+
+Cf. Présentation TWIX qui sera disponible ce lien :
+
+<br>
+<br>
+
+<center>
+
+{{< fa globe >}} [https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01) {{< fa globe >}}
+
+</center>
+
+# 1. Travailler en projets {.inverse}
+
+## Créer un projet sous RStudio
+À partir de l'icône dédiée en haut à droite de RStudio
+
+![](./img/screenshot_RStudio_01NewProject.png){fig-align="center" width="70%"} 
 
 
-## Rappel sur les projets : RProject (D)
+## Créer un projet sous RStudio
 
-	1) Architectures : simple à compliqué 
-	2) InraeThemes : Un template proposé
+Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin "*Empty Project*"  
+
+![](./img/screenshot_RStudio_02CreateProject.png){width="32%"} ![](./img/screenshot_RStudio_03ProjectType.png){width="32%"} ![](./img/screenshot_RStudio_04ProjectDirectory.png){width="32%"}
+
+## Exemples d'arborescence
+
+**Exemples de structurations**  
+(chacun s'organisera de la façon qu'il juge la plus adaptée à ses usages)  
+
+![](./img/screenshot_RStudio_05ProjectStructureMini.png){width="48%"} ![](./img/screenshot_RStudio_05ProjectStructureOptim.png){width="48%"}
+
+
+::: {.callout-note}
+## A noter
+Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
+:::
+
+##  Coup de pouce : Le package {InraeThemes}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](img/logo_hex.png){fig-align="center" width="50%"} 
+
+![](img/cap_project_IT.png){fig-align="center" width="80%"}
+:::
+
+::: {.column width="60%"}
+![](img/project_IT){fig-align="center" width="45%"}
+:::
+
+::::
+
+## Télécharger InraeThemes
+
+<br>
+<br>
+
+```r
+# install.packages("remotes")
+remotes::install_github("davidcarayon/InraeThemes")
+```
+
+<br>
+
+{{< fa caret-right >}} Plus d'infos sur son utilisation sur {{< fa globe >}} [La documentation d'InraeThemes](https://davidcarayon.github.io/InraeThemes/)
 
 ## Importer ses données (S)
 	1) Le concept de données tidy
@@ -41,11 +103,89 @@ Cf. TWIX qui sera disponible ce lien : *lien TWIX* (S)
 	1) Fichiers : explicites, milésimés, numérotés
 	2) Pour les variables : snakeCase, CamelCase 
 	
-##  Gestion des packages (D)
-	1) Version de R : Quelques gros changements (> 4)
-	2) Rappel sur le fonctionnement des packages : install / library
-	3) Prefixage :: (conflits etc.)
-	4) Le tidyverse *vs* base
+# Gestion des packages {.inverse}
+
+## Préambule : Version de R
+
+* Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
+
+![](img/vers_R.png)
+
+::: {.fragment}
+::: {.callout-caution}
+## Les Breaking Changes
+Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+:::
+:::
+
+## Rappels sur le fonctionnement des packages
+
+1) On **Installe** le package
+
+```r
+install.packages("remotes")
+```
+Cela place les fonctions du package sur votre PC.
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèque :books:
+:::
+
+::: {.fragment}
+
+2)  On **Charge** le package
+
+```r
+library(remotes)
+```
+On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **sors** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
+:::
+:::
+
+## Alternative au `library`, le prefixage
+
+<br>
+
+La notation
+
+```r
+dplyr::filter(iris, Species == "setosa")
+```
+
+Peut remplacer le code
+
+```r
+library(dplyr)
+filter(iris, Species == "setosa")
+```
+
+:::{.fragment}
+
+::: {.callout-tip}
+## Trois avantages
+* Eviter les conflits si 2 packages ont une fonction au même nom (ex : `filter()` existe également dans le package `{stats}`)
+* Identifier quelle fonction provient de quel package
+* Ne pas charger tout un package pour une seule fonction
+:::
+:::
+
+## Quelques mises en gardes
+
+* Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
+* **MAIS** ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
+
+![](img/lifecycle.png){fig-align="center" width="50%"}
+
+::: {.fragment}
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+* Privilégier, lorsque c'est possible, les fonction/packages les plus **stables** possible
+* Alternative à {dplyr} + {tidyr} sans aucune dépendance : [{data.table}](https://cran.r-project.org/web/packages/data.table/index.html)
+:::
+:::
 
 ##  Structuration des scripts (S)
 	1) Esquisse, FactoShiny... Reproductibilité => Stocker le code dans 1 script quand même
@@ -59,16 +199,158 @@ Cf. TWIX qui sera disponible ce lien : *lien TWIX* (S)
 	2) Les tableaux :  XLSX / CSV
 	3) Packages export auto : dataExplorer
 
-##  Quelques packages conseils (D)
-	1) questionr
-	2) skimr
-	3) easystats
-	4) ggstatsplots
-	5) FactoMineR + factoextra pour le factoriel + PCAmixdata
+#  Quelques packages conseils {.inverse}
 
-##  Pour aller (beaucoup) plus loin (D)
-	1) Rmd / Quarto
-	2) Renv
-	3) git
+## [{questionr}](https://juba.github.io/questionr/index.html) : Outils de traitement de données d'enquêtes
 
-##  La suite ? avec les liens 
+<br>
+
+```{r, echo = TRUE}
+library(questionr)
+data(hdv2003)
+freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort ="dec")
+```
+
+<!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
+
+## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle:
+
+```r
+library(skimr)
+skimr::skim(mtcars)
+```
+
+![](img/skimr.png)
+
+## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck:
+
+<br>
+
+```r
+library(easystats)
+```
+
+<br>
+
+![](img/easystats.png){fig-align="center" width="50%"}
+
+## [{ggstatsplots}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et dataviz :bar_chart:
+
+<br>
+
+```r
+library(ggstatsplots)
+```
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/ggstatsplot.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="50%"}
+![](img/ggscatter.png){fig-align="center" width="80%"}
+:::
+
+::::
+
+## Analyses factorielles
+
+**Deux grandes écoles** 
+
+:::: {.columns}
+
+::: {.column width="40%"}
+::: {.fragment}
+```r
+library(ade4)
+library(adegraphics)
+```
+
+![](img/ade4.png)
+
+
+:::
+:::
+
+::: {.column width="60%"}
+::: {.fragment}
+```r
+library(FactoMineR)
+library(factoextra)
+```
+
+![](img/facto.png) 
+
+{{< fa caret-right >}} :trophy: en général privilégié
+
+:::
+:::
+
+::::
+
+
+## [{PCAmixdata}](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html) : L'analyse mixte
+
+> Chavent, M., Kuentz-Simonet, V., Labenne, A., & Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.
+
+![](img/pcamix.png){fig-align="center" width="40%"}
+
+# Pour aller (beaucoup) plus loin {.inverse}
+
+## Rmd/Quarto
+
+## Renv
+
+![](img/renv.png)
+
+## Git
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/finaldoc.png){fig-align="center" width="90%"}
+:::
+
+::: {.column width="50%"}
+![](img/logo_git.png)
+![](img/gitworkflow.png){fig-align="center" width="90%"}
+:::
+
+::::
+
+# Conclusion {.inverse}
+
+## Il y a théorie... et réalité
+
+![](img/mess.png)
+
+## Merci ! Des questions ?
+ 
+<br />
+
+
+::: {.callout-note appearance="minimal"}
+## Les liens
+
+{{< fa brands github >}}   [https://github.com/statire/bulledr](https://github.com/statire/bulledr)
+
+{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+
+:::
+
+<br />
+
+{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html)
+
+## Slides made with ...{.plain}
+
+<center>
+
+![](img/logo_hex.png){width=400px fig-align="center"}
+
+{{< fa brands github >}} [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes)
+
+</center>
