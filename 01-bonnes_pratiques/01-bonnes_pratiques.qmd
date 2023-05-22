@@ -20,13 +20,25 @@ revealjs-plugins:
 from: markdown+emoji
 ---
 
-## Présentation : Bulle d'R, concept, mattermost
+## Présentation : Bulle d'R {background-image="img/logo-bulledr.png" background-size="150px" background-position="top 40px right 80px"} 
+
+<br> 
+
+::: {.incremental}
+- Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations. 
+- Tous les 1er mardi de chaque mois à 9h en salle Estuaire.
+- Pas des sessions de formations, mais plutôt un format questions /réponses
+- Ouvert à tous les niveaux, pas de question bête :wink:
+- Chat de discussion dédié sur Mattermost : [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+
+:::
+
 
 # Introduction {.inverse}
 
 ## R -  Rstudio
 
-Cf. Présentation TWIX qui sera disponible ce lien :
+Cf. Présentation TWIX qui sera disponible à ce lien :
 
 <br>
 <br>
@@ -39,13 +51,13 @@ Cf. Présentation TWIX qui sera disponible ce lien :
 
 # 1. Travailler en projets {.inverse}
 
-## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="200px" background-position="top 40px right 80px"} 
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"} 
 À partir de l'icône dédiée en haut à droite de RStudio
 
 ![](./img/screenshot_RStudio_01NewProject.png){fig-align="center" width="70%"} 
 
 
-## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="200px" background-position="top 40px right 80px"}
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"}
 
 Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin "*Empty Project*"  
 
@@ -64,9 +76,8 @@ Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin
 Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
 :::
 
-##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="200px" background-position="top 40px right 80px"}
+##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="100px" background-position="top 40px right 80px"}
 
-<br>
 <br>
 <br>
 
@@ -219,7 +230,7 @@ freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort ="dec")
 
 <!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 
-## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="200px" background-position="top 40px right 80px"} 
+## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
 
 :::: {.columns}
 
@@ -239,7 +250,7 @@ skimr::skim(mtcars)
 
 ![](img/skimr.png)
 
-## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="300px" background-position="top 40px right 80px"} 
+## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="200px" background-position="top 40px right 80px"} 
 
 <br>
 
@@ -259,7 +270,7 @@ skimr::skim(mtcars)
 
 
 
-## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et graphiques {background-image="img/ggstatsplots_logo.png" background-size="200px" background-position="top 40px right 80px"} 
+## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
 
 <br>
@@ -408,7 +419,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::: {.column width="40%"}
 ![](img/usingr.jpeg){width="100%" fig-align="center"}
 
-[https://www.reddit.com/r/rstatsmemes/](https://www.reddit.com/r/rstatsmemes/)
+[reddit.com/r/rstatsmemes/](https://www.reddit.com/r/rstatsmemes/)
 
 :::
 
@@ -430,8 +441,6 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 {{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
 
-<br>
-
 **Les Packages**
 
 {{< fa box >}} [questionr](https://juba.github.io/questionr/index.html) |
@@ -445,18 +454,46 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 {{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html)
 
+:::: {.columns}
 
+::: {.column width="40%"}
 ::: {.callout-tip appearance="minimal"}
-## Prochain sujet ?
+## Prochaines dates
 
-Programmation lettrée (Rmarkdown, Quarto)
+:::: {.columns}
 
-Renv
+::: {.column width="50%"}
+- 6 juin
 
-Git
+- 4 juillet
 
-?
+- 1 août (date à confirmer)
+
+- 5 septembre
 :::
+
+::: {.column width="50%"}
+- 3 octobre
+
+- 7 novembre
+
+- 5 décembre
+:::
+
+::::
+
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+:::
+
+::::
+
+
 
 
 
