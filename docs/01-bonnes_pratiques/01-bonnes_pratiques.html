@@ -436,7 +436,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <h1>1. Travailler en projets</h1>
 
 </section>
-<section id="créer-un-projet-sous-rstudio" class="slide level2">
+<section id="créer-un-projet-sous-rstudio" class="slide level2" data-background-image="img/rstudio-logo.png" data-background-size="200px" data-background-position="top 40px right 80px">
 <h2>Créer un projet sous RStudio</h2>
 <p>À partir de l’icône dédiée en haut à droite de RStudio</p>
 <div class="quarto-figure quarto-figure-center">
@@ -445,7 +445,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </figure>
 </div>
 </section>
-<section id="créer-un-projet-sous-rstudio-1" class="slide level2">
+<section id="créer-un-projet-sous-rstudio-1" class="slide level2" data-background-image="img/rstudio-logo.png" data-background-size="200px" data-background-position="top 40px right 80px">
 <h2>Créer un projet sous RStudio</h2>
 <p>Sélectionner l’option “<em>New project</em>”, puis l’option “<em>New Directory</em>” et enfin “<em>Empty Project</em>”</p>
 <p><img data-src="./img/screenshot_RStudio_02CreateProject.png" style="width:32.0%"> <img data-src="./img/screenshot_RStudio_03ProjectType.png" style="width:32.0%"> <img data-src="./img/screenshot_RStudio_04ProjectDirectory.png" style="width:32.0%"></p>
@@ -469,42 +469,34 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 </div>
 </section>
-<section id="coup-de-pouce-le-package-inraethemes" class="slide level2">
-<h2>Coup de pouce : Le package {InraeThemes}</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/logo_hex.png" style="width:50.0%"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/cap_project_IT.png" style="width:80.0%"></p>
-</figure>
-</div>
-</div><div class="column" style="width:60%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/project_IT.png" style="width:45.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="télécharger-inraethemes" class="slide level2">
-<h2>Télécharger InraeThemes</h2>
-<p><br> <br></p>
+<section id="coup-de-pouce-le-package-inraethemes" class="slide level2" data-background-image="img/logo_hex.png" data-background-size="200px" data-background-position="top 40px right 80px">
+<h2>Coup de pouce : Le package <a href="https://davidcarayon.github.io/InraeThemes/">{InraeThemes}</a></h2>
+<p><br> <br> <br></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("remotes")</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"davidcarayon/InraeThemes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> Plus d’infos sur son utilisation sur <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://davidcarayon.github.io/InraeThemes/">La documentation d’InraeThemes</a></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/cap_project_IT.png" style="width:70.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/project_IT.png" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="importer-ses-données-s" class="slide level2">
 <h2>Importer ses données (S)</h2>
 <pre><code>1) Le concept de données tidy
 2) Importer proprement ses données (xlsx, csv)
 3) Viewxl : pour vérifier son import ou explorer</code></pre>
+<p><img data-src="img/excel_danger.jpeg"></p>
 </section>
 <section id="conventions-de-nommage-s" class="slide level2">
 <h2>Conventions de nommage (S)</h2>
@@ -518,10 +510,11 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </section>
 <section id="préambule-version-de-r" class="slide level2">
 <h2>Préambule : Version de R</h2>
-<ul>
-<li>Les packages R peuvent dépendre d’une version spécifique de R (ou version minimale)</li>
-</ul>
+<p>Les packages R peuvent dépendre d’une version spécifique de R (ou version minimale)</p>
 <p><img data-src="img/vers_R.png"></p>
+<div class="fragment">
+<p>Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs… Il est donc intéressant de faire les MAJ “majeures” de printemps : 4.2.x <span class="math inline">\(\rightarrow\)</span> 4.3.x</p>
+</div>
 <div class="fragment">
 <div class="callout callout-caution callout-captioned callout-style-default">
 <div class="callout-body">
@@ -532,7 +525,9 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <p><strong>Les Breaking Changes</strong></p>
 </div>
 <div class="callout-content">
-<p>Certaines versions de R apportent des <strong>breaking changes</strong> qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : <code>stringAsFactor = FALSE</code> au lieu de <code>TRUE</code> avant la version 4.0). A l’inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe <code>|&gt;</code> à partir de R 4.1.0)</p>
+<p>Certaines versions de R apportent des <strong>breaking changes</strong> qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : <code>stringAsFactor = FALSE</code> au lieu de <code>TRUE</code> avant la version 4.0).</p>
+<p>A l’inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe <code>|&gt;</code> à partir de R 4.1.0)</p>
+<p><span class="emoji" data-emoji="warning">⚠️</span> Toujours intégrer la version de R utilisée dans ses analyses / publications <span class="emoji" data-emoji="warning">⚠️</span></p>
 </div>
 </div>
 </div>
@@ -615,7 +610,6 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <div class="callout-content">
 <ul>
 <li>Privilégier, lorsque c’est possible, les fonction/packages les plus <strong>stables</strong> possible</li>
-<li>Alternative à {dplyr} + {tidyr} sans aucune dépendance : <a href="https://cran.r-project.org/web/packages/data.table/index.html">{data.table}</a></li>
 </ul>
 </div>
 </div>
@@ -663,27 +657,37 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 <!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 </section>
-<section id="skimr-un-summary-sous-stéroïdes" class="slide level2">
+<section id="skimr-un-summary-sous-stéroïdes" class="slide level2" data-background-image="img/logo_skimr.png" data-background-size="200px" data-background-position="top 40px right 80px">
 <h2><a href="https://docs.ropensci.org/skimr/">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb12-2"><a href="#cb12-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:60%;">
+
+</div>
+</div>
 <p><img data-src="img/skimr.png"></p>
 </section>
-<section id="easystats-les-statistiques-faciles" class="slide level2">
+<section id="easystats-les-statistiques-faciles" class="slide level2" data-background-image="img/easystats.png" data-background-size="300px" data-background-position="top 40px right 80px">
 <h2><a href="https://easystats.github.io/easystats/">{easystats}</a> : Les statistiques “faciles” <span class="emoji" data-emoji="star_struck">🤩</span></h2>
 <p><br></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(easystats)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><br></p>
+<div class="columns">
+<div class="column" style="width:60%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="img/easystats.png" style="width:50.0%"></p>
+<p><img data-src="img/performance.png" style="width:70.0%"></p>
 </figure>
 </div>
+</div><div class="column" style="width:40%;">
+<p><br> <img data-src="img/figure_workflow.png" style="width:70.0%" data-fig-align="center"> <img data-src="img/report_easy.png" style="width:100.0%" data-fig-align="center"></p>
+</div>
+</div>
 </section>
-<section id="ggstatsplots-combiner-statistiques-et-dataviz" class="slide level2">
-<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/">{ggstatsplots}</a> : Combiner statistiques et dataviz <span class="emoji" data-emoji="bar_chart">📊</span></h2>
+<section id="ggstatsplot-combiner-statistiques-et-graphiques" class="slide level2" data-background-image="img/ggstatsplots_logo.png" data-background-size="200px" data-background-position="top 40px right 80px">
+<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/">{ggstatsplot}</a> : Combiner statistiques et graphiques</h2>
 <p><br></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -707,14 +711,14 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="fragment">
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(ade4)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/ade4.png"></p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="fragment">
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/facto.png"></p>
 <p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> <span class="emoji" data-emoji="trophy">🏆</span> en général privilégié</p>
 </div>
@@ -737,14 +741,51 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <h1>Pour aller (beaucoup) plus loin</h1>
 
 </section>
-<section id="rmdquarto" class="slide level2">
-<h2>Rmd/Quarto</h2>
+<section id="quarto" class="slide level2">
+<h2>Quarto</h2>
+<ul>
+<li>Quarto est le <em>successeur</em> de Rmarkdown qui se veut plus généraliste</li>
+<li><span class="emoji" data-emoji="warning">⚠️</span> Rmarkdown n’est pas mort pour autant !</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/r-knitr-rmd.jpeg"></p>
+<p></p><figcaption>Rmarkdown : centré sur R</figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/quarto-all.jpeg"></p>
+<p></p><figcaption>Quarto : Approche plus généraliste</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="renv" class="slide level2">
-<h2>Renv</h2>
+<section id="hello-quarto" class="slide level2">
+<h2>Hello Quarto</h2>
+<p><img data-src="img/rstudio-hello.png" style="width:80.0%"></p>
+<p>Plus d’informations sur <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://quarto.org">quarto.org</a></p>
+</section>
+<section id="renv-figer-ses-versions-de-package-r" class="slide level2" data-background-image="img/renv_logo.svg" data-background-size="200px" data-background-position="top 40px right 80px">
+<h2>Renv : Figer ses versions de package R</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Sans {renv}</strong></p>
+<p><img data-src="img/shared-library.svg"></p>
+<p>Les packages sont communs pour tous les projets</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Avec {renv}</strong></p>
 <p><img data-src="img/renv.png"></p>
+<p>Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2</p>
+</div>
+</div>
 </section>
-<section id="git" class="slide level2">
+<section id="git" class="slide level2" data-background-image="img/logo_git.png" data-background-size="200px" data-background-position="top 40px right 80px">
 <h2>Git</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -754,7 +795,17 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
-<p><img data-src="img/logo_git.png"> <img data-src="img/gitworkflow.png" style="width:90.0%" data-fig-align="center"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/gitworkflow.png" style="width:90.0%"></p>
+</figure>
+</div>
+<p><strong>Pourquoi utiliser Git ?</strong></p>
+<ul>
+<li><p>Garder en mémoire chaque modification de chaque fichier, pourquoi elle a eu lieu, quand et par qui</p></li>
+<li><p>Faciliter le développement collaboratif : Fusion des différentes modifications</p></li>
+<li><p>Revenir aux versions précédentes (+ sauvegarde du travail)</p></li>
+</ul>
 </div>
 </div>
 </section></section>
@@ -763,13 +814,23 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <h1>Conclusion</h1>
 
 </section>
-<section id="il-y-a-théorie-et-réalité" class="slide level2">
-<h2>Il y a théorie… et réalité</h2>
-<p><img data-src="img/mess.png"></p>
+<section id="ne-soyons-pas-trop-exigeants" class="slide level2">
+<h2>Ne soyons pas trop exigeants…</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/usingr.jpeg" style="width:100.0%"></p>
+</figure>
+</div>
+<p><a href="https://www.reddit.com/r/rstatsmemes/">https://www.reddit.com/r/rstatsmemes/</a></p>
+</div><div class="column" style="width:60%;">
+<p><img data-src="img/mess.png" style="width:100.0%" data-fig-align="center"> <img data-src="img/packages_mess.jpeg" style="width:60.0%" data-fig-align="center"></p>
+</div>
+</div>
 </section>
 <section id="merci-des-questions" class="slide level2">
 <h2>Merci ! Des questions ?</h2>
-<p><br></p>
 <div class="callout callout-note no-icon callout-captioned callout-style-simple">
 <div class="callout-body">
 <div class="callout-caption">
@@ -777,12 +838,28 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 <div class="callout-content">
 <p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/statire/bulledr">https://github.com/statire/bulledr</a></p>
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes">https://github.com/davidcarayon/InraeThemes</a></p>
 <p><i class="fa-solid fa-comment-dots" aria-label="comment-dots"></i> <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></p>
-</div>
-</div>
-</div>
 <p><br></p>
+<p><strong>Les Packages</strong></p>
+<p><i class="fa-solid fa-box" aria-label="box"></i> <a href="https://juba.github.io/questionr/index.html">questionr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://docs.ropensci.org/skimr/">skimr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://easystats.github.io/easystats/">easystats</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://indrajeetpatil.github.io/ggstatsplot/">ggstatsplot</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="http://factominer.free.fr/index_fr.html">FactoMineR</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html">PCAmixdata</a></p>
+</div>
+</div>
+</div>
 <p><i class="fa-brands fa-slideshare" aria-label="slideshare"></i> Slides consultables ici : <br> <a href="https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html">https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html</a></p>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Prochain sujet ?</strong></p>
+</div>
+<div class="callout-content">
+<p>Programmation lettrée (Rmarkdown, Quarto)</p>
+<p>Renv</p>
+<p>Git</p>
+<p>?</p>
+</div>
+</div>
+</div>
 </section>
 <section id="slides-made-with" class="slide level2 plain">
 <h2>Slides made with …</h2>

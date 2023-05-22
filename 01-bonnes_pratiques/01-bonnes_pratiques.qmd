@@ -39,13 +39,13 @@ Cf. Présentation TWIX qui sera disponible ce lien :
 
 # 1. Travailler en projets {.inverse}
 
-## Créer un projet sous RStudio
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="200px" background-position="top 40px right 80px"} 
 À partir de l'icône dédiée en haut à droite de RStudio
 
 ![](./img/screenshot_RStudio_01NewProject.png){fig-align="center" width="70%"} 
 
 
-## Créer un projet sous RStudio
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="200px" background-position="top 40px right 80px"}
 
 Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin "*Empty Project*"  
 
@@ -64,24 +64,9 @@ Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin
 Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
 :::
 
-##  Coup de pouce : Le package {InraeThemes}
+##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="200px" background-position="top 40px right 80px"}
 
-:::: {.columns}
-
-::: {.column width="40%"}
-![](img/logo_hex.png){fig-align="center" width="50%"} 
-
-![](img/cap_project_IT.png){fig-align="center" width="80%"}
-:::
-
-::: {.column width="60%"}
-![](img/project_IT){fig-align="center" width="45%"}
-:::
-
-::::
-
-## Télécharger InraeThemes
-
+<br>
 <br>
 <br>
 
@@ -92,12 +77,26 @@ remotes::install_github("davidcarayon/InraeThemes")
 
 <br>
 
-{{< fa caret-right >}} Plus d'infos sur son utilisation sur {{< fa globe >}} [La documentation d'InraeThemes](https://davidcarayon.github.io/InraeThemes/)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](img/cap_project_IT.png){fig-align="center" width="70%"}
+:::
+
+::: {.column width="50%"}
+![](img/project_IT){fig-align="center" width="40%"}
+:::
+
+::::
 
 ## Importer ses données (S)
 	1) Le concept de données tidy
 	2) Importer proprement ses données (xlsx, csv)
 	3) Viewxl : pour vérifier son import ou explorer
+
+![](img/excel_danger.jpeg)
 
 ## Conventions de nommage (S)
 	1) Fichiers : explicites, milésimés, numérotés
@@ -107,14 +106,22 @@ remotes::install_github("davidcarayon/InraeThemes")
 
 ## Préambule : Version de R
 
-* Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
+Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
 
 ![](img/vers_R.png)
 
 ::: {.fragment}
+Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
+:::
+
+::: {.fragment}
 ::: {.callout-caution}
 ## Les Breaking Changes
-Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
+
+A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+
+:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
 :::
 :::
 
@@ -183,7 +190,6 @@ filter(iris, Species == "setosa")
 ::: {.callout-tip appearance="minimal"}
 ## Bonne pratique
 * Privilégier, lorsque c'est possible, les fonction/packages les plus **stables** possible
-* Alternative à {dplyr} + {tidyr} sans aucune dépendance : [{data.table}](https://cran.r-project.org/web/packages/data.table/index.html)
 :::
 :::
 
@@ -213,28 +219,48 @@ freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort ="dec")
 
 <!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 
-## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle:
+## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="200px" background-position="top 40px right 80px"} 
 
+:::: {.columns}
+
+::: {.column width="40%"}
 ```r
 library(skimr)
 skimr::skim(mtcars)
 ```
+:::
+
+::: {.column width="60%"}
+:::
+
+::::
+
+
 
 ![](img/skimr.png)
 
-## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck:
+## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="300px" background-position="top 40px right 80px"} 
 
 <br>
 
-```r
-library(easystats)
-```
+:::: {.columns}
 
+::: {.column width="60%"}
+![](img/performance.png){fig-align="center" width="70%"}
+:::
+
+::: {.column width="40%"}
 <br>
+![](img/figure_workflow.png){fig-align="center" width="70%"}
+![](img/report_easy.png){fig-align="center" width="100%"}
+:::
 
-![](img/easystats.png){fig-align="center" width="50%"}
+::::
 
-## [{ggstatsplots}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et dataviz :bar_chart:
+
+
+## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et graphiques {background-image="img/ggstatsplots_logo.png" background-size="200px" background-position="top 40px right 80px"} 
+
 
 <br>
 
@@ -300,13 +326,55 @@ library(factoextra)
 
 # Pour aller (beaucoup) plus loin {.inverse}
 
-## Rmd/Quarto
+## Quarto
 
-## Renv
+- Quarto est le *successeur* de Rmarkdown qui se veut plus généraliste
+- :warning: Rmarkdown n'est pas mort pour autant ! 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![Rmarkdown : centré sur R](img/r-knitr-rmd.jpeg)
+:::
+
+::: {.column width="50%"}
+![Quarto : Approche plus généraliste](img/quarto-all.jpeg)
+:::
+
+::::
+
+## Hello Quarto
+
+![](img/rstudio-hello.png){width="80%"}
+
+Plus d'informations sur {{< fa globe >}} [quarto.org](https://quarto.org)
+
+## Renv : Figer ses versions de package R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Sans {renv}**
+
+![](img/shared-library.svg)
+
+Les packages sont communs pour tous les projets
+
+:::
+
+::: {.column width="50%"}
+**Avec {renv}**
 
 ![](img/renv.png)
 
-## Git
+Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
+:::
+
+::::
+
+## Git {background-image="img/logo_git.png" background-size="200px" background-position="top 40px right 80px"} 
 
 :::: {.columns}
 
@@ -315,35 +383,82 @@ library(factoextra)
 :::
 
 ::: {.column width="50%"}
-![](img/logo_git.png)
 ![](img/gitworkflow.png){fig-align="center" width="90%"}
+
+**Pourquoi utiliser Git ?**
+
+* Garder en mémoire chaque modification de chaque fichier, pourquoi elle a eu lieu, quand et par qui
+
+* Faciliter le développement collaboratif : Fusion des différentes modifications
+
+* Revenir aux versions précédentes (+ sauvegarde du travail)
+
+
+
 :::
 
 ::::
 
 # Conclusion {.inverse}
 
-## Il y a théorie... et réalité
+## Ne soyons pas trop exigeants...
 
-![](img/mess.png)
+:::: {.columns}
 
-## Merci ! Des questions ?
- 
-<br />
+::: {.column width="40%"}
+![](img/usingr.jpeg){width="100%" fig-align="center"}
 
-
-::: {.callout-note appearance="minimal"}
-## Les liens
-
-{{< fa brands github >}}   [https://github.com/statire/bulledr](https://github.com/statire/bulledr)
-
-{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+[https://www.reddit.com/r/rstatsmemes/](https://www.reddit.com/r/rstatsmemes/)
 
 :::
 
-<br />
+::: {.column width="60%"}
+![](img/mess.png){width="100%" fig-align="center"}
+![](img/packages_mess.jpeg){width="60%" fig-align="center"}
+:::
+
+::::
+
+## Merci ! Des questions ?
+
+::: {.callout-note appearance="minimal"}
+
+###### Les liens
+{{< fa brands github >}}   [https://github.com/statire/bulledr](https://github.com/statire/bulledr)
+
+{{< fa brands github >}}   [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes)
+
+{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+
+<br>
+
+**Les Packages**
+
+{{< fa box >}} [questionr](https://juba.github.io/questionr/index.html) |
+{{< fa box >}} [skimr](https://docs.ropensci.org/skimr/) |
+{{< fa box >}} [easystats](https://easystats.github.io/easystats/) |
+{{< fa box >}} [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) |
+{{< fa box >}} [FactoMineR](http://factominer.free.fr/index_fr.html) |
+{{< fa box >}} [PCAmixdata](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html) 
+
+:::
 
 {{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html)
+
+
+::: {.callout-tip appearance="minimal"}
+## Prochain sujet ?
+
+Programmation lettrée (Rmarkdown, Quarto)
+
+Renv
+
+Git
+
+?
+:::
+
+
 
 ## Slides made with ...{.plain}
 
