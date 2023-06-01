@@ -40,7 +40,7 @@ $body-color: $inrae-sombre;
 $link-color: $indigo;
 $presentation-heading-color: $inrae-charte;
 $presentation-heading-line-height: 1.2;
-$presentation-h1-font-size: 1.4em;
+$presentation-h1-font-size: 1.2em;
 
 
 /*-- scss:rules --*/
@@ -93,11 +93,17 @@ $presentation-h1-font-size: 1.4em;
 }
 
 .reveal h2 {
-  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0); /* shadows */
+  text-shadow: 0px 0px 0px rgba(0, 0, 0, 0); /* sxhadows */
   font-weight: bold;
+  font-size: 1.2em;
 }
 
 .reveal p {
+  font-size: 0.7em;
+  color: $inrae-sombre;
+}
+
+.reveal li {
   font-size: 0.7em;
   color: $inrae-sombre;
 }
