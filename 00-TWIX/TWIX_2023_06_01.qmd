@@ -2,7 +2,7 @@
 title: "Travailler sous R avec RStudio"
 subtitle: "Comment ça marche ?"
 author: "Sandrine Lyser"
-# Dernière modification : le 17/05/2023
+# Dernière modification : le 01/06/2023
 format: 
   inrae-revealjs:
     transition: none
@@ -223,7 +223,7 @@ Source : <https://learn.r-journalism.com/en/publishing/workflow/r-projects/>{tar
     -   `addinslist` : parcourir et installer les addins de **`RStudio`**
     -   `colourpicker`: sélectionner une couleur dans les graphiques
     -   `esquisse` : créer un graphique ggplot2
-    -   `questionr` : discrétiser un variable ; réordonner ou recoder un facteur
+    -   `questionr` : discrétiser une variable ; réordonner ou recoder un facteur
     -   `remedy` : simplifier l'écriture `markdown` (convertir le texte sélectionné en titre1, titre2, etc.)
     -   `ReplaceInFiles` : rechercher et remplacer une valeur dans plusieurs fichiers
     -   `strcode` : structurer le code (sauts de section avec titre en en-tête)
