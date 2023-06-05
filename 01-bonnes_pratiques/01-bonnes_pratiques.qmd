@@ -41,7 +41,7 @@ from: markdown+emoji
 
 ## R -  Rstudio
 
-Cf. Présentation TWIX disponible à ce lien :
+Cf. Présentation TWIX "Travailler sous R avec RStudio. Comment ça marche ?" disponible à ce lien :
 
 <br>
 <br>
@@ -349,17 +349,210 @@ filter(iris, Species == "setosa")
 :::
 :::
 
-##  Structuration des scripts (S)
-	1) Esquisse, FactoShiny... Reproductibilité => Stocker le code dans 1 script quand même
-	2) Packages + session_info pour les versions
-	3) Créer des sections : CTRL + MAJ + R (+ addin)
-	4) Commentaires
-	5) Aller plus loin : CompileReport et/ou Programmation lettrée (Rmd) => Session dédiée (si interêt)
+#  Structuration des scripts {.inverse}
 
-##  L'export (hors Rmd) (S)
-	1) Les plots (base + ggplot)
+## Penser reproductibilité
+ 
+**Un principe :** on code pour les autres, en organisant son travail et en automatisant le plus possible
+
+
+::: {.callout-tip appearance="minimal"}
+## Bonnes pratiques
+* Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. précédemment)
+* Distinguer variables d'origine et variables créées
+* Utilisation des chemins relatifs dans les programmes
+* Possibilité d’exécuter le code sur un autre ordinateur
+* Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
+L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci clavier `CRTL + MAJ + C`)
+* Utilisation des chemins relatifs dans les programmes
+* Identification de l'ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes
+:::
+
+::: {.callout-note}
+## A noter
+Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit le langage de programmation
+:::
+
+
+## Respecter des règles pour faciliter la lecture (1/2)
+
+- L'opérateur d'affectation est  `<-`
+
+- Retour à la ligne régulièrement (**la longueur maximale recommandée d'une ligne est 80 caractères**) et après chaque pipe (`%>%` ou `|>`) 
+
+- L'indentation se fait grâce à la touche `TAB`. Le raccourci `Ctrl+I` sert à réindenter les lignes de code sélectionnées
+
+- Les opérateurs qui lient les objets entre eux `(=, +, -, <-, etc.)` sont entourés 
+
+- Les opérateurs qui modifient un objet ou sélectionnent une partie d'un objet `(:, !!, $, @, [, ], [[, ]])` ne sont pas entourés d'espaces
+
+```r
+# On écrit 
+1 + 1 = 2
+dataframe$variable
+
+# et non 
+1+1=2
+dataframe $ variable
+```
+
+## Respecter des règles pour faciliter la lecture (2/2)
+- On insère un espace après la virgule mais pas avant, comme en français !
+
+- On ne met pas d'espace avant ou après les parenthèses
+
+- En, revanche, les opérateurs de comparaison doivent être entourés d'espace pour ne pas être mal interprétés par R
+
+```r
+# On écrit
+mean(x, na.rm = TRUE  
+1 < -10
+
+# et non 
+mean ( x , na.rm = TRUE )
+1<-10
+```
+
+::: {.callout-note}
+## A noter
+RStudio signale les erreurs dans la marge des scripts
+![](img/script.png)
+:::
+
+
+## Structuration des scripts
+
+::: {.callout-tip appearance="minimal"}
+## Bonnes pratiques
+
+- Commencer l’écriture du script par les métadonnées (titre auteur, date, version de R, encodage, etc.)
+- Ajouter la liste des packages utilisés et leur version
+```r
+# "à la main" lorsqu'on charge les packages
+library(tidyverse)    # v1.3.2
+library(dplyr)        # v1.1.0
+
+# automatique
+packages_utilises <- sessionInfo()
+```
+- Structurer en parties, sous-parties, grâce au raccourci `CTRL + MAJ + R ` ou à l'addin {strcode}
+```r
+#  Titre 1 -------------------------------------
+## Titre 2 -------------------------------------
+
+# ou bien 
+
+#   ____________________________________________________________________________
+#   Titre 1                                                                 ####
+
+##  ............................................................................
+##  Titre 2                                                                 ####
+```
+:::
+
+## Si on n'est pas à l'aise avec l'écriture de codes...
+
+Il existe des alternatives 'clic-bouton' :
+
+- le package/addin  [{esquisse}](https://dreamrs.github.io/esquisse/){target="_blank"} pour créer des graphiques en ggplot
+![](./img/logo_esquisse.png){fig-align="center" width="10%"}
+- le package [{Factoshiny}](http://factominer.free.fr/graphs/factoshiny-fr.html){target="_blank"} pour améliorer facilement et de façon interactive les graphiques issus d'analyses factorielles (ACP, ACM, AFM, etc.) pour les rendre beaucoup plus lisibles
+
+- [{R Commander}](https://www.john-fox.ca/RCommander/index.html){target="_blank"}, une interface utilisateur graphique (GUI)
+
+::: {.callout-tip appearance="minimal"}
+## Bonnes pratiques
+Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !
+:::
+
+
+# Analyses automatiques {.inverse}
+
+## Fonction `summary()`
+
+- Utile pour avoir une vue résumée d'une variable 
+- S'applique à tout type d'objet, y compris un *data frame* entier, et s'adapte à la nature des variables contenues 
+
+```{r, eval = TRUE, include = FALSE, echo = FALSE}
+library(tidyverse)
+```
+
+```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
+data(iris)
+iris %>% 
+  summary()
+```
+
+
+## Fonction `glimpse()` du package [{dplyr}](https://dplyr.tidyverse.org/){target="_blank"}
+
+**Permet de visualiser de manière condensée le contenu d'un tableau de données**  
+
+```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
+data(iris) 
+iris %>% 
+  dplyr::glimpse()
+```
+
+
+## Fonction `describe()` du package [{questionr}](https://juba.github.io/questionr/index.html){target="_blank"}
+
+**Décrit également les différentes variables d'un tableau de données**
+```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
+data(iris) 
+iris %>% 
+  questionr::describe()
+```
+
+
+## Fonction `tbl_summary()` du package [{gtsummary}](https://www.danieldsjoberg.com/gtsummary/){target="_blank"}
+
+**Calcul des statistiques descriptives pour les variables quantitatives et qualitatives** 
+```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
+data(iris) 
+iris %>% 
+  gtsummary::tbl_summary()
+```
+
+## Fonction `dfSummary()` du package [{summarytools}](https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html){target="_blank"}
+
+**Présentation des résultats dans un tableau, pour variables QN & QL**
+```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
+data(iris) 
+iris %>%  
+  summarytools::dfSummary(graph.col = FALSE)
+```
+
+
+#  L'export {.inverse}
+
+## Du script au rapport (Word, PDF, HTML)
+
+Des rapports préformatés grâce aux fonctions
+
+- `create_report()` du package [{DataExplorer}](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html){target="_blank"}
+  - rapport automatique, au format HTML
+  - visualisations graphiques (distributions, analyses de corrélations, ACP)
+  - état des lieux du jeu de données, concernant notamment le type des variables ou les données manquantes  
+- `makeCodebook()` du package [{dataMaid}](https://github.com/ekstroem/dataMaid){target="_blank"}![](./img/logo_datamaid.png){fig-align="center" width="8%"}
+  - présentation de l'ensemble des variables du jeu de données, au format PDF, Word ou HTML (créé un fichier au format [Rmarkdown]{.softw})  
+
+::: {.callout-note}
+## A noter
+Fonctions utiles pour première exploration des données, sans autre programmation nécessaire.  
+
+**Pour aller plus loin...** programmation lettrée (Rmarkdown) [session dédiée si nécessaire]
+:::
+
+
+## Exporter les graphiques
+
+1) Les plots (base + ggplot)
+
+## Exporter les tableaux
+
 	2) Les tableaux :  XLSX / CSV
-	3) Packages export auto : dataExplorer
+	
 
 #  Quelques packages conseils {.inverse}
 

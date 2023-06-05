@@ -435,7 +435,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </section>
 <section id="r---rstudio" class="slide level2">
 <h2>R - Rstudio</h2>
-<p>Cf. Présentation TWIX disponible à ce lien :</p>
+<p>Cf. Présentation TWIX “Travailler sous R avec RStudio. Comment ça marche ?” disponible à ce lien :</p>
 <p><br> <br></p>
 <center>
 <p><i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01" target="_blank">https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01</a> <i class="fa-solid fa-globe" aria-label="globe"></i></p>
@@ -874,20 +874,775 @@ Pas de symboles spéciaux dans le nom du fichier (<code>-.,;:\/$</code>^`, carac
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="structuration-des-scripts" class="title-slide slide level1 inverse center">
+<h1>Structuration des scripts</h1>
+
 </section>
-<section id="structuration-des-scripts-s" class="slide level2">
-<h2>Structuration des scripts (S)</h2>
-<pre><code>1) Esquisse, FactoShiny... Reproductibilité =&gt; Stocker le code dans 1 script quand même
-2) Packages + session_info pour les versions
-3) Créer des sections : CTRL + MAJ + R (+ addin)
-4) Commentaires
-5) Aller plus loin : CompileReport et/ou Programmation lettrée (Rmd) =&gt; Session dédiée (si interêt)</code></pre>
+<section id="penser-reproductibilité" class="slide level2">
+<h2>Penser reproductibilité</h2>
+<p><strong>Un principe :</strong> on code pour les autres, en organisant son travail et en automatisant le plus possible</p>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonnes pratiques</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Noms des fichiers &amp; variables explicites, suivant les conventions de nommage (cf.&nbsp;précédemment)</li>
+<li>Distinguer variables d’origine et variables créées</li>
+<li>Utilisation des chemins relatifs dans les programmes</li>
+<li>Possibilité d’exécuter le code sur un autre ordinateur</li>
+<li>Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie). L’ajout des commentaires se fait en ajoutant <code>#</code> en début de ligne (raccourci clavier <code>CRTL + MAJ + C</code>)</li>
+<li>Utilisation des chemins relatifs dans les programmes</li>
+<li>Identification de l’ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit le langage de programmation</p>
+</div>
+</div>
+</div>
 </section>
-<section id="lexport-hors-rmd-s" class="slide level2">
-<h2>L’export (hors Rmd) (S)</h2>
-<pre><code>1) Les plots (base + ggplot)
-2) Les tableaux :  XLSX / CSV
-3) Packages export auto : dataExplorer</code></pre>
+<section id="respecter-des-règles-pour-faciliter-la-lecture-12" class="slide level2">
+<h2>Respecter des règles pour faciliter la lecture (1/2)</h2>
+<ul>
+<li><p>L’opérateur d’affectation est <code>&lt;-</code></p></li>
+<li><p>Retour à la ligne régulièrement (<strong>la longueur maximale recommandée d’une ligne est 80 caractères</strong>) et après chaque pipe (<code>%&gt;%</code> ou <code>|&gt;</code>)</p></li>
+<li><p>L’indentation se fait grâce à la touche <code>TAB</code>. Le raccourci <code>Ctrl+I</code> sert à réindenter les lignes de code sélectionnées</p></li>
+<li><p>Les opérateurs qui lient les objets entre eux <code>(=, +, -, &lt;-, etc.)</code> sont entourés</p></li>
+<li><p>Les opérateurs qui modifient un objet ou sélectionnent une partie d’un objet <code>(:, !!, $, @, [, ], [[, ]])</code> ne sont pas entourés d’espaces</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># On écrit </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>dataframe<span class="sc">$</span>variable</span>
+<span id="cb7-4"><a href="#cb7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co"># et non </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="ot">=</span><span class="dv">2</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>dataframe <span class="sc">$</span> variable</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="respecter-des-règles-pour-faciliter-la-lecture-22" class="slide level2">
+<h2>Respecter des règles pour faciliter la lecture (2/2)</h2>
+<ul>
+<li><p>On insère un espace après la virgule mais pas avant, comme en français !</p></li>
+<li><p>On ne met pas d’espace avant ou après les parenthèses</p></li>
+<li><p>En, revanche, les opérateurs de comparaison doivent être entourés d’espace pour ne pas être mal interprétés par R</p></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># On écrit</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>  </span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co"># et non </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu">mean</span> ( x , <span class="at">na.rm =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="dv">1</span><span class="ot">&lt;-</span><span class="dv">10</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>RStudio signale les erreurs dans la marge des scripts <img data-src="img/script.png"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="structuration-des-scripts-1" class="slide level2">
+<h2>Structuration des scripts</h2>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonnes pratiques</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Commencer l’écriture du script par les métadonnées (titre auteur, date, version de R, encodage, etc.)</li>
+<li>Ajouter la liste des packages utilisés et leur version</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># "à la main" lorsqu'on charge les packages</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">library</span>(tidyverse)    <span class="co"># v1.3.2</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">library</span>(dplyr)        <span class="co"># v1.1.0</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># automatique</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>packages_utilises <span class="ot">&lt;-</span> <span class="fu">sessionInfo</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Structurer en parties, sous-parties, grâce au raccourci <code>CTRL + MAJ + R</code> ou à l’addin {strcode}</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#  Titre 1 -------------------------------------</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="do">## Titre 2 -------------------------------------</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># ou bien </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#   ____________________________________________________________________________</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#   Titre 1                                                                 ####</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="do">##  ............................................................................</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="do">##  Titre 2                                                                 ####</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="si-on-nest-pas-à-laise-avec-lécriture-de-codes" class="slide level2">
+<h2>Si on n’est pas à l’aise avec l’écriture de codes…</h2>
+<p>Il existe des alternatives ‘clic-bouton’ :</p>
+<ul>
+<li><p>le package/addin <a href="https://dreamrs.github.io/esquisse/" target="_blank">{esquisse}</a> pour créer des graphiques en ggplot <img data-src="./img/logo_esquisse.png" style="width:10.0%" data-fig-align="center"></p></li>
+<li><p>le package <a href="http://factominer.free.fr/graphs/factoshiny-fr.html" target="_blank">{Factoshiny}</a> pour améliorer facilement et de façon interactive les graphiques issus d’analyses factorielles (ACP, ACM, AFM, etc.) pour les rendre beaucoup plus lisibles</p></li>
+<li><p><a href="https://www.john-fox.ca/RCommander/index.html" target="_blank">{R Commander}</a>, une interface utilisateur graphique (GUI)</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonnes pratiques</strong></p>
+</div>
+<div class="callout-content">
+<p>Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="analyses-automatiques" class="title-slide slide level1 inverse center">
+<h1>Analyses automatiques</h1>
+
+</section>
+<section id="fonction-summary" class="slide level2">
+<h2>Fonction <code>summary()</code></h2>
+<ul>
+<li>Utile pour avoir une vue résumée d’une variable</li>
+<li>S’applique à tout type d’objet, y compris un <em>data frame</em> entier, et s’adapte à la nature des variables contenues</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+ Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+ 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+ Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+ Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+ 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+ Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+       Species  
+ setosa    :50  
+ versicolor:50  
+ virginica :50  
+                
+                
+                </code></pre>
+</div>
+</div>
+</section>
+<section id="fonction-glimpse-du-package-dplyr" class="slide level2">
+<h2>Fonction <code>glimpse()</code> du package <a href="https://dplyr.tidyverse.org/" target="_blank">{dplyr}</a></h2>
+<p><strong>Permet de visualiser de manière condensée le contenu d’un tableau de données</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">data</span>(iris) </span>
+<span id="cb13-2"><a href="#cb13-2"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 150
+Columns: 5
+$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…
+$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…
+$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…
+$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…
+$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…</code></pre>
+</div>
+</div>
+</section>
+<section id="fonction-describe-du-package-questionr" class="slide level2">
+<h2>Fonction <code>describe()</code> du package <a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a></h2>
+<p><strong>Décrit également les différentes variables d’un tableau de données</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">data</span>(iris) </span>
+<span id="cb15-2"><a href="#cb15-2"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3"></a>  questionr<span class="sc">::</span><span class="fu">describe</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[150 obs. x 5 variables] tbl_df tbl data.frame
+
+$Sepal.Length: 
+numeric: 5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+min: 4.3 - max: 7.9 - NAs: 0 (0%) - 35 unique values
+
+$Sepal.Width: 
+numeric: 3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+min: 2 - max: 4.4 - NAs: 0 (0%) - 23 unique values
+
+$Petal.Length: 
+numeric: 1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+min: 1 - max: 6.9 - NAs: 0 (0%) - 43 unique values
+
+$Petal.Width: 
+numeric: 0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+min: 0.1 - max: 2.5 - NAs: 0 (0%) - 22 unique values
+
+$Species: 
+nominal factor: "setosa" "setosa" "setosa" "setosa" "setosa" "setosa" "setosa" "setosa" "setosa" "setosa" ...
+3 levels: setosa | versicolor | virginica
+NAs: 0 (0%)</code></pre>
+</div>
+</div>
+</section>
+<section id="fonction-tbl_summary-du-package-gtsummary" class="slide level2">
+<h2>Fonction <code>tbl_summary()</code> du package <a href="https://www.danieldsjoberg.com/gtsummary/" target="_blank">{gtsummary}</a></h2>
+<p><strong>Calcul des statistiques descriptives pour les variables quantitatives et qualitatives</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">data</span>(iris) </span>
+<span id="cb17-2"><a href="#cb17-2"></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="dccpwmbley" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+:where(#dccpwmbley) .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+:where(#dccpwmbley) .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+:where(#dccpwmbley) .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+:where(#dccpwmbley) .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+:where(#dccpwmbley) .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+:where(#dccpwmbley) .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+:where(#dccpwmbley) .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+:where(#dccpwmbley) .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+:where(#dccpwmbley) .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+:where(#dccpwmbley) .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+:where(#dccpwmbley) .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+:where(#dccpwmbley) .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+:where(#dccpwmbley) .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+:where(#dccpwmbley) .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#dccpwmbley) .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+:where(#dccpwmbley) .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+:where(#dccpwmbley) .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#dccpwmbley) .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+:where(#dccpwmbley) .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#dccpwmbley) .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+:where(#dccpwmbley) .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#dccpwmbley) .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+:where(#dccpwmbley) .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+:where(#dccpwmbley) .gt_left {
+  text-align: left;
+}
+
+:where(#dccpwmbley) .gt_center {
+  text-align: center;
+}
+
+:where(#dccpwmbley) .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+:where(#dccpwmbley) .gt_font_normal {
+  font-weight: normal;
+}
+
+:where(#dccpwmbley) .gt_font_bold {
+  font-weight: bold;
+}
+
+:where(#dccpwmbley) .gt_font_italic {
+  font-style: italic;
+}
+
+:where(#dccpwmbley) .gt_super {
+  font-size: 65%;
+}
+
+:where(#dccpwmbley) .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+:where(#dccpwmbley) .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+:where(#dccpwmbley) .gt_indent_1 {
+  text-indent: 5px;
+}
+
+:where(#dccpwmbley) .gt_indent_2 {
+  text-indent: 10px;
+}
+
+:where(#dccpwmbley) .gt_indent_3 {
+  text-indent: 15px;
+}
+
+:where(#dccpwmbley) .gt_indent_4 {
+  text-indent: 20px;
+}
+
+:where(#dccpwmbley) .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="<strong>Characteristic</strong>"><strong>Characteristic</strong></th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>N = 150</strong><sup class=&quot;gt_footnote_marks&quot;>1</sup>"><strong>N = 150</strong><sup class="gt_footnote_marks">1</sup></th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="label" class="gt_row gt_left">Sepal.Length</td>
+<td headers="stat_0" class="gt_row gt_center">5.80 (5.10, 6.40)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Sepal.Width</td>
+<td headers="stat_0" class="gt_row gt_center">3.00 (2.80, 3.30)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Petal.Length</td>
+<td headers="stat_0" class="gt_row gt_center">4.35 (1.60, 5.10)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Petal.Width</td>
+<td headers="stat_0" class="gt_row gt_center">1.30 (0.30, 1.80)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">Species</td>
+<td headers="stat_0" class="gt_row gt_center"></td></tr>
+    <tr><td headers="label" class="gt_row gt_left">&nbsp;&nbsp;&nbsp;&nbsp;setosa</td>
+<td headers="stat_0" class="gt_row gt_center">50 (33%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">&nbsp;&nbsp;&nbsp;&nbsp;versicolor</td>
+<td headers="stat_0" class="gt_row gt_center">50 (33%)</td></tr>
+    <tr><td headers="label" class="gt_row gt_left">&nbsp;&nbsp;&nbsp;&nbsp;virginica</td>
+<td headers="stat_0" class="gt_row gt_center">50 (33%)</td></tr>
+  </tbody>
+  
+  <tfoot class="gt_footnotes">
+    <tr>
+      <td class="gt_footnote" colspan="2"><sup class="gt_footnote_marks">1</sup> Median (IQR); n (%)</td>
+    </tr>
+  </tfoot>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="fonction-dfsummary-du-package-summarytools" class="slide level2">
+<h2>Fonction <code>dfSummary()</code> du package <a href="https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html" target="_blank">{summarytools}</a></h2>
+<p><strong>Présentation des résultats dans un tableau, pour variables QN &amp; QL</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">data</span>(iris) </span>
+<span id="cb18-2"><a href="#cb18-2"></a>iris <span class="sc">%&gt;%</span>  </span>
+<span id="cb18-3"><a href="#cb18-3"></a>  summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(<span class="at">graph.col =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data Frame Summary  
+iris  
+Dimensions: 150 x 5  
+Duplicates: 1  
+
+-------------------------------------------------------------------------------------
+No   Variable       Stats / Values          Freqs (% of Valid)   Valid      Missing  
+---- -------------- ----------------------- -------------------- ---------- ---------
+1    Sepal.Length   Mean (sd) : 5.8 (0.8)   35 distinct values   150        0        
+     [numeric]      min &lt; med &lt; max:                             (100.0%)   (0.0%)   
+                    4.3 &lt; 5.8 &lt; 7.9                                                  
+                    IQR (CV) : 1.3 (0.1)                                             
+
+2    Sepal.Width    Mean (sd) : 3.1 (0.4)   23 distinct values   150        0        
+     [numeric]      min &lt; med &lt; max:                             (100.0%)   (0.0%)   
+                    2 &lt; 3 &lt; 4.4                                                      
+                    IQR (CV) : 0.5 (0.1)                                             
+
+3    Petal.Length   Mean (sd) : 3.8 (1.8)   43 distinct values   150        0        
+     [numeric]      min &lt; med &lt; max:                             (100.0%)   (0.0%)   
+                    1 &lt; 4.3 &lt; 6.9                                                    
+                    IQR (CV) : 3.5 (0.5)                                             
+
+4    Petal.Width    Mean (sd) : 1.2 (0.8)   22 distinct values   150        0        
+     [numeric]      min &lt; med &lt; max:                             (100.0%)   (0.0%)   
+                    0.1 &lt; 1.3 &lt; 2.5                                                  
+                    IQR (CV) : 1.5 (0.6)                                             
+
+5    Species        1. setosa               50 (33.3%)           150        0        
+     [factor]       2. versicolor           50 (33.3%)           (100.0%)   (0.0%)   
+                    3. virginica            50 (33.3%)                               
+-------------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="lexport" class="title-slide slide level1 inverse center">
+<h1>L’export</h1>
+
+</section>
+<section id="du-script-au-rapport-word-pdf-html" class="slide level2">
+<h2>Du script au rapport (Word, PDF, HTML)</h2>
+<p>Des rapports préformatés grâce aux fonctions</p>
+<ul>
+<li><code>create_report()</code> du package <a href="https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html" target="_blank">{DataExplorer}</a>
+<ul>
+<li>rapport automatique, au format HTML</li>
+<li>visualisations graphiques (distributions, analyses de corrélations, ACP)</li>
+<li>état des lieux du jeu de données, concernant notamment le type des variables ou les données manquantes<br>
+</li>
+</ul></li>
+<li><code>makeCodebook()</code> du package <a href="https://github.com/ekstroem/dataMaid" target="_blank">{dataMaid}</a><img data-src="./img/logo_datamaid.png" style="width:8.0%" data-fig-align="center">
+<ul>
+<li>présentation de l’ensemble des variables du jeu de données, au format PDF, Word ou HTML (créé un fichier au format <span class="softw">Rmarkdown</span>)</li>
+</ul></li>
+</ul>
+<div class="callout callout-note callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>Fonctions utiles pour première exploration des données, sans autre programmation nécessaire.</p>
+<p><strong>Pour aller plus loin…</strong> programmation lettrée (Rmarkdown) [session dédiée si nécessaire]</p>
+</div>
+</div>
+</div>
+</section>
+<section id="exporter-les-graphiques" class="slide level2">
+<h2>Exporter les graphiques</h2>
+<ol type="1">
+<li>Les plots (base + ggplot)</li>
+</ol>
+</section>
+<section id="exporter-les-tableaux" class="slide level2">
+<h2>Exporter les tableaux</h2>
+<pre><code>2) Les tableaux :  XLSX / CSV</code></pre>
 </section></section>
 <section>
 <section id="quelques-packages-conseils" class="title-slide slide level1 inverse center">
@@ -898,9 +1653,9 @@ Pas de symboles spéciaux dans le nom du fichier (<code>-.,;:\/$</code>^`, carac
 <h2><a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a> : Outils de traitement de données d’enquêtes</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(questionr)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">data</span>(hdv2003)</span>
-<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span><span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">library</span>(questionr)</span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="fu">data</span>(hdv2003)</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span><span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            n     %  val%  %cum val%cum
 Employe                   594  29.7  35.9  29.7    35.9
@@ -920,8 +1675,8 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <h2><a href="https://docs.ropensci.org/skimr/" target="_blank">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 
 </div>
@@ -946,7 +1701,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <section id="ggstatsplot-combiner-statistiques-et-représentations-graphiques" class="slide level2" data-background-image="img/ggstatsplots_logo.png" data-background-size="100px" data-background-position="top 40px right 80px">
 <h2><a href="https://indrajeetpatil.github.io/ggstatsplot/" target="_blank">{ggstatsplot}</a> : Combiner statistiques et représentations graphiques</h2>
 <p><br></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -970,14 +1725,14 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="fragment">
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(ade4)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/ade4.png"></p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="fragment">
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/facto.png"></p>
 <p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> <span class="emoji" data-emoji="trophy">🏆</span> en général privilégié</p>
 </div>
