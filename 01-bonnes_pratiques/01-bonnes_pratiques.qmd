@@ -15,6 +15,9 @@ format:
     footer: "Bulle d'R n°1 | Bonnes pratiques"
     # theme: [custom.scss]
     transition: none
+    logo: img/bloc-etat.png
+    title-slide-attributes:
+        data-background-image: img/sigle-inrae.png
 revealjs-plugins:
   - pointer
 from: markdown+emoji
@@ -477,6 +480,12 @@ library(factoextra)
 
 ![](img/pcamix.png){fig-align="center" width="40%"}
 
+## Police et ligature : Fira Code
+
+Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
+
+![](img/ligatures.png)
+
 # Pour aller (beaucoup) plus loin {.inverse}
 
 ## Quarto
@@ -605,8 +614,6 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 :::: {.columns}
 
 ::: {.column width="50%"}
-- 6 juin
-
 - 4 juillet
 
 - 1 août (date à confirmer)
