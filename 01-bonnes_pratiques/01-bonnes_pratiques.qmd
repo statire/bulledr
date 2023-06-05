@@ -1,6 +1,6 @@
 ---
 title: "Bulle d'R n°1 : Bonnes pratiques à ETTIS"
-date: "2023-06-01"
+date: "2023-06-06"
 date-format: long
 lang: fr  
 author:
@@ -25,11 +25,11 @@ from: markdown+emoji
 <br> 
 
 ::: {.incremental}
-- Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations. 
-- Tous les 1er mardi de chaque mois à 9h en salle Estuaire.
-- Pas des sessions de formations, mais plutôt un format questions /réponses
+- Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations 
+- Tous les 1er mardi de chaque mois à 9h en salle Estuaire
+- Pas des sessions de formation, mais plutôt un format questions /réponses
 - Ouvert à tous les niveaux, pas de question bête :wink:
-- Chat de discussion dédié sur Mattermost : [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+- Chat de discussion dédié sur Mattermost : [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr){target="_blank"}
 
 :::
 
@@ -38,18 +38,18 @@ from: markdown+emoji
 
 ## R -  Rstudio
 
-Cf. Présentation TWIX qui sera disponible à ce lien :
+Cf. Présentation TWIX disponible à ce lien :
 
 <br>
 <br>
 
 <center>
 
-{{< fa globe >}} [https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01) {{< fa globe >}}
+{{< fa globe >}} [https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01){target="_blank"} {{< fa globe >}}
 
 </center>
 
-# 1. Travailler en projets {.inverse}
+# Travailler en projets {.inverse}
 
 ## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"} 
 À partir de l'icône dédiée en haut à droite de RStudio
@@ -102,17 +102,159 @@ remotes::install_github("davidcarayon/InraeThemes")
 
 ::::
 
-## Importer ses données (S)
-	1) Le concept de données tidy
-	2) Importer proprement ses données (xlsx, csv)
-	3) Viewxl : pour vérifier son import ou explorer
+# Importer ses données {.inverse}
 
-![](img/excel_danger.jpeg)
+## Importer divers types de données
 
-## Conventions de nommage (S)
-	1) Fichiers : explicites, milésimés, numérotés
-	2) Pour les variables : snakeCase, CamelCase 
+**Quels types de données peuvent être importés ?** 
+
+- Données dans les formats "plats" ou formats délimités (.csv, .txt)
+- Données issues d'Excel ou d'autres logiciels de statistique (Stata, SPSS, etc.)
+- Données stockées dans des bases de données relationnelles  
+
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+**Bien étudier son jeu de données à importer, en se posant les questions suivantes :**
+
+1. La première ligne contient-elle le nom des variables ?  
+2. Quel est le séparateur des colonnes?  
+3. Quel est le caractère utilisé pour indiquer les décimales ? Le point (à l'anglo-saxonne) ou la virgule (à la française) ?  
+4. Les valeurs textuelles sont-elles encadrées par des guillemets ? Si oui, s'agit-il de guillemets simples (`’`) ou de guillemets doubles (`"`) ?  
+5. Y a-t-il des valeurs manquantes ? Si oui comment sont-elles indiquées ? 
+:::
+
+
+## Comment importer les différents fichiers ?
+
+| Type     | Base R                 | Tidyverse                                   | Séparateur de colonnes | Séparateur décimal |
+|:---------|:-----------------------|:--------------------------------------------|:-----------------------|:-------------------|
+| Délimité | `read.csv()`           | `readr::read_csv()`                         | `,`                    | `.`                |
+|          | `read.csv2()`          | `readr::read_csv2()`                        | `;`                    | `,`                |
+|          | `read.table()`         | `readr::read_table()`                       |                        | `.`                |
+|          | `read.delim()`         | `readr::read_delim()`                       | `\t`                   | `.`                |
+|          | `read.delim2()`        | `readr::read_delim2()`                      | `\t`                   | `,`                |
+| Excel    | `xlsx::read.xlsx()`    | `readxl::read_excel()`                      |                        |                    |
+| SPSS     | `foreign::read.spss()` | `haven::read_spss()` ou `haven::read_sav()` |                        |                    |
+| Stata    | `foreign::read.dta()`  | `haven::read_stata()`                       |                        |                    |
+| SAS      | `foreign::read.ssd()`  | `haven::read_sas()`                         |                        |                    |
+| dBase    | `foreign::read.dbf()`  | \-                                          |                        |                    |
 	
+
+## Le concept de données `tidy`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Jeu de données "rangé"** :
+
+- chaque variable est dans une colonne
+- chaque observation est dans une ligne
+- chaque valeur est dans une cellule
+:::
+
+::: {.column width="50%"}
+![](img/screenshot_TidyData.png)
+
+Source : Wickham & Grolemund (2017)
+[R for Data Sciences: Visualize, Model, Transform, Tidy and Import Data](https://r4ds.had.co.nz){target="_blank"}
+:::
+
+::::
+
+::: {.callout-caution}
+Ces règles ne sont pas toujours respectées :
+
+- en-têtes de colonnes ne sont pas des noms mais des valeurs
+- plusieurs variables stockées dans une colonne
+- variables stockées dans les lignes et les colonnes
+- plusieurs types d'observations stockés dans le même tableau, etc.
+:::
+
+
+## "Ranger" ses données
+
+**Solution pour ranger ses données = les verbes de `tidyr` :**
+
+- `pivot_longer()` : transformer des colonnes en lignes
+- `pivot_wider()` : transformer des lignes en colonnes
+- `separate()` : séparer une colonne en plusieurs colonnes
+- `separate_rows()` : séparer une colonne en plusieurs lignes
+- `unite()` : regrouper plusieurs colonnes en une seule
+- `extract()` : créer de nouvelles colonnes à partir d'une colonne de texte
+- `complete()` : compléter des combinaisons de variables manquantes
+
+
+## Besoin d'examiner rapidement vos données dans Excel ? 
+
+Utilisez l'addin `viewxl` pour exporter interactivement des *data frame* de l'environnement global vers Excel
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- avec la fonction `view_in_excel`  
+![](img/viewxl.png)
+:::
+
+::: {.column width="50%"}
+- dans la console :
+
+```r
+viewxl::view_in_xl(diamonds)
+```
+![](img/excel_danger.jpeg)
+:::
+
+::::
+
+
+# Nommer ses données {.inverse}
+
+## Conventions de nommage
+- **`allowercase`** : tout en minuscule, sans séparateur  
+- **`period.separated`** : tout en minuscule, mots séparés par des points  
+- **`underscore_separated`** : tout en minuscule, mots séparés par un *underscore* (`_`)  
+- **`lowerCamelCase`** : première lettre des mots en majuscule, à l'exception du premier mot ; et si nom simple, tout en minuscule  
+- **`UpperCamelCase`** : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d'un seul mot
+
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code
+:::
+
+::: {.callout-caution}
+**R est sensible à la casse** ce qui signifie que `variable` et `Variable` sont deux objets différents. 
+:::
+
+
+## Nommer les fichiers et les objets
+
+**Pour les fichiers**, la structure est la suivante : `numero -- nom -- millesime`.  
+Pas de symboles spéciaux dans le nom du fichier (`-.,;:\/$`^`, caractères accentués, etc.)  
+
+*Exemple : `01_import_donnees_20230606.R`*
+
+**Pour les variables**, il est recommandé d'utiliser un **nom** 
+
+*Exemple : `temperature_max`*
+
+**Pour les fonctions**, il est recommandé d'utiliser un **verbe**
+
+*Exemple : `create.map` serait une fonction qui permettrait de créer une carte*
+
+
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+Pour les variables, comme pour les fonctions :  
+
+* ne pas utiliser `T` ou `F` pour nommer des variables (ce sont les abréviations de `TRUE` et `FALSE`)
+* ne pas utiliser de noms qui sont déjà des fonctions de R
+:::
+
+**Une aide pour écrire les scripts de façon _cohérente_**  {{< fa globe >}} [Tidyverse Style Guide](https://style.tidyverse.org/index.html){target="_blank"}  
+
+
 # Gestion des packages {.inverse}
 
 ## Préambule : Version de R
@@ -138,7 +280,7 @@ A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions
 
 ## Rappels sur le fonctionnement des packages
 
-1) On **Installe** le package
+1) On **installe** le package
 
 ```r
 install.packages("remotes")
@@ -151,7 +293,7 @@ Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèq
 
 ::: {.fragment}
 
-2)  On **Charge** le package
+2)  On **charge** le package
 
 ```r
 library(remotes)
@@ -159,11 +301,11 @@ library(remotes)
 On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
 
 ::: {.callout-tip appearance="minimal" icon=false}
-Analogie : on **sors** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
+Analogie : on **sort** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
 :::
 :::
 
-## Alternative au `library`, le prefixage
+## Alternative au `library`, le préfixage
 
 <br>
 
@@ -190,17 +332,17 @@ filter(iris, Species == "setosa")
 :::
 :::
 
-## Quelques mises en gardes
+## Quelques mises en garde
 
 * Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
-* **MAIS** ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
+* **MAIS** elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
 
 ![](img/lifecycle.png){fig-align="center" width="50%"}
 
 ::: {.fragment}
 ::: {.callout-tip appearance="minimal"}
 ## Bonne pratique
-* Privilégier, lorsque c'est possible, les fonction/packages les plus **stables** possible
+* Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
 :::
 :::
 
@@ -218,7 +360,7 @@ filter(iris, Species == "setosa")
 
 #  Quelques packages conseils {.inverse}
 
-## [{questionr}](https://juba.github.io/questionr/index.html) : Outils de traitement de données d'enquêtes
+## [{questionr}](https://juba.github.io/questionr/index.html){target="_blank"} : Outils de traitement de données d'enquêtes
 
 <br>
 
@@ -230,7 +372,7 @@ freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort ="dec")
 
 <!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 
-## [{skimr}](https://docs.ropensci.org/skimr/) : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
+## [{skimr}](https://docs.ropensci.org/skimr/){target="_blank"} : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
 
 :::: {.columns}
 
@@ -250,7 +392,7 @@ skimr::skim(mtcars)
 
 ![](img/skimr.png)
 
-## [{easystats}](https://easystats.github.io/easystats/) : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="200px" background-position="top 40px right 80px"} 
+## [{easystats}](https://easystats.github.io/easystats/){target="_blank"} : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="200px" background-position="top 40px right 80px"} 
 
 <br>
 
@@ -270,7 +412,7 @@ skimr::skim(mtcars)
 
 
 
-## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/) : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
+## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
 
 <br>
@@ -329,7 +471,7 @@ library(factoextra)
 ::::
 
 
-## [{PCAmixdata}](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html) : L'analyse mixte
+## [{PCAmixdata}](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html){target="_blank"} : L'analyse mixte
 
 > Chavent, M., Kuentz-Simonet, V., Labenne, A., & Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.
 
@@ -358,9 +500,9 @@ library(factoextra)
 
 ![](img/rstudio-hello.png){width="80%"}
 
-Plus d'informations sur {{< fa globe >}} [quarto.org](https://quarto.org)
+Plus d'informations sur {{< fa globe >}} [quarto.org](https://quarto.org){target="_blank"}
 
-## Renv : Figer ses versions de package R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
+## Renv : Figer ses versions de packages R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
 
 <br>
 
@@ -400,7 +542,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 * Garder en mémoire chaque modification de chaque fichier, pourquoi elle a eu lieu, quand et par qui
 
-* Faciliter le développement collaboratif : Fusion des différentes modifications
+* Faciliter le développement collaboratif : fusion des différentes modifications
 
 * Revenir aux versions précédentes (+ sauvegarde du travail)
 
@@ -419,7 +561,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::: {.column width="40%"}
 ![](img/usingr.jpeg){width="100%" fig-align="center"}
 
-[reddit.com/r/rstatsmemes/](https://www.reddit.com/r/rstatsmemes/)
+[reddit.com/r/rstatsmemes/](https://www.reddit.com/r/rstatsmemes/){target="_blank"}
 
 :::
 
@@ -435,24 +577,24 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::: {.callout-note appearance="minimal"}
 
 ###### Les liens
-{{< fa brands github >}}   [https://github.com/statire/bulledr](https://github.com/statire/bulledr)
+{{< fa brands github >}}   [https://github.com/statire/bulledr](https://github.com/statire/bulledr){target="_blank"}
 
-{{< fa brands github >}}   [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes)
+{{< fa brands github >}}   [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes){target="_blank"}
 
-{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr)
+{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr){target="_blank"}
 
 **Les Packages**
 
 {{< fa box >}} [questionr](https://juba.github.io/questionr/index.html) |
-{{< fa box >}} [skimr](https://docs.ropensci.org/skimr/) |
-{{< fa box >}} [easystats](https://easystats.github.io/easystats/) |
-{{< fa box >}} [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/) |
-{{< fa box >}} [FactoMineR](http://factominer.free.fr/index_fr.html) |
-{{< fa box >}} [PCAmixdata](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html) 
+{{< fa box >}} [skimr](https://docs.ropensci.org/skimr/){target="_blank"} |
+{{< fa box >}} [easystats](https://easystats.github.io/easystats/){target="_blank"} |
+{{< fa box >}} [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} |
+{{< fa box >}} [FactoMineR](http://factominer.free.fr/index_fr.html){target="_blank"} |
+{{< fa box >}} [PCAmixdata](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html){target="_blank"} 
 
 :::
 
-{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html)
+{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html){target="_blank"}
 
 :::: {.columns}
 
@@ -503,6 +645,6 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 ![](img/logo_hex.png){width=400px fig-align="center"}
 
-{{< fa brands github >}} [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes)
+{{< fa brands github >}} [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes){target="_blank"}
 
 </center>

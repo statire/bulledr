@@ -9,7 +9,7 @@
 <link href="01-bonnes_pratiques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.335">
+  <meta name="generator" content="quarto-1.2.475">
 
   <meta name="author" content="Sandrine LYSER">
   <meta name="author" content="David CARAYON">
@@ -413,18 +413,18 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 </div>
 
-  <p class="date">1 juin 2023</p>
+  <p class="date">6 juin 2023</p>
 </section>
 <section id="présentation-bulle-dr" class="slide level2" data-background-image="img/logo-bulledr.png" data-background-size="150px" data-background-position="top 40px right 80px">
 <h2>Présentation : Bulle d’R</h2>
 <p><br></p>
 <div>
 <ul>
-<li class="fragment">Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations.</li>
-<li class="fragment">Tous les 1er mardi de chaque mois à 9h en salle Estuaire.</li>
-<li class="fragment">Pas des sessions de formations, mais plutôt un format questions /réponses</li>
+<li class="fragment">Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations</li>
+<li class="fragment">Tous les 1er mardi de chaque mois à 9h en salle Estuaire</li>
+<li class="fragment">Pas des sessions de formation, mais plutôt un format questions /réponses</li>
 <li class="fragment">Ouvert à tous les niveaux, pas de question bête <span class="emoji" data-emoji="wink">😉</span></li>
-<li class="fragment">Chat de discussion dédié sur Mattermost : <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></li>
+<li class="fragment">Chat de discussion dédié sur Mattermost : <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr" target="_blank">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></li>
 </ul>
 </div>
 </section>
@@ -435,15 +435,15 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </section>
 <section id="r---rstudio" class="slide level2">
 <h2>R - Rstudio</h2>
-<p>Cf. Présentation TWIX qui sera disponible à ce lien :</p>
+<p>Cf. Présentation TWIX disponible à ce lien :</p>
 <p><br> <br></p>
 <center>
-<p><i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01">https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01</a> <i class="fa-solid fa-globe" aria-label="globe"></i></p>
+<p><i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01" target="_blank">https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01</a> <i class="fa-solid fa-globe" aria-label="globe"></i></p>
 </center>
 </section></section>
 <section>
 <section id="travailler-en-projets" class="title-slide slide level1 inverse center">
-<h1>1. Travailler en projets</h1>
+<h1>Travailler en projets</h1>
 
 </section>
 <section id="créer-un-projet-sous-rstudio" class="slide level2" data-background-image="img/rstudio-logo.png" data-background-size="100px" data-background-position="top 40px right 80px">
@@ -500,18 +500,267 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="importer-ses-données" class="title-slide slide level1 inverse center">
+<h1>Importer ses données</h1>
+
 </section>
-<section id="importer-ses-données-s" class="slide level2">
-<h2>Importer ses données (S)</h2>
-<pre><code>1) Le concept de données tidy
-2) Importer proprement ses données (xlsx, csv)
-3) Viewxl : pour vérifier son import ou explorer</code></pre>
+<section id="importer-divers-types-de-données" class="slide level2">
+<h2>Importer divers types de données</h2>
+<p><strong>Quels types de données peuvent être importés ?</strong></p>
+<ul>
+<li>Données dans les formats “plats” ou formats délimités (.csv, .txt)</li>
+<li>Données issues d’Excel ou d’autres logiciels de statistique (Stata, SPSS, etc.)</li>
+<li>Données stockées dans des bases de données relationnelles</li>
+</ul>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Bien étudier son jeu de données à importer, en se posant les questions suivantes :</strong></p>
+<ol type="1">
+<li>La première ligne contient-elle le nom des variables ?<br>
+</li>
+<li>Quel est le séparateur des colonnes?<br>
+</li>
+<li>Quel est le caractère utilisé pour indiquer les décimales ? Le point (à l’anglo-saxonne) ou la virgule (à la française) ?<br>
+</li>
+<li>Les valeurs textuelles sont-elles encadrées par des guillemets ? Si oui, s’agit-il de guillemets simples (<code>’</code>) ou de guillemets doubles (<code>"</code>) ?<br>
+</li>
+<li>Y a-t-il des valeurs manquantes ? Si oui comment sont-elles indiquées ?</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="comment-importer-les-différents-fichiers" class="slide level2">
+<h2>Comment importer les différents fichiers ?</h2>
+<table>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 19%">
+<col style="width: 36%">
+<col style="width: 19%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Base R</th>
+<th style="text-align: left;">Tidyverse</th>
+<th style="text-align: left;">Séparateur de colonnes</th>
+<th style="text-align: left;">Séparateur décimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Délimité</td>
+<td style="text-align: left;"><code>read.csv()</code></td>
+<td style="text-align: left;"><code>readr::read_csv()</code></td>
+<td style="text-align: left;"><code>,</code></td>
+<td style="text-align: left;"><code>.</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read.csv2()</code></td>
+<td style="text-align: left;"><code>readr::read_csv2()</code></td>
+<td style="text-align: left;"><code>;</code></td>
+<td style="text-align: left;"><code>,</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read.table()</code></td>
+<td style="text-align: left;"><code>readr::read_table()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>.</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read.delim()</code></td>
+<td style="text-align: left;"><code>readr::read_delim()</code></td>
+<td style="text-align: left;"><code>\t</code></td>
+<td style="text-align: left;"><code>.</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read.delim2()</code></td>
+<td style="text-align: left;"><code>readr::read_delim2()</code></td>
+<td style="text-align: left;"><code>\t</code></td>
+<td style="text-align: left;"><code>,</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Excel</td>
+<td style="text-align: left;"><code>xlsx::read.xlsx()</code></td>
+<td style="text-align: left;"><code>readxl::read_excel()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SPSS</td>
+<td style="text-align: left;"><code>foreign::read.spss()</code></td>
+<td style="text-align: left;"><code>haven::read_spss()</code> ou <code>haven::read_sav()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stata</td>
+<td style="text-align: left;"><code>foreign::read.dta()</code></td>
+<td style="text-align: left;"><code>haven::read_stata()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAS</td>
+<td style="text-align: left;"><code>foreign::read.ssd()</code></td>
+<td style="text-align: left;"><code>haven::read_sas()</code></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dBase</td>
+<td style="text-align: left;"><code>foreign::read.dbf()</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="le-concept-de-données-tidy" class="slide level2">
+<h2>Le concept de données <code>tidy</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Jeu de données “rangé”</strong> :</p>
+<ul>
+<li>chaque variable est dans une colonne</li>
+<li>chaque observation est dans une ligne</li>
+<li>chaque valeur est dans une cellule</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="img/screenshot_TidyData.png"></p>
+<p>Source : Wickham &amp; Grolemund (2017) <a href="https://r4ds.had.co.nz" target="_blank">R for Data Sciences: Visualize, Model, Transform, Tidy and Import Data</a></p>
+</div>
+</div>
+<div class="callout callout-caution callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces règles ne sont pas toujours respectées :</p>
+<ul>
+<li>en-têtes de colonnes ne sont pas des noms mais des valeurs</li>
+<li>plusieurs variables stockées dans une colonne</li>
+<li>variables stockées dans les lignes et les colonnes</li>
+<li>plusieurs types d’observations stockés dans le même tableau, etc.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="ranger-ses-données" class="slide level2">
+<h2>“Ranger” ses données</h2>
+<p><strong>Solution pour ranger ses données = les verbes de <code>tidyr</code> :</strong></p>
+<ul>
+<li><code>pivot_longer()</code> : transformer des colonnes en lignes</li>
+<li><code>pivot_wider()</code> : transformer des lignes en colonnes</li>
+<li><code>separate()</code> : séparer une colonne en plusieurs colonnes</li>
+<li><code>separate_rows()</code> : séparer une colonne en plusieurs lignes</li>
+<li><code>unite()</code> : regrouper plusieurs colonnes en une seule</li>
+<li><code>extract()</code> : créer de nouvelles colonnes à partir d’une colonne de texte</li>
+<li><code>complete()</code> : compléter des combinaisons de variables manquantes</li>
+</ul>
+</section>
+<section id="besoin-dexaminer-rapidement-vos-données-dans-excel" class="slide level2">
+<h2>Besoin d’examiner rapidement vos données dans Excel ?</h2>
+<p>Utilisez l’addin <code>viewxl</code> pour exporter interactivement des <em>data frame</em> de l’environnement global vers Excel</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>avec la fonction <code>view_in_excel</code><br>
+<img data-src="img/viewxl.png"></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>dans la console :</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>viewxl<span class="sc">::</span><span class="fu">view_in_xl</span>(diamonds)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/excel_danger.jpeg"></p>
+</div>
+</div>
+</section></section>
+<section>
+<section id="nommer-ses-données" class="title-slide slide level1 inverse center">
+<h1>Nommer ses données</h1>
+
 </section>
-<section id="conventions-de-nommage-s" class="slide level2">
-<h2>Conventions de nommage (S)</h2>
-<pre><code>1) Fichiers : explicites, milésimés, numérotés
-2) Pour les variables : snakeCase, CamelCase </code></pre>
+<section id="conventions-de-nommage" class="slide level2">
+<h2>Conventions de nommage</h2>
+<ul>
+<li><strong><code>allowercase</code></strong> : tout en minuscule, sans séparateur<br>
+</li>
+<li><strong><code>period.separated</code></strong> : tout en minuscule, mots séparés par des points<br>
+</li>
+<li><strong><code>underscore_separated</code></strong> : tout en minuscule, mots séparés par un <em>underscore</em> (<code>_</code>)<br>
+</li>
+<li><strong><code>lowerCamelCase</code></strong> : première lettre des mots en majuscule, à l’exception du premier mot ; et si nom simple, tout en minuscule<br>
+</li>
+<li><strong><code>UpperCamelCase</code></strong> : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d’un seul mot</li>
+</ul>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>R est sensible à la casse</strong> ce qui signifie que <code>variable</code> et <code>Variable</code> sont deux objets différents.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="nommer-les-fichiers-et-les-objets" class="slide level2">
+<h2>Nommer les fichiers et les objets</h2>
+<p><strong>Pour les fichiers</strong>, la structure est la suivante : <code>numero -- nom -- millesime</code>.<br>
+Pas de symboles spéciaux dans le nom du fichier (<code>-.,;:\/$</code>^`, caractères accentués, etc.)</p>
+<p><em>Exemple : <code>01_import_donnees_20230606.R</code></em></p>
+<p><strong>Pour les variables</strong>, il est recommandé d’utiliser un <strong>nom</strong></p>
+<p><em>Exemple : <code>temperature_max</code></em></p>
+<p><strong>Pour les fonctions</strong>, il est recommandé d’utiliser un <strong>verbe</strong></p>
+<p><em>Exemple : <code>create.map</code> serait une fonction qui permettrait de créer une carte</em></p>
+<div class="callout callout-tip no-icon callout-captioned callout-style-simple">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Pour les variables, comme pour les fonctions :</p>
+<ul>
+<li>ne pas utiliser <code>T</code> ou <code>F</code> pour nommer des variables (ce sont les abréviations de <code>TRUE</code> et <code>FALSE</code>)</li>
+<li>ne pas utiliser de noms qui sont déjà des fonctions de R</li>
+</ul>
+</div>
+</div>
+</div>
+<p><strong>Une aide pour écrire les scripts de façon <em>cohérente</em></strong> <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://style.tidyverse.org/index.html" target="_blank">Tidyverse Style Guide</a></p>
 </section></section>
 <section>
 <section id="gestion-des-packages" class="title-slide slide level1 inverse center">
@@ -546,9 +795,9 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <section id="rappels-sur-le-fonctionnement-des-packages" class="slide level2">
 <h2>Rappels sur le fonctionnement des packages</h2>
 <ol type="1">
-<li>On <strong>Installe</strong> le package</li>
+<li>On <strong>installe</strong> le package</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Cela place les fonctions du package sur votre PC.</p>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -559,27 +808,27 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li>On <strong>Charge</strong> le package</li>
+<li>On <strong>charge</strong> le package</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(remotes)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(remotes)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On évite au lancement de R de lancer <em>tous</em> les packages installés, il faut donc indiquer lors de chaque session les packages à charger</p>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>Analogie : on <strong>sors</strong> le livre de la bibliothèque et on l’ouvre pour utiliser son contenu <span class="emoji" data-emoji="book">📖</span></p>
+<p>Analogie : on <strong>sort</strong> le livre de la bibliothèque et on l’ouvre pour utiliser son contenu <span class="emoji" data-emoji="book">📖</span></p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="alternative-au-library-le-prefixage" class="slide level2">
-<h2>Alternative au <code>library</code>, le prefixage</h2>
+<section id="alternative-au-library-le-préfixage" class="slide level2">
+<h2>Alternative au <code>library</code>, le préfixage</h2>
 <p><br></p>
 <p>La notation</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Peut remplacer le code</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <div class="callout callout-tip callout-captioned callout-style-default">
 <div class="callout-body">
@@ -600,11 +849,11 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 </div>
 </section>
-<section id="quelques-mises-en-gardes" class="slide level2">
-<h2>Quelques mises en gardes</h2>
+<section id="quelques-mises-en-garde" class="slide level2">
+<h2>Quelques mises en garde</h2>
 <ul>
 <li>Les fonctions provenant de packages tels que ceux du <code>tidyverse</code> proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités <em>classiques</em> de R</li>
-<li><strong>MAIS</strong> ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement <code>deprecated</code> ou <code>superseded</code></li>
+<li><strong>MAIS</strong> elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement <code>deprecated</code> ou <code>superseded</code></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -619,7 +868,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 <div class="callout-content">
 <ul>
-<li>Privilégier, lorsque c’est possible, les fonction/packages les plus <strong>stables</strong> possible</li>
+<li>Privilégier, lorsque c’est possible, les fonctions/packages les plus <strong>stables</strong> possible</li>
 </ul>
 </div>
 </div>
@@ -646,12 +895,12 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 
 </section>
 <section id="questionr-outils-de-traitement-de-données-denquêtes" class="slide level2">
-<h2><a href="https://juba.github.io/questionr/index.html">{questionr}</a> : Outils de traitement de données d’enquêtes</h2>
+<h2><a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a> : Outils de traitement de données d’enquêtes</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(questionr)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">data</span>(hdv2003)</span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span><span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(questionr)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">data</span>(hdv2003)</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span><span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            n     %  val%  %cum val%cum
 Employe                   594  29.7  35.9  29.7    35.9
@@ -668,11 +917,11 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 </section>
 <section id="skimr-un-summary-sous-stéroïdes" class="slide level2" data-background-image="img/logo_skimr.png" data-background-size="100px" data-background-position="top 40px right 80px">
-<h2><a href="https://docs.ropensci.org/skimr/">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
+<h2><a href="https://docs.ropensci.org/skimr/" target="_blank">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb12-2"><a href="#cb12-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 
 </div>
@@ -680,7 +929,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><img data-src="img/skimr.png"></p>
 </section>
 <section id="easystats-les-statistiques-faciles" class="slide level2" data-background-image="img/easystats.png" data-background-size="200px" data-background-position="top 40px right 80px">
-<h2><a href="https://easystats.github.io/easystats/">{easystats}</a> : Les statistiques “faciles” <span class="emoji" data-emoji="star_struck">🤩</span></h2>
+<h2><a href="https://easystats.github.io/easystats/" target="_blank">{easystats}</a> : Les statistiques “faciles” <span class="emoji" data-emoji="star_struck">🤩</span></h2>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -695,9 +944,9 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 </section>
 <section id="ggstatsplot-combiner-statistiques-et-représentations-graphiques" class="slide level2" data-background-image="img/ggstatsplots_logo.png" data-background-size="100px" data-background-position="top 40px right 80px">
-<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/">{ggstatsplot}</a> : Combiner statistiques et représentations graphiques</h2>
+<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/" target="_blank">{ggstatsplot}</a> : Combiner statistiques et représentations graphiques</h2>
 <p><br></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -721,14 +970,14 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="fragment">
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(ade4)</span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/ade4.png"></p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="fragment">
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">library</span>(factoextra)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/facto.png"></p>
 <p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> <span class="emoji" data-emoji="trophy">🏆</span> en général privilégié</p>
 </div>
@@ -736,7 +985,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 </section>
 <section id="pcamixdata-lanalyse-mixte" class="slide level2">
-<h2><a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html">{PCAmixdata}</a> : L’analyse mixte</h2>
+<h2><a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html" target="_blank">{PCAmixdata}</a> : L’analyse mixte</h2>
 <blockquote>
 <p>Chavent, M., Kuentz-Simonet, V., Labenne, A., &amp; Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.</p>
 </blockquote>
@@ -778,10 +1027,10 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <section id="hello-quarto" class="slide level2">
 <h2>Hello Quarto</h2>
 <p><img data-src="img/rstudio-hello.png" style="width:80.0%"></p>
-<p>Plus d’informations sur <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://quarto.org">quarto.org</a></p>
+<p>Plus d’informations sur <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://quarto.org" target="_blank">quarto.org</a></p>
 </section>
-<section id="renv-figer-ses-versions-de-package-r" class="slide level2" data-background-image="img/renv_logo.svg" data-background-size="200px" data-background-position="top 40px right 80px">
-<h2>Renv : Figer ses versions de package R</h2>
+<section id="renv-figer-ses-versions-de-packages-r" class="slide level2" data-background-image="img/renv_logo.svg" data-background-size="200px" data-background-position="top 40px right 80px">
+<h2>Renv : Figer ses versions de packages R</h2>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -813,7 +1062,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><strong>Pourquoi utiliser Git ?</strong></p>
 <ul>
 <li><p>Garder en mémoire chaque modification de chaque fichier, pourquoi elle a eu lieu, quand et par qui</p></li>
-<li><p>Faciliter le développement collaboratif : Fusion des différentes modifications</p></li>
+<li><p>Faciliter le développement collaboratif : fusion des différentes modifications</p></li>
 <li><p>Revenir aux versions précédentes (+ sauvegarde du travail)</p></li>
 </ul>
 </div>
@@ -833,7 +1082,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><img data-src="img/usingr.jpeg" style="width:100.0%"></p>
 </figure>
 </div>
-<p><a href="https://www.reddit.com/r/rstatsmemes/">reddit.com/r/rstatsmemes/</a></p>
+<p><a href="https://www.reddit.com/r/rstatsmemes/" target="_blank">reddit.com/r/rstatsmemes/</a></p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="img/mess.png" style="width:100.0%" data-fig-align="center"> <img data-src="img/packages_mess.jpeg" style="width:60.0%" data-fig-align="center"></p>
 </div>
@@ -847,15 +1096,15 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><strong>Les liens</strong></p>
 </div>
 <div class="callout-content">
-<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/statire/bulledr">https://github.com/statire/bulledr</a></p>
-<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes">https://github.com/davidcarayon/InraeThemes</a></p>
-<p><i class="fa-solid fa-comment-dots" aria-label="comment-dots"></i> <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></p>
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/statire/bulledr" target="_blank">https://github.com/statire/bulledr</a></p>
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes" target="_blank">https://github.com/davidcarayon/InraeThemes</a></p>
+<p><i class="fa-solid fa-comment-dots" aria-label="comment-dots"></i> <a href="https://team.forgemia.inra.fr/ur-ettis/channels/bulledr" target="_blank">https://team.forgemia.inra.fr/ur-ettis/channels/bulledr</a></p>
 <p><strong>Les Packages</strong></p>
-<p><i class="fa-solid fa-box" aria-label="box"></i> <a href="https://juba.github.io/questionr/index.html">questionr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://docs.ropensci.org/skimr/">skimr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://easystats.github.io/easystats/">easystats</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://indrajeetpatil.github.io/ggstatsplot/">ggstatsplot</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="http://factominer.free.fr/index_fr.html">FactoMineR</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html">PCAmixdata</a></p>
+<p><i class="fa-solid fa-box" aria-label="box"></i> <a href="https://juba.github.io/questionr/index.html">questionr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://docs.ropensci.org/skimr/" target="_blank">skimr</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://easystats.github.io/easystats/" target="_blank">easystats</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://indrajeetpatil.github.io/ggstatsplot/" target="_blank">ggstatsplot</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="http://factominer.free.fr/index_fr.html" target="_blank">FactoMineR</a> | <i class="fa-solid fa-box" aria-label="box"></i> <a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html" target="_blank">PCAmixdata</a></p>
 </div>
 </div>
 </div>
-<p><i class="fa-brands fa-slideshare" aria-label="slideshare"></i> Slides consultables ici : <br> <a href="https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html">https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html</a></p>
+<p><i class="fa-brands fa-slideshare" aria-label="slideshare"></i> Slides consultables ici : <br> <a href="https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html" target="_blank">https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html</a></p>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="callout callout-tip no-icon callout-captioned callout-style-simple">
@@ -896,7 +1145,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><img data-src="img/logo_hex.png" width="400"></p>
 </figure>
 </div>
-<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes">https://github.com/davidcarayon/InraeThemes</a></p>
+<p><i class="fa-brands fa-github" aria-label="github"></i> <a href="https://github.com/davidcarayon/InraeThemes" target="_blank">https://github.com/davidcarayon/InraeThemes</a></p>
 </center>
 <p><img src="../_extensions/davidcarayon/inrae/ressources/bloc-etat.png" class="slide-logo"></p>
 <div class="footer footer-default">
