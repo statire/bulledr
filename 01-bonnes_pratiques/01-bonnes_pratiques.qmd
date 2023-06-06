@@ -364,7 +364,6 @@ filter(iris, Species == "setosa")
 * Possibilité d’exécuter le code sur un autre ordinateur
 * Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
 L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci clavier `CRTL + MAJ + C`)
-* Utilisation des chemins relatifs dans les programmes
 * Identification de l'ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes
 :::
 
@@ -382,7 +381,7 @@ Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit
 
 - L'indentation se fait grâce à la touche `TAB`. Le raccourci `Ctrl+I` sert à réindenter les lignes de code sélectionnées
 
-- Les opérateurs qui lient les objets entre eux `(=, +, -, <-, etc.)` sont entourés 
+- Les opérateurs qui lient les objets entre eux `(=, +, -, <-, etc.)` sont entourés d'espaces
 
 - Les opérateurs qui modifient un objet ou sélectionnent une partie d'un objet `(:, !!, $, @, [, ], [[, ]])` ne sont pas entourés d'espaces
 
