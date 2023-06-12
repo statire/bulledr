@@ -20,6 +20,8 @@
 
 - Livre francophone : [Introduction à R et au Tidyverse](https://juba.github.io/tidyverse/)
 
+- Livre francophone : [Projet {utilitr} : Tutoriels et ressources R pour les agents de l'INSEE](https://www.book.utilitr.org/) (mais valable pour tous)
+
 - Tutoriels francophones [ACP](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/73-acp-analyse-en-composantes-principales-avec-r-l-essentiel/) et [ACM](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/75-acm-analyse-des-correspondances-multiples-avec-r-l-essentiel/) avec FactoMineR
 
 - Ouvrage anglophone de référence par le créateur du tidyverse : [R for Data Science](https://r4ds.had.co.nz/)
