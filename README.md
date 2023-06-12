@@ -16,16 +16,22 @@
 
 # Quelques ressources
 
-- Livre francophone : [Analyse d'enquête avec R et Rstudio](https://larmarange.github.io/analyse-R/)
+## Francophones
 
-- Livre francophone : [Introduction à R et au Tidyverse](https://juba.github.io/tidyverse/)
+- Livre en ligne : [Analyse d'enquête avec R et Rstudio](https://larmarange.github.io/analyse-R/)
 
-- Livre francophone : [Projet {utilitr} : Tutoriels et ressources R pour les agents de l'INSEE](https://www.book.utilitr.org/) (mais valable pour tous)
+- Livre en ligne : [Introduction à R et au Tidyverse](https://juba.github.io/tidyverse/)
 
-- Tutoriels francophones [ACP](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/73-acp-analyse-en-composantes-principales-avec-r-l-essentiel/) et [ACM](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/75-acm-analyse-des-correspondances-multiples-avec-r-l-essentiel/) avec FactoMineR
+- Livre en ligne : [Projet {utilitr} : Tutoriels et ressources R pour les agents de l'INSEE](https://www.book.utilitr.org/) (mais valable pour tous)
 
-- Ouvrage anglophone de référence par le créateur du tidyverse : [R for Data Science](https://r4ds.had.co.nz/)
+- Tutoriels [ACP](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/73-acp-analyse-en-composantes-principales-avec-r-l-essentiel/) et [ACM](http://www.sthda.com/french/articles/38-methodes-des-composantes-principales-dans-r-guide-pratique/75-acm-analyse-des-correspondances-multiples-avec-r-l-essentiel/) avec FactoMineR
 
-- Ouvrage anglophone compilant touts les livres, blogs et autres ressources autour de R : [The Big Book of R](https://www.bigbookofr.com/) 
+## Anglophones
+
+- Livre en ligne de référence par le créateur du tidyverse : [R for Data Science](https://r4ds.had.co.nz/)
+
+- Livre en ligne : [An R reproducibility toolkit for the practical researcher](https://eliocamp.github.io/reproducibility-with-r/materials/)
+
+- Livre en ligne compilant touts les livres, blogs et autres ressources autour de R : [The Big Book of R](https://www.bigbookofr.com/) 
 
 
