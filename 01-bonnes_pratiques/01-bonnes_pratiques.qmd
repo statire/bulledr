@@ -1,6 +1,6 @@
 ---
-title: "Bulle d'R n°1 : Bonnes pratiques à ETTIS"
-date: "2023-06-06"
+title: "Bulle d'R : Bonnes pratiques à ETTIS"
+date: "2024-05-28"
 date-format: long
 lang: fr  
 author:
@@ -12,30 +12,17 @@ author:
     orcid: 0000-0003-0217-2175
 format: 
   inrae-revealjs:
-    footer: "Bulle d'R n°1 | Bonnes pratiques"
-    # theme: [custom.scss]
+    footer: "Bulle d'R | Bonnes pratiques"
     transition: none
     logo: img/bloc-etat.png
+    include-after-body: revealjs-clean-title-slide.html
     title-slide-attributes:
         data-background-image: img/sigle-inrae.png
+        data-footer: "<a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://www.etalab.gouv.fr/wp-content/uploads/2011/10/licence-ouverte-open-licence.gif' /><br></a>Présentation diffusée sous <a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'>Licence ouverte</a>."
 revealjs-plugins:
   - pointer
 from: markdown+emoji
 ---
-
-## Présentation : Bulle d'R {background-image="img/logo-bulledr.png" background-size="150px" background-position="top 40px right 80px"} 
-
-<br> 
-
-::: {.incremental}
-- Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations 
-- Tous les 1er mardi de chaque mois à 9h en salle Estuaire
-- Pas des sessions de formation, mais plutôt un format questions /réponses
-- Ouvert à tous les niveaux, pas de question bête :wink:
-- Chat de discussion dédié sur Mattermost : [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr){target="_blank"}
-
-:::
-
 
 # Introduction {.inverse}
 
@@ -71,13 +58,25 @@ Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin
 **Exemples de structurations**  
 (chacun s'organisera de la façon qu'il juge la plus adaptée à ses usages)  
 
-![](./img/screenshot_RStudio_05ProjectStructureMini.png){width="48%"} ![](./img/screenshot_RStudio_05ProjectStructureOptim.png){width="48%"}
 
+:::: {.columns}
 
+::: {.column width="50%"}
+![](./img/filestructure.png){width="75%"}
+:::
+
+::: {.column width="50%"}
 ::: {.callout-note}
 ## A noter
 Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
 :::
+:::
+
+::::
+
+
+
+
 
 ##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="100px" background-position="top 40px right 80px"}
 
@@ -87,6 +86,7 @@ Le plus important, ce sont les **données initiales** et les **scripts de traite
 ```r
 # install.packages("remotes")
 remotes::install_github("davidcarayon/InraeThemes")
+InraeThemes::new_analysis()
 ```
 
 <br>
@@ -372,7 +372,6 @@ L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci c
 Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit le langage de programmation
 :::
 
-
 ## Respecter des règles pour faciliter la lecture (1/2)
 
 - L'opérateur d'affectation est  `<-`
@@ -453,8 +452,8 @@ packages_utilises <- sessionInfo()
 
 Il existe des alternatives 'clic-bouton' :
 
-- le package/addin  [{esquisse}](https://dreamrs.github.io/esquisse/){target="_blank"} pour créer des graphiques en ggplot
-![](img/logo_esquisse.png){fig-align="center" width="10%"}
+- le package/addin [{esquisse}](https://dreamrs.github.io/esquisse/){target="_blank"} pour créer des graphiques en ggplot
+![](img/logo_esquisse.png){fig-align="center" width="20%"}
 - le package [{Factoshiny}](http://factominer.free.fr/graphs/factoshiny-fr.html){target="_blank"} pour améliorer facilement et de façon interactive les graphiques issus d'analyses factorielles (ACP, ACM, AFM, etc.) pour les rendre beaucoup plus lisibles
 
 - [{R Commander}](https://www.john-fox.ca/RCommander/index.html){target="_blank"}, une interface utilisateur graphique (GUI)
@@ -465,7 +464,7 @@ Penser à récupérer les lignes de codes générées par ces utilitaires et à 
 :::
 
 
-# Analyses automatiques {.inverse}
+# Outils d'exploration {.inverse}
 
 ## Fonction `summary()`
 
@@ -503,10 +502,10 @@ iris %>%
   questionr::describe()
 ```
 
-
 ## Fonction `tbl_summary()` du package [{gtsummary}](https://www.danieldsjoberg.com/gtsummary/){target="_blank"}
 
-**Calcul des statistiques descriptives pour les variables quantitatives et qualitatives** 
+**Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S'appuie sur Great Tables ({gt})**
+
 ```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
 data(iris) 
 iris %>% 
@@ -523,26 +522,40 @@ iris %>%
 ```
 
 
-#  L'export {.inverse}
+## `vis_miss()` du package [{visdat}](https://cran.r-project.org/web/packages/visdat/readme/README.html){target="_blank"} pour les données manquantes
 
-## Du script au rapport (Word, PDF, HTML)
+<br>
+<br>
 
-**Des rapports préformatés grâce aux fonctions : **
+```r
+library(visdat)
+vis_miss(airquality)
+```
 
-- `create_report()` du package [{DataExplorer}](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html){target="_blank"}
-  - rapport automatique, au format HTML
-  - visualisations graphiques (distributions, analyses de corrélations, ACP)
-  - état des lieux du jeu de données, concernant notamment le type des variables ou les données manquantes  
-- `makeCodebook()` du package [{dataMaid}](https://github.com/ekstroem/dataMaid){target="_blank"}![](img/logo_datamaid.png){fig-align="center" width="8%"}
-  - présentation de l'ensemble des variables du jeu de données, au format PDF, Word ou HTML (créé un fichier au format [Rmarkdown]{.softw})  
+![](img/vismiss.png){fig-align="center" width="40%"}
+
+
+#  L'automatisation {.inverse}
+
+## L'exploration en un bouton avec [{DataExplorer}](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html){target="_blank"} {background-image="img/dataexplorer.png" background-size="100px" background-position="top 40px right 80px"} 
+
+-  `plot_histogram()`, `plot_bar()`, `plot_density()` proposent des graphiques en sélectionnant les variables pertinentes à chaque cas
+
+- Rapport automatique, au format HTML avec `create_report()` : Visualisations graphiques (distributions, analyses de corrélations, ACP), état des lieux du jeu de données, concernant notamment le type des variables ou les données manquantes  
+
+::: {.callout-tip}
+## Bonus
+[{FactoInvestigate}](http://factominer.free.fr/reporting/index_fr.html) pour quelque chose de similaire mais spécifique à des sorties d'analyses multivariées !
+:::
 
 ::: {.callout-note}
 ## A noter
 Fonctions utiles pour première exploration des données, sans autre programmation nécessaire.  
 
-**Pour aller plus loin...** programmation lettrée (Rmarkdown) [session dédiée si nécessaire]
+**Pour aller plus loin...** programmation lettrée (Rmarkdown/Quarto) [session dédiée si nécessaire]
 :::
 
+#  L'export {.inverse}
 
 ## Exporter les graphiques
 
@@ -576,13 +589,11 @@ Comme on importe divers formats de données, on peut exporter les données depui
 |:----------------|:-------------------------------------------|:-----------------------------------|
 | .txt            | `write.table()`                            | `readr::write_delim(delim = "\t")` |
 | .csv            | `write.csv()`                              | `readr::write_csv()`               |
-| .xlsx           | `xlsx::write.xlsx()`                       | \-                                 |
+| .xlsx           | `openxlsx2::write_xlsx()`                       | \-                                 |
 | .dbf            | `foreign::write.dbf()`                     | \-                                 |
 | .sav (SPSS)     | `foreign::write.foreign(package = "SPSS")` | `haven::write_sav()`               |
 | .dta (Stata)    | `foreign::write.dta()`                     | `haven::write_dta()`               |
 
-
-	
 
 #  Quelques packages conseils {.inverse}
 
@@ -615,31 +626,28 @@ skimr::skim(mtcars)
 ::::
 
 
-
 ![](img/skimr.png)
 
-## [{easystats}](https://easystats.github.io/easystats/){target="_blank"} : Les statistiques "faciles" :star_struck: {background-image="img/easystats.png" background-size="200px" background-position="top 40px right 80px"} 
 
+## [{tidymodels}](https://www.tidymodels.org){target="_blank"} : Le tidyverse de la modélisation {background-image="img/tidymodels.png" background-size="150px" background-position="top 40px right 80px"} 
+
+<br>
 <br>
 
 :::: {.columns}
 
-::: {.column width="60%"}
-![](img/performance.png){fig-align="center" width="70%"}
+::: {.column width="50%"}
+![](img/tidymodels_hex.png){fig-align="center" width="100%"}
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 <br>
-![](img/figure_workflow.png){fig-align="center" width="70%"}
-![](img/report_easy.png){fig-align="center" width="100%"}
+![](img/autoplot.png){fig-align="center" width="100%"}
 :::
 
 ::::
 
-
-
 ## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
-
 
 <br>
 
@@ -657,6 +665,21 @@ library(ggstatsplots)
 
 ::: {.column width="50%"}
 ![](img/ggscatter.png){fig-align="center" width="80%"}
+:::
+
+::::
+
+## [{sf} & {mapsf}](https://riatelab.github.io/mapsf/){target="_blank"} : Traitements spatiaux et cartographie comme un pro {background-image="img/sf.png" background-size="100px" background-position="top 40px right 80px"} 
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/mapsf.png){fig-align="center" width="100%"}
+:::
+
+::: {.column width="50%"}
+![](img/mf_map.png){fig-align="center" width="80%"}
 :::
 
 ::::
@@ -709,11 +732,11 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 
 ![](img/ligatures.png)
 
-# Pour aller (beaucoup) plus loin {.inverse}
+# Et la suite ? {.inverse}
 
 ## Quarto
 
-- Quarto est le *successeur* de Rmarkdown qui se veut plus généraliste
+- Quarto est le *successeur* de Rmarkdown qui se veut plus généraliste et polyglotte
 - :warning: Rmarkdown n'est pas mort pour autant ! 
 
 :::: {.columns}
@@ -723,16 +746,34 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 :::
 
 ::: {.column width="50%"}
-![Quarto : Approche plus généraliste](img/quarto-all.jpeg)
+![Quarto : Approche plus généraliste](img/quarto_tech.png)
 :::
 
 ::::
 
-## Hello Quarto
+## Une [extension INRAE](https://riatelab.github.io/mapsf/){target="_blank"} ! {background-image="img/logo-4.png" background-size="200px" background-position="top 40px right 80px"} 
 
-![](img/rstudio-hello.png){width="80%"}
+<br>
+<br>
 
-Plus d'informations sur {{< fa globe >}} [quarto.org](https://quarto.org){target="_blank"}
+:::: {.columns}
+
+::: {.column width="50%"}
+![](img/docs.jpg)
+:::
+
+::: {.column width="50%"}
+![](img/website.png)
+:::
+
+::::
+
+Plus d'informations sur {{< fa globe >}} [Github](https://github.com/davidcarayon/quarto-inrae-extension){target="_blank"}
+
+
+## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
+
+![](img/mou-editor.png){width="80%"}
 
 ## Renv : Figer ses versions de packages R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
 
@@ -759,7 +800,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 ::::
 
-## Git {background-image="img/logo_git.png" background-size="200px" background-position="top 40px right 80px"} 
+## Git & Gitlab/Hub {background-image="img/logo_git.png" background-size="200px" background-position="top 40px right 80px"} 
 
 :::: {.columns}
 
@@ -778,11 +819,26 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 * Revenir aux versions précédentes (+ sauvegarde du travail)
 
-
+* Déployer son travail en ligne (Pages)
 
 :::
 
 ::::
+
+## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
+
+
+<br>
+<br>
+
+![](img/shinyidea.png)
+
+## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
+
+<br>
+<br>
+
+![](img/data-interventions.png)
 
 # Conclusion {.inverse}
 
@@ -813,68 +869,29 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 {{< fa brands github >}}   [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes){target="_blank"}
 
-{{< fa comment-dots >}}   [https://team.forgemia.inra.fr/ur-ettis/channels/bulledr](https://team.forgemia.inra.fr/ur-ettis/channels/bulledr){target="_blank"}
+{{< fa brands github >}}   [https://github.com/davidcarayon/quarto-inrae-extension](https://github.com/davidcarayon/quarto-inrae-extension){target="_blank"}
 
-**Les Packages**
+:::
 
-{{< fa box >}} [questionr](https://juba.github.io/questionr/index.html) |
-{{< fa box >}} [skimr](https://docs.ropensci.org/skimr/){target="_blank"} |
-{{< fa box >}} [easystats](https://easystats.github.io/easystats/){target="_blank"} |
-{{< fa box >}} [ggstatsplot](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} |
-{{< fa box >}} [FactoMineR](http://factominer.free.fr/index_fr.html){target="_blank"} |
-{{< fa box >}} [PCAmixdata](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html){target="_blank"} 
+
+::: {.callout-note appearance="minimal"}
+
+###### Ressources
+{{< fa globe >}}   [https://www.productive-r-workflow.com](https://www.productive-r-workflow.com){target="_blank"}
+
+{{< fa book >}}   [R for Data Science (2e)](https://r4ds.hadley.nz){target="_blank"}
 
 :::
 
 {{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html){target="_blank"}
-
-:::: {.columns}
-
-::: {.column width="40%"}
-::: {.callout-tip appearance="minimal"}
-## Prochaines dates
-
-:::: {.columns}
-
-::: {.column width="50%"}
-- 4 juillet
-
-- 1 août (date à confirmer)
-
-- 5 septembre
-:::
-
-::: {.column width="50%"}
-- 3 octobre
-
-- 7 novembre
-
-- 5 décembre
-:::
-
-::::
-
-
-:::
-
-:::
-
-::: {.column width="60%"}
-
-:::
-
-::::
-
-
-
 
 
 ## Slides made with ...{.plain}
 
 <center>
 
-![](img/logo_hex.png){width=400px fig-align="center"}
+![](img/logo-4.png){width=400px fig-align="center"}
 
-{{< fa brands github >}} [https://github.com/davidcarayon/InraeThemes](https://github.com/davidcarayon/InraeThemes){target="_blank"}
+{{< fa brands github >}}   [https://github.com/davidcarayon/quarto-inrae-extension](https://github.com/davidcarayon/quarto-inrae-extension){target="_blank"}
 
 </center>

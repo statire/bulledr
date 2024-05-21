@@ -1,18 +1,14 @@
 # Bulle d'R <img src='logo-bulledr.png' align="right" width="20%" />
 
-- Rendez-vous mensuel pour échanger autour du logiciel R (et de RStudio) et ses multiples utilisations
-
-- Tous les 1er mardi de chaque mois à 9h en salle Estuaire
+- Communauté R à ETTIS
  
-- Pas des sessions de formation, mais plutôt un format questions /réponses
- 
-- Ouvert à tous les niveaux, pas de question bête 😉
+- Ouvert à tous les niveaux, pas de question bête :wink:
 
 # Présentations
 
 - Présentation TWIX du 01 juin 2023 : [Travailler sous R avec RStudio. Comment ça marche ?](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01#/title-slide)
 
-- Première session du 06 juin 2023 : ["Bonnes pratiques à ETTIS"](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html#/title-slide)
+- Bonnes pratiques à ETTIS : ["Bonnes pratiques à ETTIS"](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html#/title-slide)
 
 # Quelques ressources
 
