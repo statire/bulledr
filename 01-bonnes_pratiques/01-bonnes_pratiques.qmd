@@ -869,6 +869,9 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::: {.callout-note appearance="minimal"}
 
 ###### Ressources
+
+{{< fa sheet-plastic >}}  [Cheatsheet Bonnes Pratiques en R à ETTIS](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf) (PDF)
+
 {{< fa globe >}}   [https://www.productive-r-workflow.com](https://www.productive-r-workflow.com){target="_blank"}
 
 {{< fa book >}}   [R for Data Science (2e)](https://r4ds.hadley.nz){target="_blank"}
