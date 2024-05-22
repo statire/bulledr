@@ -631,21 +631,13 @@ skimr::skim(mtcars)
 
 ## [{tidymodels}](https://www.tidymodels.org){target="_blank"} : Le tidyverse de la modélisation {background-image="img/tidymodels.png" background-size="150px" background-position="top 40px right 80px"} 
 
+
 <br>
 <br>
 
-:::: {.columns}
+- Propose une interface unifiée à tous les types de modèles (`lm`, `glm`, `randomForests`, `xgboost`, etc.)
 
-::: {.column width="50%"}
-![](img/tidymodels_hex.png){fig-align="center" width="100%"}
-:::
-
-::: {.column width="50%"}
-<br>
-![](img/autoplot.png){fig-align="center" width="100%"}
-:::
-
-::::
+![](img/tmods.png){width="80%"}
 
 ## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
@@ -679,7 +671,7 @@ library(ggstatsplots)
 :::
 
 ::: {.column width="50%"}
-![](img/mf_map.png){fig-align="center" width="80%"}
+![](img/mf-map.png){fig-align="center" width="80%"}
 :::
 
 ::::
@@ -707,7 +699,7 @@ library(adegraphics)
 ::: {.fragment}
 ```r
 library(FactoMineR)
-library(factoextra)
+library(factoextra) # + FactoInvestigate + FactoShiny
 ```
 
 ![](img/facto.png) 
@@ -773,7 +765,7 @@ Plus d'informations sur {{< fa globe >}} [Github](https://github.com/davidcarayo
 
 ## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
 
-![](img/mou-editor.png){width="80%"}
+![](img/hackmd.png){width="80%"}
 
 ## Renv : Figer ses versions de packages R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
 
