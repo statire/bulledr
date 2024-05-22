@@ -39,71 +39,96 @@ Cf. Présentation TWIX "Travailler sous R avec RStudio. Comment ça marche ?" di
 
 </center>
 
-# Travailler en projets {.inverse}
+# Gestion des packages {.inverse}
 
-## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"} 
-À partir de l'icône dédiée en haut à droite de RStudio
+## Préambule : Version de R
 
-![](./img/screenshot_RStudio_01NewProject.png){fig-align="center" width="70%"} 
+Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
 
+![](img/vers_R.png)
 
-## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"}
-
-Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin "*Empty Project*"  
-
-![](./img/screenshot_RStudio_02CreateProject.png){width="32%"} ![](./img/screenshot_RStudio_03ProjectType.png){width="32%"} ![](./img/screenshot_RStudio_04ProjectDirectory.png){width="32%"}
-
-## Exemples d'arborescence
-
-**Exemples de structurations**  
-(chacun s'organisera de la façon qu'il juge la plus adaptée à ses usages)  
-
-
-:::: {.columns}
-
-::: {.column width="50%"}
-![](./img/filestructure.png){width="75%"}
+::: {.fragment}
+Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
 :::
 
-::: {.column width="50%"}
-::: {.callout-note}
-## A noter
-Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
+::: {.fragment}
+::: {.callout-caution}
+## Les Breaking Changes
+Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
+
+A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+
+:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
 :::
 :::
 
-::::
+## Rappels sur le fonctionnement des packages
 
-
-
-
-
-##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="100px" background-position="top 40px right 80px"}
-
-<br>
-<br>
+1) On **installe** le package
 
 ```r
-# install.packages("remotes")
-remotes::install_github("davidcarayon/InraeThemes")
-InraeThemes::new_analysis()
+install.packages("remotes")
 ```
+Cela place les fonctions du package sur votre PC.
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèque :books:
+:::
+
+::: {.fragment}
+
+2)  On **charge** le package
+
+```r
+library(remotes)
+```
+On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **sort** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
+:::
+:::
+
+## Alternative au `library`, le préfixage
 
 <br>
 
+La notation
 
-:::: {.columns}
+```r
+dplyr::filter(iris, Species == "setosa")
+```
 
-::: {.column width="50%"}
+Peut remplacer le code
 
-![](img/cap_project_IT.png){fig-align="center" width="70%"}
+```r
+library(dplyr)
+filter(iris, Species == "setosa")
+```
+
+:::{.fragment}
+
+::: {.callout-tip}
+## Trois avantages
+* Eviter les conflits si 2 packages ont une fonction au même nom (ex : `filter()` existe également dans le package `{stats}`)
+* Identifier quelle fonction provient de quel package
+* Ne pas charger tout un package pour une seule fonction
+:::
 :::
 
-::: {.column width="50%"}
-![](img/project_IT){fig-align="center" width="40%"}
-:::
+## Quelques mises en garde
 
-::::
+* Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
+* **MAIS** elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
+
+![](img/lifecycle.png){fig-align="center" width="50%"}
+
+::: {.fragment}
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+* Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
+:::
+:::
 
 # Importer ses données {.inverse}
 
@@ -141,7 +166,7 @@ InraeThemes::new_analysis()
 | Stata    | `foreign::read.dta()`  | `haven::read_stata()`                       |                        |                    |
 | SAS      | `foreign::read.ssd()`  | `haven::read_sas()`                         |                        |                    |
 | dBase    | `foreign::read.dbf()`  | \-                                          |                        |                    |
-	
+
 
 ## Le concept de données `tidy`
 
@@ -186,7 +211,6 @@ Ces règles ne sont pas toujours respectées :
 - `unite()` : regrouper plusieurs colonnes en une seule
 - `extract()` : créer de nouvelles colonnes à partir d'une colonne de texte
 - `complete()` : compléter des combinaisons de variables manquantes
-
 
 ## Besoin d'examiner rapidement vos données dans Excel ? 
 
@@ -410,96 +434,71 @@ Comme on importe divers formats de données, on peut exporter les données depui
 | .sav (SPSS)     | `foreign::write.foreign(package = "SPSS")` | `haven::write_sav()`               |
 | .dta (Stata)    | `foreign::write.dta()`                     | `haven::write_dta()`               |
 
-# Gestion des packages {.inverse}
 
-## Préambule : Version de R
+# Travailler en projets {.inverse}
 
-Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"} 
+À partir de l'icône dédiée en haut à droite de RStudio
 
-![](img/vers_R.png)
+![](./img/screenshot_RStudio_01NewProject.png){fig-align="center" width="70%"} 
 
-::: {.fragment}
-Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
+
+## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"}
+
+Sélectionner l'option "*New project*", puis l'option "*New Directory*" et enfin "*Empty Project*"  
+
+![](./img/screenshot_RStudio_02CreateProject.png){width="32%"} ![](./img/screenshot_RStudio_03ProjectType.png){width="32%"} ![](./img/screenshot_RStudio_04ProjectDirectory.png){width="32%"}
+
+## Exemples d'arborescence
+
+**Exemples de structurations**  
+(chacun s'organisera de la façon qu'il juge la plus adaptée à ses usages)  
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](./img/filestructure.png){width="75%"}
 :::
 
-::: {.fragment}
-::: {.callout-caution}
-## Les Breaking Changes
-Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
-
-A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
-
-:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
+::: {.column width="50%"}
+::: {.callout-note}
+## A noter
+Le plus important, ce sont les **données initiales** et les **scripts de traitements**.
 :::
 :::
 
-## Rappels sur le fonctionnement des packages
+::::
 
-1) On **installe** le package
+
+
+
+
+##  Coup de pouce : Le package [{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) {background-image="img/logo_hex.png" background-size="100px" background-position="top 40px right 80px"}
+
+<br>
+<br>
 
 ```r
-install.packages("remotes")
+# install.packages("remotes")
+remotes::install_github("davidcarayon/InraeThemes")
+InraeThemes::new_analysis()
 ```
-Cela place les fonctions du package sur votre PC.
-
-::: {.callout-tip appearance="minimal" icon=false}
-Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèque :books:
-:::
-
-::: {.fragment}
-
-2)  On **charge** le package
-
-```r
-library(remotes)
-```
-On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
-
-::: {.callout-tip appearance="minimal" icon=false}
-Analogie : on **sort** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
-:::
-:::
-
-## Alternative au `library`, le préfixage
 
 <br>
 
-La notation
 
-```r
-dplyr::filter(iris, Species == "setosa")
-```
+:::: {.columns}
 
-Peut remplacer le code
+::: {.column width="50%"}
 
-```r
-library(dplyr)
-filter(iris, Species == "setosa")
-```
-
-:::{.fragment}
-
-::: {.callout-tip}
-## Trois avantages
-* Eviter les conflits si 2 packages ont une fonction au même nom (ex : `filter()` existe également dans le package `{stats}`)
-* Identifier quelle fonction provient de quel package
-* Ne pas charger tout un package pour une seule fonction
-:::
+![](img/cap_project_IT.png){fig-align="center" width="70%"}
 :::
 
-## Quelques mises en garde
-
-* Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
-* **MAIS** elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
-
-![](img/lifecycle.png){fig-align="center" width="50%"}
-
-::: {.fragment}
-::: {.callout-tip appearance="minimal"}
-## Bonne pratique
-* Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
+::: {.column width="50%"}
+![](img/project_IT){fig-align="center" width="40%"}
 :::
-:::
+
+::::
 
 # Outils d'exploration {.inverse}
 
@@ -571,9 +570,6 @@ vis_miss(airquality)
 
 ![](img/vismiss.png){fig-align="center" width="40%"}
 
-
-#  L'automatisation {.inverse}
-
 ## L'exploration en un bouton avec [{DataExplorer}](https://cran.r-project.org/web/packages/DataExplorer/vignettes/dataexplorer-intro.html){target="_blank"} {background-image="img/dataexplorer.png" background-size="100px" background-position="top 40px right 80px"} 
 
 -  `plot_histogram()`, `plot_bar()`, `plot_density()` proposent des graphiques en sélectionnant les variables pertinentes à chaque cas
@@ -603,8 +599,6 @@ library(questionr)
 data(hdv2003)
 freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort = "dec")
 ```
-
-<!-- ![](img/questionr.png){fig-align="center" width="80%"} -->
 
 ## [{skimr}](https://docs.ropensci.org/skimr/){target="_blank"} : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
 
@@ -721,7 +715,11 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 
 ![](img/ligatures.png)
 
-# Et la suite ? {.inverse}
+# Pour aller plus loin {.inverse}
+
+## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
+
+![](img/hackmd.png){width="80%"}
 
 ## Quarto
 
@@ -758,11 +756,6 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 ::::
 
 Plus d'informations sur {{< fa globe >}} [Github](https://github.com/davidcarayon/quarto-inrae-extension){target="_blank"}
-
-
-## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
-
-![](img/hackmd.png){width="80%"}
 
 ## Renv : Figer ses versions de packages R {background-image="img/renv_logo.svg" background-size="200px" background-position="top 40px right 80px"} 
 
@@ -816,7 +809,6 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 ## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
 
-
 <br>
 <br>
 
@@ -824,10 +816,23 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 ## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
 
-<br>
+## Shiny, c'est quoi ? :thinking:
+
 <br>
 
-![](img/data-interventions.png)
+::: columns
+::: {.column width="70%"}
+![](img/shiny.png){fig-align="center" width="80%"}
+:::
+
+::: {.column width="30%"}
+![](img/shinylogo.png){fig-align="left" width="50%"}
+:::
+:::
+
+-   Shiny est un package R qui permet de développer facilement des applications web interactives dans une syntaxe R très simple (pouvant être complétée par du HTML / CSS / JS pour les applications les plus abouties).
+
+-   Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
 
 # Conclusion {.inverse}
 
