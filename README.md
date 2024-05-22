@@ -10,6 +10,8 @@
 
 - Bonnes pratiques à ETTIS : ["Bonnes pratiques à ETTIS"](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html#/title-slide)
 
+- [Cheatsheet](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf) (PDF)
+
 # Quelques ressources
 
 ## Francophones
