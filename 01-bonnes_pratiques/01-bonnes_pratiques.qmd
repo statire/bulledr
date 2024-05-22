@@ -257,98 +257,6 @@ Pour les variables, comme pour les fonctions :
 
 **Une aide pour écrire les scripts de façon _cohérente_**  {{< fa globe >}} [Tidyverse Style Guide](https://style.tidyverse.org/index.html){target="_blank"}  
 
-
-# Gestion des packages {.inverse}
-
-## Préambule : Version de R
-
-Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
-
-![](img/vers_R.png)
-
-::: {.fragment}
-Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
-:::
-
-::: {.fragment}
-::: {.callout-caution}
-## Les Breaking Changes
-Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
-
-A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
-
-:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
-:::
-:::
-
-## Rappels sur le fonctionnement des packages
-
-1) On **installe** le package
-
-```r
-install.packages("remotes")
-```
-Cela place les fonctions du package sur votre PC.
-
-::: {.callout-tip appearance="minimal" icon=false}
-Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèque :books:
-:::
-
-::: {.fragment}
-
-2)  On **charge** le package
-
-```r
-library(remotes)
-```
-On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
-
-::: {.callout-tip appearance="minimal" icon=false}
-Analogie : on **sort** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
-:::
-:::
-
-## Alternative au `library`, le préfixage
-
-<br>
-
-La notation
-
-```r
-dplyr::filter(iris, Species == "setosa")
-```
-
-Peut remplacer le code
-
-```r
-library(dplyr)
-filter(iris, Species == "setosa")
-```
-
-:::{.fragment}
-
-::: {.callout-tip}
-## Trois avantages
-* Eviter les conflits si 2 packages ont une fonction au même nom (ex : `filter()` existe également dans le package `{stats}`)
-* Identifier quelle fonction provient de quel package
-* Ne pas charger tout un package pour une seule fonction
-:::
-:::
-
-## Quelques mises en garde
-
-* Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
-* **MAIS** elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
-
-![](img/lifecycle.png){fig-align="center" width="50%"}
-
-::: {.fragment}
-::: {.callout-tip appearance="minimal"}
-## Bonne pratique
-* Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
-:::
-:::
-
 #  Structuration des scripts {.inverse}
 
 ## Penser reproductibilité
@@ -463,6 +371,135 @@ Il existe des alternatives 'clic-bouton' :
 Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !
 :::
 
+#  L'export {.inverse}
+
+## Exporter les graphiques
+
+- **Directement via l'onglet 'Plots'** 
+Cliquer sur 'Export' qui donne accès à trois options différentes :
+
+  - save as image
+  - save as PDF
+  - copy to clipboard
+
+- **Dans un script**, avec les fonctions `jpeg()`, `png()`, `bmp()` ou `tiff()` ou  `pdf()` du package [{grDevices}](https://uribo.github.io/rpkg_showcase/graphics/grDevices.html){target="_blank"}
+
+```
+png(filename = "fichier.png")
+ggplot(...)
+dev.off()
+```
+
+- **On préfèrera utiliser la fonction `ggsave` du package [{ggplot2}](https://ggplot2.tidyverse.org/)**![](img/logo_ggplot2.png){fig-align="center" width="8%"}
+```
+ggplot(...) +
+  ...
+ggsave(filename = name.extension)
+```
+
+## Exporter les tableaux
+
+Comme on importe divers formats de données, on peut exporter les données depuis R vers divers formats
+
+| Type de fichier | Base R                                     | Tidyverse                          |
+|:----------------|:-------------------------------------------|:-----------------------------------|
+| .txt            | `write.table()`                            | `readr::write_delim(delim = "\t")` |
+| .csv            | `write.csv()`                              | `readr::write_csv()`               |
+| .xlsx           | `openxlsx2::write_xlsx()`                       | \-                                 |
+| .dbf            | `foreign::write.dbf()`                     | \-                                 |
+| .sav (SPSS)     | `foreign::write.foreign(package = "SPSS")` | `haven::write_sav()`               |
+| .dta (Stata)    | `foreign::write.dta()`                     | `haven::write_dta()`               |
+
+# Gestion des packages {.inverse}
+
+## Préambule : Version de R
+
+Les packages R peuvent dépendre d'une version spécifique de R (ou version minimale)
+
+![](img/vers_R.png)
+
+::: {.fragment}
+Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
+:::
+
+::: {.fragment}
+::: {.callout-caution}
+## Les Breaking Changes
+Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
+
+A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+
+:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
+:::
+:::
+
+## Rappels sur le fonctionnement des packages
+
+1) On **installe** le package
+
+```r
+install.packages("remotes")
+```
+Cela place les fonctions du package sur votre PC.
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **achète** un livre :notebook: pour le mettre dans sa bibliothèque :books:
+:::
+
+::: {.fragment}
+
+2)  On **charge** le package
+
+```r
+library(remotes)
+```
+On évite au lancement de R de lancer *tous* les packages installés, il faut donc indiquer lors de chaque session les packages à charger
+
+::: {.callout-tip appearance="minimal" icon=false}
+Analogie : on **sort** le livre de la bibliothèque et on l'ouvre pour utiliser son contenu :book:
+:::
+:::
+
+## Alternative au `library`, le préfixage
+
+<br>
+
+La notation
+
+```r
+dplyr::filter(iris, Species == "setosa")
+```
+
+Peut remplacer le code
+
+```r
+library(dplyr)
+filter(iris, Species == "setosa")
+```
+
+:::{.fragment}
+
+::: {.callout-tip}
+## Trois avantages
+* Eviter les conflits si 2 packages ont une fonction au même nom (ex : `filter()` existe également dans le package `{stats}`)
+* Identifier quelle fonction provient de quel package
+* Ne pas charger tout un package pour une seule fonction
+:::
+:::
+
+## Quelques mises en garde
+
+* Les fonctions provenant de packages tels que ceux  du `tidyverse` proposent énormément de fonctionnalités pratiques, utiles, fonctionnelles par rapport aux fonctionnalités *classiques* de R
+* **MAIS** elles ont un cycle de développement très dynamique pouvant mener à des fonctions rapidement `deprecated` ou `superseded`
+
+![](img/lifecycle.png){fig-align="center" width="50%"}
+
+::: {.fragment}
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+* Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
+:::
+:::
 
 # Outils d'exploration {.inverse}
 
@@ -554,46 +591,6 @@ Fonctions utiles pour première exploration des données, sans autre programmati
 
 **Pour aller plus loin...** programmation lettrée (Rmarkdown/Quarto) [session dédiée si nécessaire]
 :::
-
-#  L'export {.inverse}
-
-## Exporter les graphiques
-
-- **Directement via l'onglet 'Plots'** 
-Cliquer sur 'Export' qui donne accès à trois options différentes :
-
-  - save as image
-  - save as PDF
-  - copy to clipboard
-
-- **Dans un script**, avec les fonctions `jpeg()`, `png()`, `bmp()` ou `tiff()` ou  `pdf()` du package [{grDevices}](https://uribo.github.io/rpkg_showcase/graphics/grDevices.html){target="_blank"}
-
-```
-png(filename = "fichier.png")
-ggplot(...)
-dev.off()
-```
-
-- **On préfèrera utiliser la fonction `ggsave` du package [{ggplot2}](https://ggplot2.tidyverse.org/)**![](img/logo_ggplot2.png){fig-align="center" width="8%"}
-```
-ggplot(...) +
-  ...
-ggsave(filename = name.extension)
-```
-
-## Exporter les tableaux
-
-Comme on importe divers formats de données, on peut exporter les données depuis R vers divers formats
-
-| Type de fichier | Base R                                     | Tidyverse                          |
-|:----------------|:-------------------------------------------|:-----------------------------------|
-| .txt            | `write.table()`                            | `readr::write_delim(delim = "\t")` |
-| .csv            | `write.csv()`                              | `readr::write_csv()`               |
-| .xlsx           | `openxlsx2::write_xlsx()`                       | \-                                 |
-| .dbf            | `foreign::write.dbf()`                     | \-                                 |
-| .sav (SPSS)     | `foreign::write.foreign(package = "SPSS")` | `haven::write_sav()`               |
-| .dta (Stata)    | `foreign::write.dta()`                     | `haven::write_dta()`               |
-
 
 #  Quelques packages conseils {.inverse}
 
