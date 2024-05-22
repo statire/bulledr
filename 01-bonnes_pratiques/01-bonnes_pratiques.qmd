@@ -807,18 +807,8 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 ::::
 
-## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
 
-<br>
-<br>
-
-![](img/shinyidea.png)
-
-## Shiny {background-image="img/shinylogo.jpeg" background-size="150px" background-position="top 40px right 80px"} 
-
-## Shiny, c'est quoi ? :thinking:
-
-<br>
+## Shiny : Des application web
 
 ::: columns
 ::: {.column width="70%"}
@@ -830,9 +820,9 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 :::
 :::
 
--   Shiny est un package R qui permet de développer facilement des applications web interactives dans une syntaxe R très simple (pouvant être complétée par du HTML / CSS / JS pour les applications les plus abouties).
+- Shiny est un package R qui permet de développer facilement des applications web interactives dans une syntaxe R très simple (pouvant être complétée par du HTML / CSS / JS pour les applications les plus abouties).
 
--   Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
+- Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
 
 # Conclusion {.inverse}
 
