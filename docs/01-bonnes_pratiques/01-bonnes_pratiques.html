@@ -10,7 +10,7 @@
 <link href="01-bonnes_pratiques_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="01-bonnes_pratiques_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.550">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="Sandrine LYSER">
   <meta name="author" content="David CARAYON">
@@ -418,13 +418,18 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 
   <p class="date">28 mai 2024</p>
 </section>
-<section>
-<section id="introduction" class="title-slide slide level1 inverse center">
-<h1>Introduction</h1>
+<section id="introduction-générale" class="title-slide slide level1 inverse center">
+<h1>INTRODUCTION GÉNÉRALE</h1>
 
 </section>
-<section id="r---rstudio" class="slide level2">
-<h2>R - Rstudio</h2>
+
+<section>
+<section id="utiliser-les-logiciels-r-rstudio" class="title-slide slide level1 inverse center">
+<h1>1. Utiliser les logiciels R &amp; RStudio</h1>
+
+</section>
+<section id="comment-ça-fonctionne" class="slide level2">
+<h2>Comment ça fonctionne ?</h2>
 <p>Cf. Présentation TWIX “Travailler sous R avec RStudio. Comment ça marche ?” disponible à ce lien :</p>
 <p><br> <br></p>
 <center>
@@ -432,18 +437,17 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </center>
 </section></section>
 <section>
-<section id="gestion-des-packages" class="title-slide slide level1 inverse center">
-<h1>Gestion des packages</h1>
+<section id="gérer-les-packages" class="title-slide slide level1 inverse center">
+<h1>2. Gérer les packages</h1>
 
 </section>
 <section id="préambule-version-de-r" class="slide level2">
 <h2>Préambule : Version de R</h2>
 <p>Les packages R peuvent dépendre d’une version spécifique de R (ou version minimale)</p>
 <p><img data-src="img/vers_R.png"></p>
-<div class="fragment">
 <p>Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs… Il est donc intéressant de faire les MAJ “majeures” de printemps : 4.2.x <span class="math inline">\(\rightarrow\)</span> 4.3.x</p>
-</div>
-<div class="fragment">
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="callout callout-caution callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -455,7 +459,23 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <div class="callout-content">
 <p>Certaines versions de R apportent des <strong>breaking changes</strong> qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : <code>stringAsFactor = FALSE</code> au lieu de <code>TRUE</code> avant la version 4.0).</p>
 <p>A l’inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe <code>|&gt;</code> à partir de R 4.1.0)</p>
-<p><span class="emoji" data-emoji="warning">⚠️</span> Toujours intégrer la version de R utilisée dans ses analyses / publications <span class="emoji" data-emoji="warning">⚠️</span></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Dans les publications, pensez à intégrer la version de R utilisée dans vos analyses, ainsi que les packages (fonctions) utilisés</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># Pour citer R</span></span>
+<span id="cb1-2"><a href=""></a><span class="fu">citation</span>()</span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a><span class="co"># Pour citer un package (ici ggplot2)</span></span>
+<span id="cb1-5"><a href=""></a><span class="fu">citation</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -466,7 +486,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <ol type="1">
 <li>On <strong>installe</strong> le package</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Cela place les fonctions du package sur votre PC.</p>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -479,7 +499,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <ol start="2" type="1">
 <li>On <strong>charge</strong> le package</li>
 </ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(remotes)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(remotes)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>On évite au lancement de R de lancer <em>tous</em> les packages installés, il faut donc indiquer lors de chaque session les packages à charger</p>
 <div class="callout callout-tip no-icon callout-style-simple">
 <div class="callout-body">
@@ -494,10 +514,10 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <h2>Alternative au <code>library</code>, le préfixage</h2>
 <p><br></p>
 <p>La notation</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>dplyr<span class="sc">::</span><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Peut remplacer le code</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-2"><a href=""></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href=""></a><span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">"setosa"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -545,8 +565,221 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 </section></section>
 <section>
+<section id="structurer-ses-scripts" class="title-slide slide level1 inverse center">
+<h1>3. Structurer ses scripts</h1>
+
+</section>
+<section id="penser-reproductibilité" class="slide level2">
+<h2>Penser reproductibilité</h2>
+<p><strong>Un principe :</strong> on code pour les autres, en organisant son travail et en automatisant le plus possible</p>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonnes pratiques</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Noms des fichiers &amp; variables explicites, suivant les conventions de nommage (cf.&nbsp;précédemment)</li>
+<li>Distinguer variables d’origine et variables créées en adoptant une règle de convention (par ex. utiliser <code>recod</code> en préfixe ou siffixe du nom des variables)</li>
+<li>Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur</li>
+<li>Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie). L’ajout des commentaires se fait en ajoutant <code>#</code> en début de ligne (raccourci clavier <code>CRTL + MAJ + C</code>)</li>
+<li>Identification de l’ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit le langage de programmation</p>
+</div>
+</div>
+</div>
+</section>
+<section id="respecter-des-règles-pour-faciliter-la-lecture-12" class="slide level2">
+<h2>Respecter des règles pour faciliter la lecture (1/2)</h2>
+<ul>
+<li><p>L’opérateur d’affectation est <code>&lt;-</code></p></li>
+<li><p>Retour à la ligne régulièrement (<strong>la longueur maximale recommandée d’une ligne est 80 caractères</strong>) et après chaque pipe (<code>%&gt;%</code> ou <code>|&gt;</code>)</p></li>
+<li><p>L’indentation se fait grâce à la touche <code>TAB</code>. Le raccourci <code>Ctrl+I</code> sert à réindenter les lignes de code sélectionnées</p></li>
+<li><p>Les opérateurs qui lient les objets entre eux <code>(=, +, -, &lt;-, etc.)</code> sont entourés d’espaces</p></li>
+<li><p>Les opérateurs qui modifient un objet ou sélectionnent une partie d’un objet <code>(:, !!, $, @, [, ], [[, ]])</code> ne sont pas entourés d’espaces</p></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># On écrit </span></span>
+<span id="cb6-2"><a href=""></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="ot">=</span> <span class="dv">2</span></span>
+<span id="cb6-3"><a href=""></a>dataframe<span class="sc">$</span>variable</span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="co"># et non </span></span>
+<span id="cb6-6"><a href=""></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="ot">=</span><span class="dv">2</span></span>
+<span id="cb6-7"><a href=""></a>dataframe <span class="sc">$</span> variable</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="respecter-des-règles-pour-faciliter-la-lecture-22" class="slide level2">
+<h2>Respecter des règles pour faciliter la lecture (2/2)</h2>
+<ul>
+<li><p>On insère un espace après la virgule mais pas avant, comme en français !</p></li>
+<li><p>On ne met pas d’espace avant ou après les parenthèses</p></li>
+<li><p>En revanche, les opérateurs de comparaison doivent être entourés d’espace pour ne pas être mal interprétés par R</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># On écrit</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>  </span>
+<span id="cb7-3"><a href=""></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span></span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a><span class="co"># et non </span></span>
+<span id="cb7-6"><a href=""></a><span class="fu">mean</span> ( x , <span class="at">na.rm =</span> <span class="cn">TRUE</span> )</span>
+<span id="cb7-7"><a href=""></a><span class="dv">1</span><span class="ot">&lt;-</span><span class="dv">10</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>A noter</strong></p>
+</div>
+<div class="callout-content">
+<p>RStudio signale les erreurs dans la marge des scripts <img data-src="img/script.png"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="structurer-son-code" class="slide level2">
+<h2>Structurer son code</h2>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonnes pratiques</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Commencer l’écriture du script par les métadonnées (titre auteur, date, version de R, encodage, etc.)</li>
+<li>Ajouter la liste des packages utilisés et leur version</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># "à la main" lorsqu'on charge les packages</span></span>
+<span id="cb8-2"><a href=""></a><span class="fu">library</span>(tidyverse)    <span class="co"># v1.3.2</span></span>
+<span id="cb8-3"><a href=""></a><span class="fu">library</span>(dplyr)        <span class="co"># v1.1.0</span></span>
+<span id="cb8-4"><a href=""></a></span>
+<span id="cb8-5"><a href=""></a><span class="co"># automatique</span></span>
+<span id="cb8-6"><a href=""></a>packages_utilises <span class="ot">&lt;-</span> <span class="fu">sessionInfo</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Structurer en parties, sous-parties, grâce au raccourci <code>CTRL + MAJ + R</code> ou à l’addin <code>strcode</code></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co">#  Titre 1 -------------------------------------</span></span>
+<span id="cb9-2"><a href=""></a><span class="do">## Titre 2 -------------------------------------</span></span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># ou bien </span></span>
+<span id="cb9-5"><a href=""></a></span>
+<span id="cb9-6"><a href=""></a><span class="co">#   ____________________________________________________________________________</span></span>
+<span id="cb9-7"><a href=""></a><span class="co">#   Titre 1                                                                 ####</span></span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a><span class="do">##  ............................................................................</span></span>
+<span id="cb9-10"><a href=""></a><span class="do">##  Titre 2                                                                 ####</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="si-on-nest-pas-à-laise-avec-lécriture-de-codes" class="slide level2">
+<h2>Si on n’est pas à l’aise avec l’écriture de codes…</h2>
+<p>Il existe des alternatives ‘clic-bouton’ :</p>
+<ul>
+<li><p>le package/addin <a href="https://dreamrs.github.io/esquisse/" target="_blank">{esquisse}</a> pour créer des graphiques en ggplot <img data-src="img/logo_esquisse.png" class="quarto-figure quarto-figure-center" style="width:20.0%"></p></li>
+<li><p>le package <a href="http://factominer.free.fr/graphs/factoshiny-fr.html" target="_blank">{Factoshiny}</a> pour améliorer facilement et de façon interactive les graphiques issus d’analyses factorielles (ACP, ACM, AFM, etc.) pour les rendre beaucoup plus lisibles</p></li>
+<li><p><a href="https://www.john-fox.ca/RCommander/index.html" target="_blank">{R Commander}</a>, une interface utilisateur graphique (GUI)</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="nommer-ses-données" class="title-slide slide level1 inverse center">
+<h1>4. Nommer ses données</h1>
+
+</section>
+<section id="utiliser-des-conventions-de-nommage" class="slide level2">
+<h2>Utiliser des conventions de nommage</h2>
+<ul>
+<li><strong><code>allowercase</code></strong> : tout en minuscule, sans séparateur<br>
+</li>
+<li><strong><code>period.separated</code></strong> : tout en minuscule, mots séparés par des points<br>
+</li>
+<li><strong><code>underscore_separated</code></strong> : tout en minuscule, mots séparés par un <em>underscore</em> (<code>_</code>)<br>
+</li>
+<li><strong><code>lowerCamelCase</code></strong> : première lettre des mots en majuscule, à l’exception du premier mot ; et si nom simple, tout en minuscule<br>
+</li>
+<li><strong><code>UpperCamelCase</code></strong> : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d’un seul mot</li>
+</ul>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code</p>
+</div>
+</div>
+</div>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Mise en garde</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>R est sensible à la casse</strong> ce qui signifie que <code>variable</code> et <code>Variable</code> sont deux objets différents.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="nommer-les-fichiers-et-les-objets" class="slide level2">
+<h2>Nommer les fichiers et les objets</h2>
+<ul>
+<li><strong>Pour les fichiers</strong>, on peut les nommer avec la structure <code>numero_nom_millesime.extension</code>, sans symboles spéciaux dans le nom<br>
+<em>Rappel des symboles spéciaux : <code>-.,;:\/$</code>^`, caractères accentués, etc.</em></li>
+</ul>
+<p><em>Exemple : <code>01_import_donnees_20230606.R</code></em></p>
+<ul>
+<li><strong>Pour les variables</strong>, il est recommandé d’utiliser un <strong>nom</strong></li>
+</ul>
+<p><em>Exemple : <code>temperature_max</code></em></p>
+<ul>
+<li><strong>Pour les fonctions</strong>, il est recommandé d’utiliser un <strong>verbe</strong></li>
+</ul>
+<p><em>Exemple : <code>create.map</code> serait une fonction qui permettrait de créer une carte</em></p>
+</section>
+<section class="slide level2">
+
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Pour les variables, comme pour les fonctions :</p>
+<ul>
+<li>ne pas utiliser <code>T</code> ou <code>F</code> pour nommer des variables (ce sont les abréviations de <code>TRUE</code> et <code>FALSE</code>)</li>
+<li>ne pas utiliser de noms qui sont déjà des fonctions de R</li>
+</ul>
+</div>
+</div>
+</div>
+<p><strong>Une aide pour écrire les scripts de façon <em>cohérente</em></strong> <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://style.tidyverse.org/index.html" target="_blank">Tidyverse Style Guide</a></p>
+</section></section>
+<section>
 <section id="importer-ses-données" class="title-slide slide level1 inverse center">
-<h1>Importer ses données</h1>
+<h1>5. Importer ses données</h1>
 
 </section>
 <section id="importer-divers-types-de-données" class="slide level2">
@@ -567,7 +800,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <ol type="1">
 <li>La première ligne contient-elle le nom des variables ?<br>
 </li>
-<li>Quel est le séparateur des colonnes?<br>
+<li>Quel est le séparateur des colonnes ? (<code>. , ; \t</code>)<br>
 </li>
 <li>Quel est le caractère utilisé pour indiquer les décimales ? Le point (à l’anglo-saxonne) ou la virgule (à la française) ?<br>
 </li>
@@ -672,6 +905,18 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </tbody>
 </table>
 </section>
+<section class="slide level2">
+
+<p><strong>Exemple pour un fichier .csv</strong></p>
+<div class="cell" data-code-copy="true">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># En langage R de base</span></span>
+<span id="cb10-2"><a href=""></a><span class="fu">read.csv</span>(file, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">dec =</span> <span class="st">"."</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-code-copy="true">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># En "tidyverse"</span></span>
+<span id="cb11-2"><a href=""></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(file, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="le-concept-de-données-tidy" class="slide level2">
 <h2>Le concept de données <code>tidy</code></h2>
 <div class="columns">
@@ -696,7 +941,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <p><strong>Mise en garde</strong></p>
 </div>
 <div class="callout-content">
-<p>Ces règles ne sont pas toujours respectées :</p>
+<p>On a des fichiers de données qui ne respectent pas toujours ces règles :</p>
 <ul>
 <li>en-têtes de colonnes ne sont pas des noms mais des valeurs</li>
 <li>plusieurs variables stockées dans une colonne</li>
@@ -726,226 +971,21 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li>avec la fonction <code>view_in_excel</code><br>
+<li>avec la fonction <code>view_in_xl</code><br>
 <img data-src="img/viewxl.png"></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <ul>
 <li>dans la console :</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>viewxl<span class="sc">::</span><span class="fu">view_in_xl</span>(diamonds)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>viewxl<span class="sc">::</span><span class="fu">view_in_xl</span>(diamonds)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/excel_danger.jpeg"></p>
 </div>
 </div>
 </section></section>
 <section>
-<section id="nommer-ses-données" class="title-slide slide level1 inverse center">
-<h1>Nommer ses données</h1>
-
-</section>
-<section id="conventions-de-nommage" class="slide level2">
-<h2>Conventions de nommage</h2>
-<ul>
-<li><strong><code>allowercase</code></strong> : tout en minuscule, sans séparateur<br>
-</li>
-<li><strong><code>period.separated</code></strong> : tout en minuscule, mots séparés par des points<br>
-</li>
-<li><strong><code>underscore_separated</code></strong> : tout en minuscule, mots séparés par un <em>underscore</em> (<code>_</code>)<br>
-</li>
-<li><strong><code>lowerCamelCase</code></strong> : première lettre des mots en majuscule, à l’exception du premier mot ; et si nom simple, tout en minuscule<br>
-</li>
-<li><strong><code>UpperCamelCase</code></strong> : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d’un seul mot</li>
-</ul>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bonne pratique</strong></p>
-</div>
-<div class="callout-content">
-<p>Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code</p>
-</div>
-</div>
-</div>
-<div class="callout callout-caution callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Mise en garde</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>R est sensible à la casse</strong> ce qui signifie que <code>variable</code> et <code>Variable</code> sont deux objets différents.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="nommer-les-fichiers-et-les-objets" class="slide level2">
-<h2>Nommer les fichiers et les objets</h2>
-<p><strong>Pour les fichiers</strong>, la structure est la suivante : <code>numero -- nom -- millesime</code>.<br>
-Pas de symboles spéciaux dans le nom du fichier (<code>-.,;:\/$</code>^`, caractères accentués, etc.)</p>
-<p><em>Exemple : <code>01_import_donnees_20230606.R</code></em></p>
-<p><strong>Pour les variables</strong>, il est recommandé d’utiliser un <strong>nom</strong></p>
-<p><em>Exemple : <code>temperature_max</code></em></p>
-<p><strong>Pour les fonctions</strong>, il est recommandé d’utiliser un <strong>verbe</strong></p>
-<p><em>Exemple : <code>create.map</code> serait une fonction qui permettrait de créer une carte</em></p>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bonne pratique</strong></p>
-</div>
-<div class="callout-content">
-<p>Pour les variables, comme pour les fonctions :</p>
-<ul>
-<li>ne pas utiliser <code>T</code> ou <code>F</code> pour nommer des variables (ce sont les abréviations de <code>TRUE</code> et <code>FALSE</code>)</li>
-<li>ne pas utiliser de noms qui sont déjà des fonctions de R</li>
-</ul>
-</div>
-</div>
-</div>
-<p><strong>Une aide pour écrire les scripts de façon <em>cohérente</em></strong> <i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://style.tidyverse.org/index.html" target="_blank">Tidyverse Style Guide</a></p>
-</section></section>
-<section>
-<section id="structuration-des-scripts" class="title-slide slide level1 inverse center">
-<h1>Structuration des scripts</h1>
-
-</section>
-<section id="penser-reproductibilité" class="slide level2">
-<h2>Penser reproductibilité</h2>
-<p><strong>Un principe :</strong> on code pour les autres, en organisant son travail et en automatisant le plus possible</p>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bonnes pratiques</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Noms des fichiers &amp; variables explicites, suivant les conventions de nommage (cf.&nbsp;précédemment)</li>
-<li>Distinguer variables d’origine et variables créées</li>
-<li>Utilisation des chemins relatifs dans les programmes</li>
-<li>Possibilité d’exécuter le code sur un autre ordinateur</li>
-<li>Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie). L’ajout des commentaires se fait en ajoutant <code>#</code> en début de ligne (raccourci clavier <code>CRTL + MAJ + C</code>)</li>
-<li>Identification de l’ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>A noter</strong></p>
-</div>
-<div class="callout-content">
-<p>Ces grands principes ne sont pas exclusifs à R, ils sont valables quel que soit le langage de programmation</p>
-</div>
-</div>
-</div>
-</section>
-<section id="respecter-des-règles-pour-faciliter-la-lecture-12" class="slide level2">
-<h2>Respecter des règles pour faciliter la lecture (1/2)</h2>
-<ul>
-<li><p>L’opérateur d’affectation est <code>&lt;-</code></p></li>
-<li><p>Retour à la ligne régulièrement (<strong>la longueur maximale recommandée d’une ligne est 80 caractères</strong>) et après chaque pipe (<code>%&gt;%</code> ou <code>|&gt;</code>)</p></li>
-<li><p>L’indentation se fait grâce à la touche <code>TAB</code>. Le raccourci <code>Ctrl+I</code> sert à réindenter les lignes de code sélectionnées</p></li>
-<li><p>Les opérateurs qui lient les objets entre eux <code>(=, +, -, &lt;-, etc.)</code> sont entourés d’espaces</p></li>
-<li><p>Les opérateurs qui modifient un objet ou sélectionnent une partie d’un objet <code>(:, !!, $, @, [, ], [[, ]])</code> ne sont pas entourés d’espaces</p></li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># On écrit </span></span>
-<span id="cb6-2"><a href=""></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span> <span class="ot">=</span> <span class="dv">2</span></span>
-<span id="cb6-3"><a href=""></a>dataframe<span class="sc">$</span>variable</span>
-<span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="co"># et non </span></span>
-<span id="cb6-6"><a href=""></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="ot">=</span><span class="dv">2</span></span>
-<span id="cb6-7"><a href=""></a>dataframe <span class="sc">$</span> variable</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="respecter-des-règles-pour-faciliter-la-lecture-22" class="slide level2">
-<h2>Respecter des règles pour faciliter la lecture (2/2)</h2>
-<ul>
-<li><p>On insère un espace après la virgule mais pas avant, comme en français !</p></li>
-<li><p>On ne met pas d’espace avant ou après les parenthèses</p></li>
-<li><p>En, revanche, les opérateurs de comparaison doivent être entourés d’espace pour ne pas être mal interprétés par R</p></li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># On écrit</span></span>
-<span id="cb7-2"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>  </span>
-<span id="cb7-3"><a href=""></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span></span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a><span class="co"># et non </span></span>
-<span id="cb7-6"><a href=""></a><span class="fu">mean</span> ( x , <span class="at">na.rm =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb7-7"><a href=""></a><span class="dv">1</span><span class="ot">&lt;-</span><span class="dv">10</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>A noter</strong></p>
-</div>
-<div class="callout-content">
-<p>RStudio signale les erreurs dans la marge des scripts <img data-src="img/script.png"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="structuration-des-scripts-1" class="slide level2">
-<h2>Structuration des scripts</h2>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bonnes pratiques</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Commencer l’écriture du script par les métadonnées (titre auteur, date, version de R, encodage, etc.)</li>
-<li>Ajouter la liste des packages utilisés et leur version</li>
-</ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># "à la main" lorsqu'on charge les packages</span></span>
-<span id="cb8-2"><a href=""></a><span class="fu">library</span>(tidyverse)    <span class="co"># v1.3.2</span></span>
-<span id="cb8-3"><a href=""></a><span class="fu">library</span>(dplyr)        <span class="co"># v1.1.0</span></span>
-<span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a><span class="co"># automatique</span></span>
-<span id="cb8-6"><a href=""></a>packages_utilises <span class="ot">&lt;-</span> <span class="fu">sessionInfo</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li>Structurer en parties, sous-parties, grâce au raccourci <code>CTRL + MAJ + R</code> ou à l’addin {strcode}</li>
-</ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co">#  Titre 1 -------------------------------------</span></span>
-<span id="cb9-2"><a href=""></a><span class="do">## Titre 2 -------------------------------------</span></span>
-<span id="cb9-3"><a href=""></a></span>
-<span id="cb9-4"><a href=""></a><span class="co"># ou bien </span></span>
-<span id="cb9-5"><a href=""></a></span>
-<span id="cb9-6"><a href=""></a><span class="co">#   ____________________________________________________________________________</span></span>
-<span id="cb9-7"><a href=""></a><span class="co">#   Titre 1                                                                 ####</span></span>
-<span id="cb9-8"><a href=""></a></span>
-<span id="cb9-9"><a href=""></a><span class="do">##  ............................................................................</span></span>
-<span id="cb9-10"><a href=""></a><span class="do">##  Titre 2                                                                 ####</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="si-on-nest-pas-à-laise-avec-lécriture-de-codes" class="slide level2">
-<h2>Si on n’est pas à l’aise avec l’écriture de codes…</h2>
-<p>Il existe des alternatives ‘clic-bouton’ :</p>
-<ul>
-<li><p>le package/addin <a href="https://dreamrs.github.io/esquisse/" target="_blank">{esquisse}</a> pour créer des graphiques en ggplot <img data-src="img/logo_esquisse.png" class="quarto-figure quarto-figure-center" style="width:20.0%"></p></li>
-<li><p>le package <a href="http://factominer.free.fr/graphs/factoshiny-fr.html" target="_blank">{Factoshiny}</a> pour améliorer facilement et de façon interactive les graphiques issus d’analyses factorielles (ACP, ACM, AFM, etc.) pour les rendre beaucoup plus lisibles</p></li>
-<li><p><a href="https://www.john-fox.ca/RCommander/index.html" target="_blank">{R Commander}</a>, une interface utilisateur graphique (GUI)</p></li>
-</ul>
-<div class="callout callout-tip no-icon callout-titled callout-style-simple">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Bonne pratique</strong></p>
-</div>
-<div class="callout-content">
-<p>Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !</p>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="lexport" class="title-slide slide level1 inverse center">
-<h1>L’export</h1>
+<section id="exporter-ses-résultats" class="title-slide slide level1 inverse center">
+<h1>6. Exporter ses résultats</h1>
 
 </section>
 <section id="exporter-les-graphiques" class="slide level2">
@@ -959,15 +999,15 @@ Pas de symboles spéciaux dans le nom du fichier (<code>-.,;:\/$</code>^`, carac
 </ul></li>
 <li><p><strong>Dans un script</strong>, avec les fonctions <code>jpeg()</code>, <code>png()</code>, <code>bmp()</code> ou <code>tiff()</code> ou <code>pdf()</code> du package <a href="https://uribo.github.io/rpkg_showcase/graphics/grDevices.html" target="_blank">{grDevices}</a></p></li>
 </ul>
-<pre><code>png(filename = "fichier.png")
-ggplot(...)
-dev.off()</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">png</span>(<span class="at">filename =</span> <span class="st">"fichier.png"</span>)</span>
+<span id="cb13-2"><a href=""></a><span class="fu">ggplot</span>(...)</span>
+<span id="cb13-3"><a href=""></a><span class="fu">dev.off</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li><strong>On préfèrera utiliser la fonction <code>ggsave</code> du package <a href="https://ggplot2.tidyverse.org/">{ggplot2}</a></strong><img data-src="img/logo_ggplot2.png" class="quarto-figure quarto-figure-center" style="width:8.0%"></li>
 </ul>
-<pre><code>ggplot(...) +
-  ...
-ggsave(filename = name.extension)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">ggplot</span>(...) <span class="sc">+</span></span>
+<span id="cb14-2"><a href=""></a>  ...</span>
+<span id="cb14-3"><a href=""></a><span class="fu">ggsave</span>(<span class="at">filename =</span> name.extension)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="exporter-les-tableaux" class="slide level2">
 <h2>Exporter les tableaux</h2>
@@ -998,7 +1038,7 @@ ggsave(filename = name.extension)</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">.xlsx</td>
-<td style="text-align: left;"><code>openxlsx2::write_xlsx()</code></td>
+<td style="text-align: left;"><code>openxlsx2::write_xlsx()</code> OU <code>writexl::write_xlsx()</code></td>
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="even">
@@ -1019,9 +1059,14 @@ ggsave(filename = name.extension)</code></pre>
 </tbody>
 </table>
 </section></section>
+<section id="comment-organiser-son-travail" class="title-slide slide level1 inverse center">
+<h1>COMMENT ORGANISER SON TRAVAIL ?</h1>
+
+</section>
+
 <section>
 <section id="travailler-en-projets" class="title-slide slide level1 inverse center">
-<h1>Travailler en projets</h1>
+<h1>7. Travailler en projets</h1>
 
 </section>
 <section id="créer-un-projet-sous-rstudio" class="slide level2" data-background-image="img/rstudio-logo.png" data-background-size="100px" data-background-position="top 40px right 80px">
@@ -1065,9 +1110,9 @@ ggsave(filename = name.extension)</code></pre>
 <section id="coup-de-pouce-le-package-inraethemes" class="slide level2" data-background-image="img/logo_hex.png" data-background-size="100px" data-background-position="top 40px right 80px">
 <h2>Coup de pouce : Le package <a href="https://davidcarayon.github.io/InraeThemes/">{InraeThemes}</a></h2>
 <p><br> <br></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># install.packages("remotes")</span></span>
-<span id="cb12-2"><a href=""></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"davidcarayon/InraeThemes"</span>)</span>
-<span id="cb12-3"><a href=""></a>InraeThemes<span class="sc">::</span><span class="fu">new_analysis</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb15-2"><a href=""></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"davidcarayon/InraeThemes"</span>)</span>
+<span id="cb15-3"><a href=""></a>InraeThemes<span class="sc">::</span><span class="fu">new_analysis</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1085,9 +1130,14 @@ ggsave(filename = name.extension)</code></pre>
 </div>
 </div>
 </section></section>
+<section id="comment-analyser-ses-données" class="title-slide slide level1 inverse center">
+<h1>COMMENT ANALYSER SES DONNÉES ?</h1>
+
+</section>
+
 <section>
 <section id="outils-dexploration" class="title-slide slide level1 inverse center">
-<h1>Outils d’exploration</h1>
+<h1>8. Outils d’exploration</h1>
 
 </section>
 <section id="fonction-summary" class="slide level2">
@@ -1097,9 +1147,9 @@ ggsave(filename = name.extension)</code></pre>
 <li>S’applique à tout type d’objet, y compris un <em>data frame</em> entier, et s’adapte à la nature des variables contenues</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">data</span>(iris)</span>
-<span id="cb13-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href=""></a>  <span class="fu">summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">data</span>(iris)</span>
+<span id="cb16-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
@@ -1122,9 +1172,9 @@ ggsave(filename = name.extension)</code></pre>
 <h2>Fonction <code>glimpse()</code> du package <a href="https://dplyr.tidyverse.org/" target="_blank">{dplyr}</a></h2>
 <p><strong>Permet de visualiser de manière condensée le contenu d’un tableau de données</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">data</span>(iris) </span>
-<span id="cb15-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href=""></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">data</span>(iris) </span>
+<span id="cb18-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href=""></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 150
 Columns: 5
@@ -1140,9 +1190,9 @@ $ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setos
 <h2>Fonction <code>describe()</code> du package <a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a></h2>
 <p><strong>Décrit également les différentes variables d’un tableau de données</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">data</span>(iris) </span>
-<span id="cb17-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb17-3"><a href=""></a>  questionr<span class="sc">::</span><span class="fu">describe</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">data</span>(iris) </span>
+<span id="cb20-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href=""></a>  questionr<span class="sc">::</span><span class="fu">describe</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[150 obs. x 5 variables] tbl_df tbl data.frame
 
@@ -1173,28 +1223,28 @@ NAs: 0 (0%)</code></pre>
 <h2>Fonction <code>tbl_summary()</code> du package <a href="https://www.danieldsjoberg.com/gtsummary/" target="_blank">{gtsummary}</a></h2>
 <p><strong>Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S’appuie sur Great Tables ({gt})</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">data</span>(iris) </span>
-<span id="cb19-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href=""></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">data</span>(iris) </span>
+<span id="cb22-2"><a href=""></a>iris <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href=""></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<div id="jnevumhfnq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jnevumhfnq table {
+<div id="epyizbqfun" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#epyizbqfun table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jnevumhfnq thead, #jnevumhfnq tbody, #jnevumhfnq tfoot, #jnevumhfnq tr, #jnevumhfnq td, #jnevumhfnq th {
+#epyizbqfun thead, #epyizbqfun tbody, #epyizbqfun tfoot, #epyizbqfun tr, #epyizbqfun td, #epyizbqfun th {
   border-style: none;
 }
 
-#jnevumhfnq p {
+#epyizbqfun p {
   margin: 0;
   padding: 0;
 }
 
-#jnevumhfnq .gt_table {
+#epyizbqfun .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1220,12 +1270,12 @@ NAs: 0 (0%)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_caption {
+#epyizbqfun .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jnevumhfnq .gt_title {
+#epyizbqfun .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1237,7 +1287,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-width: 0;
 }
 
-#jnevumhfnq .gt_subtitle {
+#epyizbqfun .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1249,7 +1299,7 @@ NAs: 0 (0%)</code></pre>
   border-top-width: 0;
 }
 
-#jnevumhfnq .gt_heading {
+#epyizbqfun .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1261,13 +1311,13 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_bottom_border {
+#epyizbqfun .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_col_headings {
+#epyizbqfun .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1282,7 +1332,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_col_heading {
+#epyizbqfun .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1302,7 +1352,7 @@ NAs: 0 (0%)</code></pre>
   overflow-x: hidden;
 }
 
-#jnevumhfnq .gt_column_spanner_outer {
+#epyizbqfun .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1314,15 +1364,15 @@ NAs: 0 (0%)</code></pre>
   padding-right: 4px;
 }
 
-#jnevumhfnq .gt_column_spanner_outer:first-child {
+#epyizbqfun .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jnevumhfnq .gt_column_spanner_outer:last-child {
+#epyizbqfun .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jnevumhfnq .gt_column_spanner {
+#epyizbqfun .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1334,11 +1384,11 @@ NAs: 0 (0%)</code></pre>
   width: 100%;
 }
 
-#jnevumhfnq .gt_spanner_row {
+#epyizbqfun .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jnevumhfnq .gt_group_heading {
+#epyizbqfun .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1364,7 +1414,7 @@ NAs: 0 (0%)</code></pre>
   text-align: left;
 }
 
-#jnevumhfnq .gt_empty_group_heading {
+#epyizbqfun .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1379,15 +1429,15 @@ NAs: 0 (0%)</code></pre>
   vertical-align: middle;
 }
 
-#jnevumhfnq .gt_from_md > :first-child {
+#epyizbqfun .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jnevumhfnq .gt_from_md > :last-child {
+#epyizbqfun .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jnevumhfnq .gt_row {
+#epyizbqfun .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1406,7 +1456,7 @@ NAs: 0 (0%)</code></pre>
   overflow-x: hidden;
 }
 
-#jnevumhfnq .gt_stub {
+#epyizbqfun .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1419,7 +1469,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#jnevumhfnq .gt_stub_row_group {
+#epyizbqfun .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1433,15 +1483,15 @@ NAs: 0 (0%)</code></pre>
   vertical-align: top;
 }
 
-#jnevumhfnq .gt_row_group_first td {
+#epyizbqfun .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jnevumhfnq .gt_row_group_first th {
+#epyizbqfun .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jnevumhfnq .gt_summary_row {
+#epyizbqfun .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1451,16 +1501,16 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#jnevumhfnq .gt_first_summary_row {
+#epyizbqfun .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_first_summary_row.thick {
+#epyizbqfun .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jnevumhfnq .gt_last_summary_row {
+#epyizbqfun .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1470,7 +1520,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_grand_summary_row {
+#epyizbqfun .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1480,7 +1530,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#jnevumhfnq .gt_first_grand_summary_row {
+#epyizbqfun .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1490,7 +1540,7 @@ NAs: 0 (0%)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_last_grand_summary_row_top {
+#epyizbqfun .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1500,11 +1550,11 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_striped {
+#epyizbqfun .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jnevumhfnq .gt_table_body {
+#epyizbqfun .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1513,7 +1563,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_footnotes {
+#epyizbqfun .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1527,7 +1577,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_footnote {
+#epyizbqfun .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1536,7 +1586,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#jnevumhfnq .gt_sourcenotes {
+#epyizbqfun .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1550,7 +1600,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#jnevumhfnq .gt_sourcenote {
+#epyizbqfun .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1558,63 +1608,63 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#jnevumhfnq .gt_left {
+#epyizbqfun .gt_left {
   text-align: left;
 }
 
-#jnevumhfnq .gt_center {
+#epyizbqfun .gt_center {
   text-align: center;
 }
 
-#jnevumhfnq .gt_right {
+#epyizbqfun .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jnevumhfnq .gt_font_normal {
+#epyizbqfun .gt_font_normal {
   font-weight: normal;
 }
 
-#jnevumhfnq .gt_font_bold {
+#epyizbqfun .gt_font_bold {
   font-weight: bold;
 }
 
-#jnevumhfnq .gt_font_italic {
+#epyizbqfun .gt_font_italic {
   font-style: italic;
 }
 
-#jnevumhfnq .gt_super {
+#epyizbqfun .gt_super {
   font-size: 65%;
 }
 
-#jnevumhfnq .gt_footnote_marks {
+#epyizbqfun .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jnevumhfnq .gt_asterisk {
+#epyizbqfun .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jnevumhfnq .gt_indent_1 {
+#epyizbqfun .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jnevumhfnq .gt_indent_2 {
+#epyizbqfun .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jnevumhfnq .gt_indent_3 {
+#epyizbqfun .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jnevumhfnq .gt_indent_4 {
+#epyizbqfun .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jnevumhfnq .gt_indent_5 {
+#epyizbqfun .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1681,9 +1731,9 @@ NAs: 0 (0%)</code></pre>
 <h2>Fonction <code>dfSummary()</code> du package <a href="https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html" target="_blank">{summarytools}</a></h2>
 <p><strong>Présentation des résultats dans un tableau, pour variables QN &amp; QL</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">data</span>(iris) </span>
-<span id="cb20-2"><a href=""></a>iris <span class="sc">%&gt;%</span>  </span>
-<span id="cb20-3"><a href=""></a>  summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(<span class="at">graph.col =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">data</span>(iris) </span>
+<span id="cb23-2"><a href=""></a>iris <span class="sc">%&gt;%</span>  </span>
+<span id="cb23-3"><a href=""></a>  summarytools<span class="sc">::</span><span class="fu">dfSummary</span>(<span class="at">graph.col =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Frame Summary  
 iris  
@@ -1720,11 +1770,11 @@ No   Variable       Stats / Values          Freqs (% of Valid)   Valid      Miss
 </div>
 </div>
 </section>
-<section id="vis_miss-du-package-visdat-pour-les-données-manquantes" class="slide level2">
-<h2><code>vis_miss()</code> du package <a href="https://cran.r-project.org/web/packages/visdat/readme/README.html" target="_blank">{visdat}</a> pour les données manquantes</h2>
+<section id="explorer-les-données-manquantes-avec-la-fonction-vis_miss-du-package-visdat" class="slide level2">
+<h2>Explorer les données manquantes avec la fonction <code>vis_miss()</code> du package <a href="https://cran.r-project.org/web/packages/visdat/readme/README.html" target="_blank">{visdat}</a></h2>
 <p><br> <br></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">library</span>(visdat)</span>
-<span id="cb22-2"><a href=""></a><span class="fu">vis_miss</span>(airquality)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(visdat)</span>
+<span id="cb25-2"><a href=""></a><span class="fu">vis_miss</span>(airquality)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="img/vismiss.png" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
@@ -1767,16 +1817,16 @@ No   Variable       Stats / Values          Freqs (% of Valid)   Valid      Miss
 </section></section>
 <section>
 <section id="quelques-packages-conseils" class="title-slide slide level1 inverse center">
-<h1>Quelques packages conseils</h1>
+<h1>9. Quelques packages conseils</h1>
 
 </section>
-<section id="questionr-outils-de-traitement-de-données-denquêtes" class="slide level2">
-<h2><a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a> : Outils de traitement de données d’enquêtes</h2>
+<section id="questionr-particulièrement-dédié-au-traitement-de-données-denquêtes-variables-qualitatives" class="slide level2">
+<h2><a href="https://juba.github.io/questionr/index.html" target="_blank">{questionr}</a> : particulièrement dédié au traitement de données d’enquêtes (variables qualitatives)</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">library</span>(questionr)</span>
-<span id="cb23-2"><a href=""></a><span class="fu">data</span>(hdv2003)</span>
-<span id="cb23-3"><a href=""></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span> <span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">library</span>(questionr)</span>
+<span id="cb26-2"><a href=""></a><span class="fu">data</span>(hdv2003)</span>
+<span id="cb26-3"><a href=""></a><span class="fu">freq</span>(hdv2003<span class="sc">$</span>qualif, <span class="at">cum =</span> <span class="cn">TRUE</span>, <span class="at">total =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span> <span class="st">"dec"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            n     %  val%  %cum val%cum
 Employe                   594  29.7  35.9  29.7    35.9
@@ -1792,11 +1842,11 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 </section>
 <section id="skimr-un-summary-sous-stéroïdes" class="slide level2" data-background-image="img/logo_skimr.png" data-background-size="100px" data-background-position="top 40px right 80px">
-<h2><a href="https://docs.ropensci.org/skimr/" target="_blank">{skimr}</a> : Un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
+<h2><a href="https://docs.ropensci.org/skimr/" target="_blank">{skimr}</a> : un summary sous stéroïdes <span class="emoji" data-emoji="muscle">💪</span></h2>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(skimr)</span>
-<span id="cb25-2"><a href=""></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">library</span>(skimr)</span>
+<span id="cb28-2"><a href=""></a>skimr<span class="sc">::</span><span class="fu">skim</span>(mtcars)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 
 </div>
@@ -1804,7 +1854,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><img data-src="img/skimr.png"></p>
 </section>
 <section id="tidymodels-le-tidyverse-de-la-modélisation" class="slide level2" data-background-image="img/tidymodels.png" data-background-size="150px" data-background-position="top 40px right 80px">
-<h2><a href="https://www.tidymodels.org" target="_blank">{tidymodels}</a> : Le tidyverse de la modélisation</h2>
+<h2><a href="https://www.tidymodels.org" target="_blank">{tidymodels}</a> : le tidyverse de la modélisation</h2>
 <p><br> <br></p>
 <ul>
 <li>Propose une interface unifiée à tous les types de modèles (<code>lm</code>, <code>glm</code>, <code>randomForests</code>, <code>xgboost</code>, etc.)</li>
@@ -1812,9 +1862,9 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p><img data-src="img/tmods.png" style="width:80.0%"></p>
 </section>
 <section id="ggstatsplot-combiner-statistiques-et-représentations-graphiques" class="slide level2" data-background-image="img/ggstatsplots_logo.png" data-background-size="100px" data-background-position="top 40px right 80px">
-<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/" target="_blank">{ggstatsplot}</a> : Combiner statistiques et représentations graphiques</h2>
+<h2><a href="https://indrajeetpatil.github.io/ggstatsplot/" target="_blank">{ggstatsplot}</a> : combiner statistiques et représentations graphiques</h2>
 <p><br></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">library</span>(ggstatsplots)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1833,7 +1883,7 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </div>
 </section>
 <section id="sf-mapsf-traitements-spatiaux-et-cartographie-comme-un-pro" class="slide level2" data-background-image="img/sf.png" data-background-size="100px" data-background-position="top 40px right 80px">
-<h2><a href="https://riatelab.github.io/mapsf/" target="_blank">{sf} &amp; {mapsf}</a> : Traitements spatiaux et cartographie comme un pro</h2>
+<h2><a href="https://riatelab.github.io/mapsf/" target="_blank">{sf} &amp; {mapsf}</a> : traitements spatiaux et cartographie comme un pro</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
@@ -1856,22 +1906,22 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="fragment">
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(ade4)</span>
-<span id="cb27-2"><a href=""></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">library</span>(ade4)</span>
+<span id="cb30-2"><a href=""></a><span class="fu">library</span>(adegraphics)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/ade4.png"></p>
 </div>
 </div><div class="column" style="width:60%;">
 <div class="fragment">
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb28-2"><a href=""></a><span class="fu">library</span>(factoextra) <span class="co"># + FactoInvestigate + FactoShiny</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb31-2"><a href=""></a><span class="fu">library</span>(factoextra) <span class="co"># + FactoInvestigate + FactoShiny</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img data-src="img/facto.png"></p>
 <p><i class="fa-solid fa-caret-right" aria-label="caret-right"></i> <span class="emoji" data-emoji="trophy">🏆</span> en général privilégié</p>
 </div>
 </div>
 </div>
 </section>
-<section id="pcamixdata-lanalyse-mixte" class="slide level2">
-<h2><a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html" target="_blank">{PCAmixdata}</a> : L’analyse mixte</h2>
+<section id="pcamixdata-lanalyse-de-données-mixtes" class="slide level2">
+<h2><a href="https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html" target="_blank">{PCAmixdata}</a> : l’analyse de données mixtes</h2>
 <blockquote>
 <p>Chavent, M., Kuentz-Simonet, V., Labenne, A., &amp; Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.</p>
 </blockquote>
@@ -1886,9 +1936,14 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 <p>Police à installer <a href="https://fonts.google.com/specimen/Fira+Code">ici</a></p>
 <p><img data-src="img/ligatures.png"></p>
 </section></section>
+<section id="aller-plus-loin-et-sortir-de-r-rstudio" class="title-slide slide level1 inverse center">
+<h1>ALLER PLUS LOIN… ET SORTIR DE R &amp; RStudio</h1>
+
+</section>
+
 <section>
-<section id="pour-aller-plus-loin" class="title-slide slide level1 inverse center">
-<h1>Pour aller plus loin</h1>
+<section id="des-outils-pour-valoriser-communiquer-ses-travaux" class="title-slide slide level1 inverse center">
+<h1>10. Des outils pour valoriser, communiquer ses travaux</h1>
 
 </section>
 <section id="markdown" class="slide level2" data-background-image="img/markdown.png" data-background-size="200px" data-background-position="top 40px right 80px">
@@ -1994,8 +2049,8 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
 </ul>
 </section></section>
 <section>
-<section id="conclusion" class="title-slide slide level1 inverse center">
-<h1>Conclusion</h1>
+<section id="pour-conclure" class="title-slide slide level1 inverse center">
+<h1>POUR CONCLURE</h1>
 
 </section>
 <section id="ne-soyons-pas-trop-exigeants" class="slide level2">
@@ -2272,90 +2327,177 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    
+
     <script type="text/javascript" charset="utf-8">
+
       $(document).ready(function() {
+
         // Add `data-footer` on title slide
+
         function addCustomFooter() {
+
           let titleSlide = $("section#title-slide");
+
           let titleSlideFooter = titleSlide.attr('data-footer');
+
           let footer = $('div.footer p');
+
           let globalFooterText = footer.html();
 
+    
+
           if (titleSlide.hasClass('present')) {
+
             footer.html(titleSlideFooter);
+
           }
 
+    
+
           Reveal.on('slidechanged', function(event) {
+
             if (event.currentSlide.matches('#title-slide')) {
+
               footer.html(titleSlideFooter);
+
             } else {
+
               footer.html(globalFooterText);
+
             }
+
           });
+
         }
+
+    
 
         addCustomFooter();
 
+    
+
         // Hide slide number on title slide
+
         function removeSlideNumber() {
+
           let slideNo = $('div.slide-number');
+
           slideNo.addClass('hide');
 
+    
+
           Reveal.on('slidechanged', function(event) {
+
             if (Reveal.isFirstSlide()) {
+
               slideNo.addClass('hide');
+
             } else {
+
               slideNo.removeClass('hide');
+
             }
+
           });
+
         }
+
+    
 
         removeSlideNumber();
+
       });
+
     </script>
+
+    
 
     <style>
+
       .hide {
+
         display: none !important;
+
       }
+
     </style>
+
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2433,6 +2575,24 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -2469,7 +2629,11 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

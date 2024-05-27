@@ -24,9 +24,11 @@ revealjs-plugins:
 from: markdown+emoji
 ---
 
-# Introduction {.inverse}
+# INTRODUCTION GÉNÉRALE {.inverse}
 
-## R -  Rstudio
+# 1. Utiliser les logiciels R & RStudio {.inverse}
+
+## Comment ça fonctionne ?
 
 Cf. Présentation TWIX "Travailler sous R avec RStudio. Comment ça marche ?" disponible à ce lien :
 
@@ -39,7 +41,7 @@ Cf. Présentation TWIX "Travailler sous R avec RStudio. Comment ça marche ?" di
 
 </center>
 
-# Gestion des packages {.inverse}
+# 2. Gérer les packages {.inverse}
 
 ## Préambule : Version de R
 
@@ -47,20 +49,33 @@ Les packages R peuvent dépendre d'une version spécifique de R (ou version mini
 
 ![](img/vers_R.png)
 
-::: {.fragment}
 Les nouvelles versions de R peuvent apporter des corrections, éliminer les bugs... Il est donc intéressant de faire les MAJ "majeures" de printemps : 4.2.x $\rightarrow$ 4.3.x 
-:::
 
-::: {.fragment}
+:::: {.columns}
+
+::: {.column width="50%"}
 ::: {.callout-caution}
 ## Les Breaking Changes
 Certaines versions de R apportent des **breaking changes** qui peuvent casser le fonctionnement de code fonctionnant sur des versions précédentes (ex : `stringAsFactor = FALSE` au lieu de `TRUE` avant la version 4.0). 
 
 A l'inverse, des nouvelles fonctionnalités ne vont marcher que sur des versions récentes (ex : le pipe `|>` à partir de R 4.1.0)
+:::
+:::
 
-:warning: Toujours intégrer la version de R utilisée dans ses analyses / publications :warning:
+::: {.column width="50%"}
+::: {.callout-tip appearance="minimal"}
+### Bonne pratique
+Dans les publications, pensez à intégrer la version de R utilisée dans vos analyses, ainsi que les packages (fonctions) utilisés
+```r
+# Pour citer R
+citation()
+
+# Pour citer un package (ici ggplot2)
+citation("ggplot2")
+```
 :::
 :::
+::::
 
 ## Rappels sur le fonctionnement des packages
 
@@ -125,163 +140,12 @@ filter(iris, Species == "setosa")
 
 ::: {.fragment}
 ::: {.callout-tip appearance="minimal"}
-## Bonne pratique
+### Bonne pratique
 * Privilégier, lorsque c'est possible, les fonctions/packages les plus **stables** possible
 :::
 :::
 
-# Importer ses données {.inverse}
-
-## Importer divers types de données
-
-**Quels types de données peuvent être importés ?** 
-
-- Données dans les formats "plats" ou formats délimités (.csv, .txt)
-- Données issues d'Excel ou d'autres logiciels de statistique (Stata, SPSS, etc.)
-- Données stockées dans des bases de données relationnelles  
-
-::: {.callout-tip appearance="minimal"}
-## Bonne pratique
-**Bien étudier son jeu de données à importer, en se posant les questions suivantes :**
-
-1. La première ligne contient-elle le nom des variables ?  
-2. Quel est le séparateur des colonnes?  
-3. Quel est le caractère utilisé pour indiquer les décimales ? Le point (à l'anglo-saxonne) ou la virgule (à la française) ?  
-4. Les valeurs textuelles sont-elles encadrées par des guillemets ? Si oui, s'agit-il de guillemets simples (`’`) ou de guillemets doubles (`"`) ?  
-5. Y a-t-il des valeurs manquantes ? Si oui comment sont-elles indiquées ? 
-:::
-
-
-## Comment importer les différents fichiers ?
-
-| Type     | Base R                 | Tidyverse                                   | Séparateur de colonnes | Séparateur décimal |
-|:---------|:-----------------------|:--------------------------------------------|:-----------------------|:-------------------|
-| Délimité | `read.csv()`           | `readr::read_csv()`                         | `,`                    | `.`                |
-|          | `read.csv2()`          | `readr::read_csv2()`                        | `;`                    | `,`                |
-|          | `read.table()`         | `readr::read_table()`                       |                        | `.`                |
-|          | `read.delim()`         | `readr::read_delim()`                       | `\t`                   | `.`                |
-|          | `read.delim2()`        | `readr::read_delim2()`                      | `\t`                   | `,`                |
-| Excel    | `xlsx::read.xlsx()`    | `readxl::read_excel()`                      |                        |                    |
-| SPSS     | `foreign::read.spss()` | `haven::read_spss()` ou `haven::read_sav()` |                        |                    |
-| Stata    | `foreign::read.dta()`  | `haven::read_stata()`                       |                        |                    |
-| SAS      | `foreign::read.ssd()`  | `haven::read_sas()`                         |                        |                    |
-| dBase    | `foreign::read.dbf()`  | \-                                          |                        |                    |
-
-
-## Le concept de données `tidy`
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-**Jeu de données "rangé"** :
-
-- chaque variable est dans une colonne
-- chaque observation est dans une ligne
-- chaque valeur est dans une cellule
-:::
-
-::: {.column width="50%"}
-![](img/screenshot_TidyData.png)
-
-Source : Wickham & Grolemund (2017)
-[R for Data Sciences: Visualize, Model, Transform, Tidy and Import Data](https://r4ds.had.co.nz){target="_blank"}
-:::
-
-::::
-
-::: {.callout-caution}
-Ces règles ne sont pas toujours respectées :
-
-- en-têtes de colonnes ne sont pas des noms mais des valeurs
-- plusieurs variables stockées dans une colonne
-- variables stockées dans les lignes et les colonnes
-- plusieurs types d'observations stockés dans le même tableau, etc.
-:::
-
-
-## "Ranger" ses données
-
-**Solution pour ranger ses données = les verbes de `tidyr` :**
-
-- `pivot_longer()` : transformer des colonnes en lignes
-- `pivot_wider()` : transformer des lignes en colonnes
-- `separate()` : séparer une colonne en plusieurs colonnes
-- `separate_rows()` : séparer une colonne en plusieurs lignes
-- `unite()` : regrouper plusieurs colonnes en une seule
-- `extract()` : créer de nouvelles colonnes à partir d'une colonne de texte
-- `complete()` : compléter des combinaisons de variables manquantes
-
-## Besoin d'examiner rapidement vos données dans Excel ? 
-
-Utilisez l'addin `viewxl` pour exporter interactivement des *data frame* de l'environnement global vers Excel
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-- avec la fonction `view_in_excel`  
-![](img/viewxl.png)
-:::
-
-::: {.column width="50%"}
-- dans la console :
-
-```r
-viewxl::view_in_xl(diamonds)
-```
-![](img/excel_danger.jpeg)
-:::
-
-::::
-
-
-# Nommer ses données {.inverse}
-
-## Conventions de nommage
-- **`allowercase`** : tout en minuscule, sans séparateur  
-- **`period.separated`** : tout en minuscule, mots séparés par des points  
-- **`underscore_separated`** : tout en minuscule, mots séparés par un *underscore* (`_`)  
-- **`lowerCamelCase`** : première lettre des mots en majuscule, à l'exception du premier mot ; et si nom simple, tout en minuscule  
-- **`UpperCamelCase`** : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d'un seul mot
-
-::: {.callout-tip appearance="minimal"}
-## Bonne pratique
-Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code
-:::
-
-::: {.callout-caution}
-**R est sensible à la casse** ce qui signifie que `variable` et `Variable` sont deux objets différents. 
-:::
-
-
-## Nommer les fichiers et les objets
-
-**Pour les fichiers**, la structure est la suivante : `numero -- nom -- millesime`.  
-Pas de symboles spéciaux dans le nom du fichier (`-.,;:\/$`^`, caractères accentués, etc.)  
-
-*Exemple : `01_import_donnees_20230606.R`*
-
-**Pour les variables**, il est recommandé d'utiliser un **nom** 
-
-*Exemple : `temperature_max`*
-
-**Pour les fonctions**, il est recommandé d'utiliser un **verbe**
-
-*Exemple : `create.map` serait une fonction qui permettrait de créer une carte*
-
-
-::: {.callout-tip appearance="minimal"}
-## Bonne pratique
-Pour les variables, comme pour les fonctions :  
-
-* ne pas utiliser `T` ou `F` pour nommer des variables (ce sont les abréviations de `TRUE` et `FALSE`)
-* ne pas utiliser de noms qui sont déjà des fonctions de R
-:::
-
-**Une aide pour écrire les scripts de façon _cohérente_**  {{< fa globe >}} [Tidyverse Style Guide](https://style.tidyverse.org/index.html){target="_blank"}  
-
-#  Structuration des scripts {.inverse}
+#  3. Structurer ses scripts {.inverse}
 
 ## Penser reproductibilité
  
@@ -289,11 +153,10 @@ Pour les variables, comme pour les fonctions :
 
 
 ::: {.callout-tip appearance="minimal"}
-## Bonnes pratiques
+### Bonnes pratiques
 * Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. précédemment)
-* Distinguer variables d'origine et variables créées
-* Utilisation des chemins relatifs dans les programmes
-* Possibilité d’exécuter le code sur un autre ordinateur
+* Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou siffixe du nom des variables)
+* Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur
 * Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
 L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci clavier `CRTL + MAJ + C`)
 * Identification de l'ordre d’exécution des programmes pour ré-exécution facilitée de tous les programmes
@@ -331,7 +194,7 @@ dataframe $ variable
 
 - On ne met pas d'espace avant ou après les parenthèses
 
-- En, revanche, les opérateurs de comparaison doivent être entourés d'espace pour ne pas être mal interprétés par R
+- En revanche, les opérateurs de comparaison doivent être entourés d'espace pour ne pas être mal interprétés par R
 
 ```r
 # On écrit
@@ -350,10 +213,10 @@ RStudio signale les erreurs dans la marge des scripts
 :::
 
 
-## Structuration des scripts
+## Structurer son code
 
 ::: {.callout-tip appearance="minimal"}
-## Bonnes pratiques
+### Bonnes pratiques
 
 - Commencer l’écriture du script par les métadonnées (titre auteur, date, version de R, encodage, etc.)
 - Ajouter la liste des packages utilisés et leur version
@@ -365,7 +228,7 @@ library(dplyr)        # v1.1.0
 # automatique
 packages_utilises <- sessionInfo()
 ```
-- Structurer en parties, sous-parties, grâce au raccourci `CTRL + MAJ + R ` ou à l'addin {strcode}
+- Structurer en parties, sous-parties, grâce au raccourci `CTRL + MAJ + R ` ou à l'addin `strcode`
 ```r
 #  Titre 1 -------------------------------------
 ## Titre 2 -------------------------------------
@@ -391,11 +254,188 @@ Il existe des alternatives 'clic-bouton' :
 - [{R Commander}](https://www.john-fox.ca/RCommander/index.html){target="_blank"}, une interface utilisateur graphique (GUI)
 
 ::: {.callout-tip appearance="minimal"}
-## Bonne pratique
+### Bonne pratique
+
 Penser à récupérer les lignes de codes générées par ces utilitaires et à les stocker dans des scripts !
 :::
 
-#  L'export {.inverse}
+# 4. Nommer ses données {.inverse}
+
+## Utiliser des conventions de nommage
+- **`allowercase`** : tout en minuscule, sans séparateur  
+- **`period.separated`** : tout en minuscule, mots séparés par des points  
+- **`underscore_separated`** : tout en minuscule, mots séparés par un *underscore* (`_`)  
+- **`lowerCamelCase`** : première lettre des mots en majuscule, à l'exception du premier mot ; et si nom simple, tout en minuscule  
+- **`UpperCamelCase`** : première lettre des mots en majuscule, y compris le premier et même lorsque le nom est composé d'un seul mot
+
+::: {.callout-tip appearance="minimal"}
+### Bonne pratique
+Possibilité de mixer les conventions mais garder une cohérence afin de faciliter la compréhension des fichiers et du code
+:::
+
+::: {.callout-caution}
+**R est sensible à la casse** ce qui signifie que `variable` et `Variable` sont deux objets différents. 
+:::
+
+## Nommer les fichiers et les objets
+
+- **Pour les fichiers**, on peut les nommer avec la structure `numero_nom_millesime.extension`, sans symboles spéciaux dans le nom  
+*Rappel des symboles spéciaux : `-.,;:\/$`^`, caractères accentués, etc.*
+
+*Exemple : `01_import_donnees_20230606.R`*  
+
+- **Pour les variables**, il est recommandé d'utiliser un **nom**
+
+*Exemple : `temperature_max`*
+
+- **Pour les fonctions**, il est recommandé d'utiliser un **verbe**
+
+*Exemple : `create.map` serait une fonction qui permettrait de créer une carte*
+
+---
+
+::: {.callout-tip appearance="minimal"}
+## Bonne pratique
+Pour les variables, comme pour les fonctions :  
+
+* ne pas utiliser `T` ou `F` pour nommer des variables (ce sont les abréviations de `TRUE` et `FALSE`)
+* ne pas utiliser de noms qui sont déjà des fonctions de R
+:::
+
+
+**Une aide pour écrire les scripts de façon _cohérente_**  {{< fa globe >}} [Tidyverse Style Guide](https://style.tidyverse.org/index.html){target="_blank"}  
+
+
+# 5. Importer ses données {.inverse}
+
+## Importer divers types de données
+
+**Quels types de données peuvent être importés ?** 
+
+- Données dans les formats "plats" ou formats délimités (.csv, .txt)
+- Données issues d'Excel ou d'autres logiciels de statistique (Stata, SPSS, etc.)
+- Données stockées dans des bases de données relationnelles  
+
+::: {.callout-tip appearance="minimal"}
+### Bonne pratique
+**Bien étudier son jeu de données à importer, en se posant les questions suivantes :**
+
+1. La première ligne contient-elle le nom des variables ?  
+2. Quel est le séparateur des colonnes ? (`. , ; \t`)  
+3. Quel est le caractère utilisé pour indiquer les décimales ? Le point (à l'anglo-saxonne) ou la virgule (à la française) ?  
+4. Les valeurs textuelles sont-elles encadrées par des guillemets ? Si oui, s'agit-il de guillemets simples (`’`) ou de guillemets doubles (`"`) ?  
+5. Y a-t-il des valeurs manquantes ? Si oui comment sont-elles indiquées ? 
+:::
+
+## Comment importer les différents fichiers ?
+
+| Type     | Base R                 | Tidyverse                                   | Séparateur de colonnes | Séparateur décimal |
+|:---------|:-----------------------|:--------------------------------------------|:-----------------------|:-------------------|
+| Délimité | `read.csv()`           | `readr::read_csv()`                         | `,`                    | `.`                |
+|          | `read.csv2()`          | `readr::read_csv2()`                        | `;`                    | `,`                |
+|          | `read.table()`         | `readr::read_table()`                       |                        | `.`                |
+|          | `read.delim()`         | `readr::read_delim()`                       | `\t`                   | `.`                |
+|          | `read.delim2()`        | `readr::read_delim2()`                      | `\t`                   | `,`                |
+| Excel    | `xlsx::read.xlsx()`    | `readxl::read_excel()`                      |                        |                    |
+| SPSS     | `foreign::read.spss()` | `haven::read_spss()` ou `haven::read_sav()` |                        |                    |
+| Stata    | `foreign::read.dta()`  | `haven::read_stata()`                       |                        |                    |
+| SAS      | `foreign::read.ssd()`  | `haven::read_sas()`                         |                        |                    |
+| dBase    | `foreign::read.dbf()`  | \-                                          |                        |                    |
+
+---
+
+**Exemple pour un fichier .csv**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+#| code-copy: true
+# En langage R de base
+read.csv(file, header = TRUE, sep = ",", dec = ".")
+```
+
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+#| code-copy: true
+# En "tidyverse"
+readr::read_csv(file, col_names = TRUE)
+```
+
+## Le concept de données `tidy`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+**Jeu de données "rangé"** :
+
+- chaque variable est dans une colonne
+- chaque observation est dans une ligne
+- chaque valeur est dans une cellule
+:::
+
+::: {.column width="50%"}
+![](img/screenshot_TidyData.png)
+
+Source : Wickham & Grolemund (2017)
+[R for Data Sciences: Visualize, Model, Transform, Tidy and Import Data](https://r4ds.had.co.nz){target="_blank"}
+:::
+
+::::
+
+::: {.callout-caution}
+On a des fichiers de données qui ne respectent pas toujours ces règles :
+
+- en-têtes de colonnes ne sont pas des noms mais des valeurs
+- plusieurs variables stockées dans une colonne
+- variables stockées dans les lignes et les colonnes
+- plusieurs types d'observations stockés dans le même tableau, etc.
+:::
+
+
+## "Ranger" ses données
+
+**Solution pour ranger ses données = les verbes de `tidyr` :**
+
+- `pivot_longer()` : transformer des colonnes en lignes
+- `pivot_wider()` : transformer des lignes en colonnes
+- `separate()` : séparer une colonne en plusieurs colonnes
+- `separate_rows()` : séparer une colonne en plusieurs lignes
+- `unite()` : regrouper plusieurs colonnes en une seule
+- `extract()` : créer de nouvelles colonnes à partir d'une colonne de texte
+- `complete()` : compléter des combinaisons de variables manquantes
+
+## Besoin d'examiner rapidement vos données dans Excel ? 
+
+Utilisez l'addin `viewxl` pour exporter interactivement des *data frame* de l'environnement global vers Excel
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- avec la fonction `view_in_xl`  
+![](img/viewxl.png)
+:::
+
+::: {.column width="50%"}
+- dans la console :
+
+```r
+viewxl::view_in_xl(diamonds)
+```
+![](img/excel_danger.jpeg)
+:::
+
+::::
+
+
+#  6. Exporter ses résultats {.inverse}
 
 ## Exporter les graphiques
 
@@ -408,14 +448,14 @@ Cliquer sur 'Export' qui donne accès à trois options différentes :
 
 - **Dans un script**, avec les fonctions `jpeg()`, `png()`, `bmp()` ou `tiff()` ou  `pdf()` du package [{grDevices}](https://uribo.github.io/rpkg_showcase/graphics/grDevices.html){target="_blank"}
 
-```
+```r
 png(filename = "fichier.png")
 ggplot(...)
 dev.off()
 ```
 
 - **On préfèrera utiliser la fonction `ggsave` du package [{ggplot2}](https://ggplot2.tidyverse.org/)**![](img/logo_ggplot2.png){fig-align="center" width="8%"}
-```
+```r
 ggplot(...) +
   ...
 ggsave(filename = name.extension)
@@ -429,13 +469,15 @@ Comme on importe divers formats de données, on peut exporter les données depui
 |:----------------|:-------------------------------------------|:-----------------------------------|
 | .txt            | `write.table()`                            | `readr::write_delim(delim = "\t")` |
 | .csv            | `write.csv()`                              | `readr::write_csv()`               |
-| .xlsx           | `openxlsx2::write_xlsx()`                       | \-                                 |
+| .xlsx           | `openxlsx2::write_xlsx()` OU `writexl::write_xlsx()` | \-                       |
 | .dbf            | `foreign::write.dbf()`                     | \-                                 |
 | .sav (SPSS)     | `foreign::write.foreign(package = "SPSS")` | `haven::write_sav()`               |
 | .dta (Stata)    | `foreign::write.dta()`                     | `haven::write_dta()`               |
 
 
-# Travailler en projets {.inverse}
+# COMMENT ORGANISER SON TRAVAIL ? {.inverse}
+
+# 7. Travailler en projets {.inverse}
 
 ## Créer un projet sous RStudio {background-image="img/rstudio-logo.png" background-size="100px" background-position="top 40px right 80px"} 
 À partir de l'icône dédiée en haut à droite de RStudio
@@ -500,7 +542,9 @@ InraeThemes::new_analysis()
 
 ::::
 
-# Outils d'exploration {.inverse}
+# COMMENT ANALYSER SES DONNÉES ? {.inverse}
+
+# 8. Outils d'exploration {.inverse}
 
 ## Fonction `summary()`
 
@@ -558,7 +602,7 @@ iris %>%
 ```
 
 
-## `vis_miss()` du package [{visdat}](https://cran.r-project.org/web/packages/visdat/readme/README.html){target="_blank"} pour les données manquantes
+## Explorer les données manquantes avec la fonction `vis_miss()` du package [{visdat}](https://cran.r-project.org/web/packages/visdat/readme/README.html){target="_blank"}
 
 <br>
 <br>
@@ -588,9 +632,9 @@ Fonctions utiles pour première exploration des données, sans autre programmati
 **Pour aller plus loin...** programmation lettrée (Rmarkdown/Quarto) [session dédiée si nécessaire]
 :::
 
-#  Quelques packages conseils {.inverse}
+#  9. Quelques packages conseils {.inverse}
 
-## [{questionr}](https://juba.github.io/questionr/index.html){target="_blank"} : Outils de traitement de données d'enquêtes
+## [{questionr}](https://juba.github.io/questionr/index.html){target="_blank"} : particulièrement dédié au traitement de données d'enquêtes (variables qualitatives)
 
 <br>
 
@@ -600,7 +644,7 @@ data(hdv2003)
 freq(hdv2003$qualif, cum = TRUE, total = TRUE, sort = "dec")
 ```
 
-## [{skimr}](https://docs.ropensci.org/skimr/){target="_blank"} : Un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
+## [{skimr}](https://docs.ropensci.org/skimr/){target="_blank"} : un summary sous stéroïdes :muscle: {background-image="img/logo_skimr.png" background-size="100px" background-position="top 40px right 80px"} 
 
 :::: {.columns}
 
@@ -620,7 +664,7 @@ skimr::skim(mtcars)
 ![](img/skimr.png)
 
 
-## [{tidymodels}](https://www.tidymodels.org){target="_blank"} : Le tidyverse de la modélisation {background-image="img/tidymodels.png" background-size="150px" background-position="top 40px right 80px"} 
+## [{tidymodels}](https://www.tidymodels.org){target="_blank"} : le tidyverse de la modélisation {background-image="img/tidymodels.png" background-size="150px" background-position="top 40px right 80px"} 
 
 
 <br>
@@ -630,7 +674,7 @@ skimr::skim(mtcars)
 
 ![](img/tmods.png){width="80%"}
 
-## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
+## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
 <br>
 
@@ -652,7 +696,7 @@ library(ggstatsplots)
 
 ::::
 
-## [{sf} & {mapsf}](https://riatelab.github.io/mapsf/){target="_blank"} : Traitements spatiaux et cartographie comme un pro {background-image="img/sf.png" background-size="100px" background-position="top 40px right 80px"} 
+## [{sf} & {mapsf}](https://riatelab.github.io/mapsf/){target="_blank"} : traitements spatiaux et cartographie comme un pro {background-image="img/sf.png" background-size="100px" background-position="top 40px right 80px"} 
 
 
 :::: {.columns}
@@ -703,7 +747,7 @@ library(factoextra) # + FactoInvestigate + FactoShiny
 ::::
 
 
-## [{PCAmixdata}](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html){target="_blank"} : L'analyse mixte
+## [{PCAmixdata}](https://cran.r-project.org/web/packages/PCAmixdata/vignettes/PCAmixdata.html){target="_blank"} : l'analyse de données mixtes
 
 > Chavent, M., Kuentz-Simonet, V., Labenne, A., & Saracco, J. (2014). Multivariate analysis of mixed data: The R package PCAmixdata. arXiv preprint arXiv:1411.4911.
 
@@ -715,7 +759,9 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 
 ![](img/ligatures.png)
 
-# Pour aller plus loin {.inverse}
+# ALLER PLUS LOIN... ET SORTIR DE R & RStudio {.inverse}
+
+# 10. Des outils pour valoriser, communiquer ses travaux {.inverse} 
 
 ## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
 
@@ -824,7 +870,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 - Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
 
-# Conclusion {.inverse}
+# POUR CONCLURE {.inverse}
 
 ## Ne soyons pas trop exigeants...
 
