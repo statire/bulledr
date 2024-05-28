@@ -584,7 +584,7 @@ iris %>%
 
 ## Fonction `tbl_summary()` du package [{gtsummary}](https://www.danieldsjoberg.com/gtsummary/){target="_blank"}
 
-**Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S'appuie sur Great Tables ({gt})**
+**Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S'appuie sur Great Tables ([{gt}](https://gt.rstudio.com))**
 
 ```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
 data(iris) 
