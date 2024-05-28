@@ -628,7 +628,7 @@ skimr::skim(mtcars)
 
 - Propose une interface unifiée à tous les types de modèles (`lm`, `glm`, `randomForests`, `xgboost`, etc.)
 
-![](img/tmods.png){width="80%"}
+![](img/tidymodels-workflow.jpg){fig-align="center" width="80%"}
 
 ## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : Combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
@@ -719,7 +719,9 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 
 ## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
 
-![](img/hackmd.png){width="80%"}
+<br>
+
+![](img/markdown-ex.png){fig-align="center" width="100%"}
 
 ## Quarto
 
@@ -808,21 +810,30 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::::
 
 
-## Shiny : Des application web
+## Shiny : Des application web {background-image="img/shinylogo.png" background-size="100px" background-position="top 40px right 80px"}
 
 ::: columns
-::: {.column width="70%"}
+::: {.column width="40%"}
 ![](img/shiny.png){fig-align="center" width="80%"}
-:::
-
-::: {.column width="30%"}
-![](img/shinylogo.png){fig-align="left" width="50%"}
-:::
-:::
 
 - Shiny est un package R qui permet de développer facilement des applications web interactives dans une syntaxe R très simple (pouvant être complétée par du HTML / CSS / JS pour les applications les plus abouties).
 
-- Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
+- Outil principalement utilisé pour l'analyse et la visualisation de données, ou encore la mise à disposition de code R "complexe" en presse-bouton
+
+- Excellent outil de valorisation et diffusion des résultats de recherche
+
+:::
+
+::: {.column width="60%"}
+
+<br>
+
+![](img/feature.png)
+:::
+:::
+
+
+
 
 # Conclusion {.inverse}
 
@@ -870,7 +881,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 :::
 
-{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html){target="_blank"}
+{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/](https://statire.github.io/bulledr/01-bonnes_pratiques/){target="_blank"}
 
 
 ## Slides made with ...{.plain}
