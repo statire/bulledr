@@ -155,7 +155,7 @@ filter(iris, Species == "setosa")
 ::: {.callout-tip appearance="minimal"}
 ### Bonnes pratiques
 * Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. précédemment)
-* Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou siffixe du nom des variables)
+* Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou suffixe du nom des variables)
 * Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur
 * Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
 L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci clavier `CRTL + MAJ + C`)
