@@ -10,7 +10,7 @@
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.550">
+  <meta name="generator" content="quarto-1.4.551">
 
   <meta name="author" content="Sandrine LYSER">
   <meta name="author" content="David CARAYON">
@@ -435,6 +435,32 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <center>
 <p><i class="fa-solid fa-globe" aria-label="globe"></i> <a href="https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01" target="_blank">https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01</a> <i class="fa-solid fa-globe" aria-label="globe"></i></p>
 </center>
+</section>
+<section id="lencodage-de-caractères" class="slide level2">
+<h2>L’encodage de caractères</h2>
+<ul>
+<li><p>L’encodage c’est une table de correspondance entre l’ordinateur et la langue humaine (français, anglais, etc.)</p></li>
+<li><p>Il existe plusieurs encodages : ASCII, ISO 8859-15 (latin-9 ou Occidental (euro)), UTF-16, UTF-8, et bien d’autres encore</p></li>
+<li><p>Suivant le système d’exploitation utilisé, l’encodage par défaut n’est pas le même</p>
+<ul>
+<li>Sous Windows par exemple, l’encodage par défaut est généralement Windows-1252</li>
+<li>Sous Linux, c’est généralement UTF-8</li>
+</ul></li>
+<li><p>Si standards différents, problèmes lors d’échanges de fichiers (scripts ou données), qui deviennent illisibles !</p></li>
+<li><p><strong>L’encodage UTF-8 est celui qui permet, à l’heure actuelle, de convertir (vers et depuis) toutes les langues (ou presque)</strong></p></li>
+<li><p>Comment paramétrer sous RStudio ?<br>
+Aller dans Tools &gt; Global Option &gt; Code &gt; Saving &gt; Default text encoding et mettre UTF-8</p></li>
+</ul>
+<div class="callout callout-tip no-icon callout-titled callout-style-simple">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Bonne pratique</strong></p>
+</div>
+<div class="callout-content">
+<p>Utiliser l’encodage UTF-8 pour vos scripts et vos données !</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="gérer-les-packages" class="title-slide slide level1 inverse center">
@@ -579,7 +605,8 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 </div>
 <div class="callout-content">
 <ul>
-<li>Noms des fichiers &amp; variables explicites, suivant les conventions de nommage (cf.&nbsp;précédemment)</li>
+<li>Noms des fichiers &amp; variables explicites, suivant les conventions de nommage (cf. <a href="#/sec-convnom" class="quarto-xref">Section&nbsp;5.1</a>)</li>
+<li>Distinguer variables d’origine et variables créées en adoptant une règle de convention (par ex. utiliser <code>recod</code> en préfixe ou siffixe du nom des variables)</li>
 <li>Distinguer variables d’origine et variables créées en adoptant une règle de convention (par ex. utiliser <code>recod</code> en préfixe ou suffixe du nom des variables)</li>
 <li>Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur</li>
 <li>Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie). L’ajout des commentaires se fait en ajoutant <code>#</code> en début de ligne (raccourci clavier <code>CRTL + MAJ + C</code>)</li>
@@ -627,7 +654,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <li><p>En revanche, les opérateurs de comparaison doivent être entourés d’espace pour ne pas être mal interprétés par R</p></li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># On écrit</span></span>
-<span id="cb7-2"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>  </span>
+<span id="cb7-2"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  </span>
 <span id="cb7-3"><a href=""></a><span class="dv">1</span> <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span></span>
 <span id="cb7-4"><a href=""></a></span>
 <span id="cb7-5"><a href=""></a><span class="co"># et non </span></span>
@@ -706,7 +733,7 @@ David CARAYON <a href="https://orcid.org/0000-0003-0217-2175" class="quarto-titl
 <h1>4. Nommer ses données</h1>
 
 </section>
-<section id="utiliser-des-conventions-de-nommage" class="slide level2">
+<section id="sec-convnom" class="slide level2">
 <h2>Utiliser des conventions de nommage</h2>
 <ul>
 <li><strong><code>allowercase</code></strong> : tout en minuscule, sans séparateur<br>
@@ -1228,23 +1255,23 @@ NAs: 0 (0%)</code></pre>
 <span id="cb22-3"><a href=""></a>  gtsummary<span class="sc">::</span><span class="fu">tbl_summary</span>()</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<div id="whkggyoodk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#whkggyoodk table {
+<div id="ubrbsoeoul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ubrbsoeoul table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#whkggyoodk thead, #whkggyoodk tbody, #whkggyoodk tfoot, #whkggyoodk tr, #whkggyoodk td, #whkggyoodk th {
+#ubrbsoeoul thead, #ubrbsoeoul tbody, #ubrbsoeoul tfoot, #ubrbsoeoul tr, #ubrbsoeoul td, #ubrbsoeoul th {
   border-style: none;
 }
 
-#whkggyoodk p {
+#ubrbsoeoul p {
   margin: 0;
   padding: 0;
 }
 
-#whkggyoodk .gt_table {
+#ubrbsoeoul .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1270,12 +1297,12 @@ NAs: 0 (0%)</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_caption {
+#ubrbsoeoul .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#whkggyoodk .gt_title {
+#ubrbsoeoul .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1287,7 +1314,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-width: 0;
 }
 
-#whkggyoodk .gt_subtitle {
+#ubrbsoeoul .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1299,7 +1326,7 @@ NAs: 0 (0%)</code></pre>
   border-top-width: 0;
 }
 
-#whkggyoodk .gt_heading {
+#ubrbsoeoul .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1311,13 +1338,13 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_bottom_border {
+#ubrbsoeoul .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_col_headings {
+#ubrbsoeoul .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1332,7 +1359,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_col_heading {
+#ubrbsoeoul .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1352,7 +1379,7 @@ NAs: 0 (0%)</code></pre>
   overflow-x: hidden;
 }
 
-#whkggyoodk .gt_column_spanner_outer {
+#ubrbsoeoul .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1364,15 +1391,15 @@ NAs: 0 (0%)</code></pre>
   padding-right: 4px;
 }
 
-#whkggyoodk .gt_column_spanner_outer:first-child {
+#ubrbsoeoul .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#whkggyoodk .gt_column_spanner_outer:last-child {
+#ubrbsoeoul .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#whkggyoodk .gt_column_spanner {
+#ubrbsoeoul .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1384,11 +1411,11 @@ NAs: 0 (0%)</code></pre>
   width: 100%;
 }
 
-#whkggyoodk .gt_spanner_row {
+#ubrbsoeoul .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#whkggyoodk .gt_group_heading {
+#ubrbsoeoul .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1414,7 +1441,7 @@ NAs: 0 (0%)</code></pre>
   text-align: left;
 }
 
-#whkggyoodk .gt_empty_group_heading {
+#ubrbsoeoul .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1429,15 +1456,15 @@ NAs: 0 (0%)</code></pre>
   vertical-align: middle;
 }
 
-#whkggyoodk .gt_from_md > :first-child {
+#ubrbsoeoul .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#whkggyoodk .gt_from_md > :last-child {
+#ubrbsoeoul .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#whkggyoodk .gt_row {
+#ubrbsoeoul .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1456,7 +1483,7 @@ NAs: 0 (0%)</code></pre>
   overflow-x: hidden;
 }
 
-#whkggyoodk .gt_stub {
+#ubrbsoeoul .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1469,7 +1496,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#whkggyoodk .gt_stub_row_group {
+#ubrbsoeoul .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1483,15 +1510,15 @@ NAs: 0 (0%)</code></pre>
   vertical-align: top;
 }
 
-#whkggyoodk .gt_row_group_first td {
+#ubrbsoeoul .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#whkggyoodk .gt_row_group_first th {
+#ubrbsoeoul .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#whkggyoodk .gt_summary_row {
+#ubrbsoeoul .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1501,16 +1528,16 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#whkggyoodk .gt_first_summary_row {
+#ubrbsoeoul .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_first_summary_row.thick {
+#ubrbsoeoul .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#whkggyoodk .gt_last_summary_row {
+#ubrbsoeoul .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1520,7 +1547,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_grand_summary_row {
+#ubrbsoeoul .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1530,7 +1557,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#whkggyoodk .gt_first_grand_summary_row {
+#ubrbsoeoul .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1540,7 +1567,7 @@ NAs: 0 (0%)</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_last_grand_summary_row_top {
+#ubrbsoeoul .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1550,11 +1577,11 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_striped {
+#ubrbsoeoul .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#whkggyoodk .gt_table_body {
+#ubrbsoeoul .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1563,7 +1590,7 @@ NAs: 0 (0%)</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_footnotes {
+#ubrbsoeoul .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1577,7 +1604,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_footnote {
+#ubrbsoeoul .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1586,7 +1613,7 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#whkggyoodk .gt_sourcenotes {
+#ubrbsoeoul .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1600,7 +1627,7 @@ NAs: 0 (0%)</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#whkggyoodk .gt_sourcenote {
+#ubrbsoeoul .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1608,63 +1635,63 @@ NAs: 0 (0%)</code></pre>
   padding-right: 5px;
 }
 
-#whkggyoodk .gt_left {
+#ubrbsoeoul .gt_left {
   text-align: left;
 }
 
-#whkggyoodk .gt_center {
+#ubrbsoeoul .gt_center {
   text-align: center;
 }
 
-#whkggyoodk .gt_right {
+#ubrbsoeoul .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#whkggyoodk .gt_font_normal {
+#ubrbsoeoul .gt_font_normal {
   font-weight: normal;
 }
 
-#whkggyoodk .gt_font_bold {
+#ubrbsoeoul .gt_font_bold {
   font-weight: bold;
 }
 
-#whkggyoodk .gt_font_italic {
+#ubrbsoeoul .gt_font_italic {
   font-style: italic;
 }
 
-#whkggyoodk .gt_super {
+#ubrbsoeoul .gt_super {
   font-size: 65%;
 }
 
-#whkggyoodk .gt_footnote_marks {
+#ubrbsoeoul .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#whkggyoodk .gt_asterisk {
+#ubrbsoeoul .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#whkggyoodk .gt_indent_1 {
+#ubrbsoeoul .gt_indent_1 {
   text-indent: 5px;
 }
 
-#whkggyoodk .gt_indent_2 {
+#ubrbsoeoul .gt_indent_2 {
   text-indent: 10px;
 }
 
-#whkggyoodk .gt_indent_3 {
+#ubrbsoeoul .gt_indent_3 {
   text-indent: 15px;
 }
 
-#whkggyoodk .gt_indent_4 {
+#ubrbsoeoul .gt_indent_4 {
   text-indent: 20px;
 }
 
-#whkggyoodk .gt_indent_5 {
+#ubrbsoeoul .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2334,90 +2361,177 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    
+
     <script type="text/javascript" charset="utf-8">
+
       $(document).ready(function() {
+
         // Add `data-footer` on title slide
+
         function addCustomFooter() {
+
           let titleSlide = $("section#title-slide");
+
           let titleSlideFooter = titleSlide.attr('data-footer');
+
           let footer = $('div.footer p');
+
           let globalFooterText = footer.html();
 
+    
+
           if (titleSlide.hasClass('present')) {
+
             footer.html(titleSlideFooter);
+
           }
 
+    
+
           Reveal.on('slidechanged', function(event) {
+
             if (event.currentSlide.matches('#title-slide')) {
+
               footer.html(titleSlideFooter);
+
             } else {
+
               footer.html(globalFooterText);
+
             }
+
           });
+
         }
+
+    
 
         addCustomFooter();
 
+    
+
         // Hide slide number on title slide
+
         function removeSlideNumber() {
+
           let slideNo = $('div.slide-number');
+
           slideNo.addClass('hide');
 
+    
+
           Reveal.on('slidechanged', function(event) {
+
             if (Reveal.isFirstSlide()) {
+
               slideNo.addClass('hide');
+
             } else {
+
               slideNo.removeClass('hide');
+
             }
+
           });
+
         }
+
+    
 
         removeSlideNumber();
+
       });
+
     </script>
+
+    
 
     <style>
+
       .hide {
+
         display: none !important;
+
       }
+
     </style>
+
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2495,6 +2609,24 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
         // clear code selection
         e.clearSelection();
       });
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -2531,7 +2663,11 @@ Total                    2000 100.0 100.0 100.0   100.0</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {
