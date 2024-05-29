@@ -41,6 +41,30 @@ Cf. Présentation TWIX "Travailler sous R avec RStudio. Comment ça marche ?" di
 
 </center>
 
+
+## L'encodage de caractères
+
+- L'encodage c'est une table de correspondance entre l'ordinateur et la langue  humaine (français, anglais, etc.)
+
+- Il existe plusieurs encodages : ASCII, ISO 8859-15 (latin-9 ou Occidental (euro)), UTF-16, UTF-8, et bien d'autres encore
+
+- Suivant le système d'exploitation utilisé, l'encodage par défaut n'est pas le même
+  * Sous Windows par exemple, l'encodage par défaut est généralement Windows-1252
+  * Sous Linux, c'est généralement UTF-8  
+
+- Si standards différents, problèmes lors d'échanges de fichiers (scripts ou données), qui deviennent illisibles !  
+
+- **L'encodage UTF-8 est celui qui permet, à l'heure actuelle, de convertir (vers et depuis) toutes les langues (ou presque)**  
+
+- Comment paramétrer sous RStudio ?  
+Aller dans Tools > Global Option > Code > Saving > Default text encoding et mettre UTF-8
+
+
+::: {.callout-tip appearance="minimal"}
+### Bonne pratique
+Utiliser l'encodage UTF-8 pour vos scripts et vos données !
+:::
+
 # 2. Gérer les packages {.inverse}
 
 ## Préambule : Version de R
@@ -154,8 +178,9 @@ filter(iris, Species == "setosa")
 
 ::: {.callout-tip appearance="minimal"}
 ### Bonnes pratiques
-* Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. précédemment)
+* Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. @sec-convnom)
 * Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou siffixe du nom des variables)
+* Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou suffixe du nom des variables)
 * Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur
 * Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
 L'ajout des commentaires se fait en ajoutant `#` en début de ligne (raccourci clavier `CRTL + MAJ + C`)
@@ -198,7 +223,7 @@ dataframe $ variable
 
 ```r
 # On écrit
-mean(x, na.rm = TRUE  
+mean(x, na.rm = TRUE)  
 1 < -10
 
 # et non 
@@ -261,7 +286,7 @@ Penser à récupérer les lignes de codes générées par ces utilitaires et à 
 
 # 4. Nommer ses données {.inverse}
 
-## Utiliser des conventions de nommage
+## Utiliser des conventions de nommage {#sec-convnom}
 - **`allowercase`** : tout en minuscule, sans séparateur  
 - **`period.separated`** : tout en minuscule, mots séparés par des points  
 - **`underscore_separated`** : tout en minuscule, mots séparés par un *underscore* (`_`)  
@@ -584,7 +609,7 @@ iris %>%
 
 ## Fonction `tbl_summary()` du package [{gtsummary}](https://www.danieldsjoberg.com/gtsummary/){target="_blank"}
 
-**Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S'appuie sur Great Tables ({gt})**
+**Permet la production de tableaux croisés et autre tables complexes prêtes pour publication. S'appuie sur Great Tables ([{gt}](https://gt.rstudio.com))**
 
 ```{r, eval = TRUE, include = TRUE, echo = TRUE, message = FALSE, warning = FALSE}
 data(iris) 
@@ -672,7 +697,7 @@ skimr::skim(mtcars)
 
 - Propose une interface unifiée à tous les types de modèles (`lm`, `glm`, `randomForests`, `xgboost`, etc.)
 
-![](img/tmods.png){width="80%"}
+![](img/tidymodels-workflow.jpg){fig-align="center" width="80%"}
 
 ## [{ggstatsplot}](https://indrajeetpatil.github.io/ggstatsplot/){target="_blank"} : combiner statistiques et représentations graphiques {background-image="img/ggstatsplots_logo.png" background-size="100px" background-position="top 40px right 80px"} 
 
@@ -765,7 +790,9 @@ Police à installer [ici](https://fonts.google.com/specimen/Fira+Code)
 
 ## Markdown {background-image="img/markdown.png" background-size="200px" background-position="top 40px right 80px"}
 
-![](img/hackmd.png){width="80%"}
+<br>
+
+![](img/markdown-ex.png){fig-align="center" width="100%"}
 
 ## Quarto
 
@@ -854,21 +881,30 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 ::::
 
 
-## Shiny : Des application web
+## Shiny : Des application web {background-image="img/shinylogo.png" background-size="100px" background-position="top 40px right 80px"}
 
 ::: columns
-::: {.column width="70%"}
+::: {.column width="40%"}
 ![](img/shiny.png){fig-align="center" width="80%"}
-:::
-
-::: {.column width="30%"}
-![](img/shinylogo.png){fig-align="left" width="50%"}
-:::
-:::
 
 - Shiny est un package R qui permet de développer facilement des applications web interactives dans une syntaxe R très simple (pouvant être complétée par du HTML / CSS / JS pour les applications les plus abouties).
 
-- Outil principalement utilisé pour l'analyse et la visualisation de données (mais pas que)
+- Outil principalement utilisé pour l'analyse et la visualisation de données, ou encore la mise à disposition de code R "complexe" en presse-bouton
+
+- Excellent outil de valorisation et diffusion des résultats de recherche
+
+:::
+
+::: {.column width="60%"}
+
+<br>
+
+![](img/feature.png)
+:::
+:::
+
+
+
 
 # POUR CONCLURE {.inverse}
 
@@ -916,7 +952,7 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 
 :::
 
-{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html){target="_blank"}
+{{< fa brands slideshare >}} Slides consultables ici : <br> [https://statire.github.io/bulledr/01-bonnes_pratiques/](https://statire.github.io/bulledr/01-bonnes_pratiques/){target="_blank"}
 
 
 ## Slides made with ...{.plain}

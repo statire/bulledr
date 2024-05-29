@@ -8,7 +8,7 @@
 
 - Présentation TWIX du 01 juin 2023 : [Travailler sous R avec RStudio. Comment ça marche ?](https://statire.github.io/bulledr/00-TWIX/TWIX_2023_06_01#/title-slide)
 
-- Bonnes pratiques à ETTIS : ["Bonnes pratiques à ETTIS"](https://statire.github.io/bulledr/01-bonnes_pratiques/01-bonnes_pratiques.html#/title-slide)
+- Bonnes pratiques à ETTIS : ["Bonnes pratiques à ETTIS"](https://statire.github.io/bulledr/01-bonnes_pratiques/)
 
 - [Cheatsheet](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf) (PDF)
 
