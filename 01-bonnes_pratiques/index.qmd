@@ -179,7 +179,6 @@ filter(iris, Species == "setosa")
 ::: {.callout-tip appearance="minimal"}
 ### Bonnes pratiques
 * Noms des fichiers & variables explicites, suivant les conventions de nommage (cf. @sec-convnom)
-* Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou siffixe du nom des variables)
 * Distinguer variables d'origine et variables créées en adoptant une règle de convention (par ex. utiliser `recod` en préfixe ou suffixe du nom des variables)
 * Utilisation des chemins relatifs dans les programmes pour exécuter sans problème le code sur un autre ordinateur
 * Coder de façon compréhensible avec des commentaires (aucune documentation supplémentaire ne devrait être fournie).
@@ -964,3 +963,4 @@ Le projet 1 peut utiliser dplyr 1.0.2 et le projet 2 dplyr 0.8.2
 {{< fa brands github >}}   [https://github.com/davidcarayon/quarto-inrae-extension](https://github.com/davidcarayon/quarto-inrae-extension){target="_blank"}
 
 </center>
+
