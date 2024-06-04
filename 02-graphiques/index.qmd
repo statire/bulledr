@@ -21,6 +21,8 @@ format:
 revealjs-plugins:
   - pointer
 from: markdown+emoji
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, eval = TRUE, include = FALSE, echo = FALSE}
@@ -423,10 +425,10 @@ mtext(text = "Source : data(iris)" # texte à afficher
    + `{paletteer}` : des milliers de palettes
    + `{cols4all}` : une application shiny pour explorer les palettes
 - Sites
-   + informations sur une couleur : <https://chir.ag/projects/name-that-color/>
-   + un générateur de palettes de couleurs : <https://coolors.co/>
-   + palettes de couleurs prédéfinies : <https://flatuicolors.com/>
-   + palettes de couleurs pour la cartographie : <http://colorbrewer2.org> 
+   + informations sur une couleur : <https://chir.ag/projects/name-that-color/>{target="_blank"}
+   + un générateur de palettes de couleurs : <https://coolors.co/>{target="_blank"}
+   + palettes de couleurs prédéfinies : <https://flatuicolors.com/>{target="_blank"}
+   + palettes de couleurs pour la cartographie : <http://colorbrewer2.org>{target="_blank"}
 
 ##  Sauvegarde d'un graphique
 
@@ -459,9 +461,7 @@ dev.off()
    `install.packages("ggplot2")` 
 - **Chargement**  
    `library(ggplot2)`  
-- **Fonction de base**  
-   `qplot(x, y, data = dataframe)`  
-- **Fonction pour graphiques plus perfectionnés**  
+- **Graphique**
    `ggplot(data = dataframe, aes = (x, y)) + layers`  
    Initialisation du graphique auquel on ajoute des couches (_layers_) pour modifier la représentation  
    $\Rightarrow$ _des graphiques complexes et au design moderne_
@@ -658,7 +658,7 @@ ggplot(data = iris) +
    + `coord_equal()` : pour avoir la même échelle pour l'axe des abscisses et des ordonnées  (cartésiens)
    + `coord_flip()`: pour inverser l'axe des abscisses et des ordonnées
    + `coord_cartesian()` : pour fixer des limites
-   + `coord_polar()` : pour les graphiques circulaires
+   + `coord_radial()` : pour les graphiques circulaires
    + `coord_map()` : pour différentes projections cartographiques
 
 ##  Couche _coord_ (2/2)
@@ -680,6 +680,10 @@ ggplot(data = iris) +
 Les thèmes prédéfinis  
 
 ![](img/ggplot2_themes.png)
+
+::: {.callout-tip}
+[{InraeThemes}](https://davidcarayon.github.io/InraeThemes/) pour un thème prédéfini aux couleurs Inrae
+:::
 
 ##  Couches additionnelles (1/2)
 
@@ -726,7 +730,7 @@ ggsave(filename = name.extension)
 
 #   GRAPHIQUES ANIMÉS {.inverse}
 
-##  Avec le package `{plotly}`
+##  Avec le package [`{plotly}`](https://plotly.com/r/){target="_blank"}
 ```{r}
 #| eval: true
 #| include: true
@@ -736,11 +740,27 @@ ggsave(filename = name.extension)
 ggplot(iris) +
   aes(x = Sepal.Length, y = Petal.Length, color = Species) +
   geom_point() -> p
-# Afficher une infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
+# Infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
 plotly::ggplotly(p)
 ```
 
-##  Avec le package `{gganimate}`{.smaller .r-stretch}
+##  Avec le package [`{ggiraph}`](https://davidgohel.github.io/ggiraph/){target="_blank"}
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 4.5
+ggplot(iris) +
+  ggiraph::geom_point_interactive(aes(x = Sepal.Length
+                                      , y = Petal.Length
+                                      , tooltip = Species
+                                      , data_id = row.names(iris))) -> p
+# Infobulle pour afficher la valeur de Species au clic sur un point
+ggiraph::girafe(ggobj = p)
+```
+
+##  Avec le package [`{gganimate}`](https://gganimate.com/){target="_blank"}{.smaller .r-stretch}
 ```{r}
 #| eval: true
 #| include: true
@@ -757,7 +777,7 @@ plotly::ggplotly(p)
   labs(title = "{closest_state}") # affichage de la valeur de l'état dans le titre
 ```
 
-##  Avec le package `{ggvis}`
+##  Avec le package [`{ggvis}`](https://ggvis.rstudio.com/){target="_blank"}
 ```{r}
 #| eval: true
 #| include: true
@@ -767,7 +787,7 @@ plotly::ggplotly(p)
 iris %>%
     ggvis::ggvis(x = ~Sepal.Length, y = ~Petal.Length, fill = ~Species) %>%
     ggvis::layer_points() %>% 
-    # Ajouter une infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
+    # Infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
     ggvis::add_tooltip(function(df) paste0("Species: ", df$Species
                                            , "<br>"
                                            , "Petal Length: ", format(df$Petal.Length, digits = 2)
@@ -782,7 +802,7 @@ iris %>%
 - Le package [{ggrepel}](https://ggrepel.slowkow.com/){target="_blank"} pour placer les étiquettes dans les graphiques sans qu'elles ne se superposent
 - 2 _packages/addins_ 
    - [{esquisse}](https://dreamrs.github.io/esquisse/){target="_blank"} : une interface "clic bouton" pour créér des graphiques, avec la possibilité de récupérer les lignes de code  
-   - [{ggThemeAssist}](https://github.com/calligross/ggthemeassist) : pour se familiariser avec les nombreux éléments personnalisables
+   - [{ggThemeAssist}](https://github.com/calligross/ggthemeassist){target="_blank"} : pour se familiariser avec les nombreux éléments personnalisables
       - **Settings** : Plot dimensions
       - **Panel & Background** : Plot Background ; Panel Background ; Grid Major ; Grid Minor
       - **Axis** : Axis text ; Axis text.x ; Axis text.y ; Axis line ; Axis ticks
@@ -790,10 +810,9 @@ iris %>%
       - **Legend** : Legend position ; Legend Title ; Legend Text ; Legend Background ; Legend Keys
       - **Subtitle & Caption**
 - Des ressources en ligne
-   - [{gplot2extensions}](https://exts.ggplot2.tidyverse.org/){target="_blank"} qui recense les extensions développées par les utilisateurs de R
-   - [{r-charts}](https://r-charts.com/){target="_blank"} pour trouver des exemples de code pour les graphiques (y compris graphiques en R de base) et les couleurs
    - {{< fa book >}}   [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/){target="_blank"}
     - {{< fa book >}}   [R Graphics Cookbook, 2nd edition](https://r-graphics.org/){target="_blank"}
-
-
+    - {{< fa globe >}}   [Data Visualization & Information Design](https://www.cedricscherer.com){target="_blank"}
+   - {{< fa globe >}} [gplot2extensions](https://exts.ggplot2.tidyverse.org/){target="_blank"} qui recense les extensions développées par les utilisateurs de R
+   - {{< fa globe >}}[r-charts](https://r-charts.com/){target="_blank"} pour trouver des exemples de code pour les graphiques (y compris graphiques en R de base) et les couleurs
 
