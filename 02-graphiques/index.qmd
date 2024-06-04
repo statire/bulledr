@@ -1,0 +1,799 @@
+---
+title: "Bulle d'R : Visualisations graphiques avec R"
+date: "2024-06-04"
+date-format: long
+lang: fr  
+author:
+  - name: Sandrine LYSER
+    orcid: 0000-0001-6820-0672
+    email: sandrine.lyser@inrae.fr
+  - name: David CARAYON
+    email: david.carayon@inrae.fr
+    orcid: 0000-0003-0217-2175
+format: 
+  inrae-revealjs:
+    footer: "Bulle d'R | Visualisations graphiques"
+    transition: none
+    logo: img/bloc-etat.png
+    include-after-body: revealjs-clean-title-slide.html
+    title-slide-attributes:
+        data-footer: "<a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://www.etalab.gouv.fr/wp-content/uploads/2011/10/licence-ouverte-open-licence.gif' /><br></a>Présentation diffusée sous <a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'>Licence ouverte</a>."
+revealjs-plugins:
+  - pointer
+from: markdown+emoji
+---
+
+```{r, eval = TRUE, include = FALSE, echo = FALSE}
+library(tidyverse)
+```
+
+#   INTRODUCTION {.inverse}
+
+##  Représentations graphiques
+
+- Différentes formes de représentations graphiques en fonction  
+
+  - des principales variables utilisées (continues, discrètes/qualitatives, un mix des deux)  
+  - et de leur nombre (une, deux ou plusieurs)  
+
+- Un site pour aider à trouver la représentation la plus appropriée aux données
+
+```{=html}
+<p align="center"><iframe scrolling= "yes" width = "800" height = "400" allowfullscreen="TRUE" src="https://www.data-to-viz.com/"></iframe></p>
+<p align="right">Site : <a href=https://www.data-to-viz.com/>from Data to Viz</a></p>
+```
+##   Quelques rappels pour la réalisation des graphiques  
+
+- "Le moins est le mieux" $\Rightarrow$ épurer le graphique et retirer la 3D pour le rendre plus compréhensible
+- Les objets proches sont perçus comme appartenant à un même groupe $\Rightarrow$ positionner côte à côte les éléments que l'on souhaite voir analysés ensemble, comparés l'un à l'autre
+- Certains éléments peuvent être omis sans réduire la compréhension (axe des abscisses selon les cas)
+- Pour alléger les visualisation, ne pas "fermer" les graphiques avec un cadre
+- Dans un diagramme en barre, l'axe des ordonnées commence à 0
+
+##  Plusieurs systèmes graphiques sous R  
+
+- Un système de base, avec le package `{graphics}` 
+- Un système plus complet, le système _grid_, sur lequel se basent les packages  
+
+   + `{lattice}` qui fournit des visualisations de données, puissantes et élégantes, inspirées des graphiques _treillis_  
+   + `{ggplot2}` qui définit des graphiques en utilisant une grammaire particulière (_grammar of graphics_)  
+
+#   VISUALISATION GRAPHIQUE R STANDARD {.inverse}
+
+## Création d'un graphique 
+
+**En 3 étapes, à l'aide des packages `{graphics}` et `{grDevice}`**
+
+- Étape 1. Configuration des paramètres graphiques (optionnel)  
+- Étape 2. Initialisation du graphique  
+- Étape 3. Ajout d'éléments au graphique initialisé à l'étape 2
+
+## 1. Configuration des paramètres graphiques
+
+**2 fonctions**
+
+- `par()` : pour définir ou interroger les paramètres de la fenêtre graphique (marges, couleurs, découpage de la fenêtre, etc.)
+- `layout()` : pour personnaliser la disposition des graphiques  
+
+## Fonction `par()`
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 4
+# Exemple pour 4 graphiques dans une fenêtre
+par(mfrow = c(2, 2)                           # Fenêtre découpée en 2 lignes et 2 colonnes
+    , bg = "azure4"                           # Couleur de fond
+    , col = "white"                           # Couleur du graphique
+    , mar = c(b = 2.5, l = 5, t = 3, r = 1))  # Marges de chaque graphique (bottom, left, top, right)
+
+plot(iris$Sepal.Length, main = "plot 1")
+plot(iris$Petal.Length, main = "plot 2")
+plot(iris$Sepal.Width, main = "plot 3")
+plot(iris$Petal.Width, main = "plot 4")
+```
+
+## Fonction `layout()`
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 3.5
+#| # Découpage de la fenêtre graphique
+layout(matrix(nrow = 4, ncol = 3, byrow = TRUE
+                    , data = c(1, 2, 2,
+                               1, 4, 4,
+                               3, 4, 4,
+                               3, 4, 4)))
+
+plot(iris$Sepal.Length, main = "plot 1")
+plot(iris$Petal.Length, main = "plot 2")
+plot(iris$Sepal.Width, main = "plot 3")
+plot(iris$Petal.Width, main = "plot 4")
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3.5
+#| # Découpage de la fenêtre graphique
+par(mar = c(b = 2.5, l = 5, t = 3, r = 1))
+layout(matrix(nrow = 4, ncol = 3, byrow = TRUE
+                    , data = c(1, 2, 2,
+                               1, 4, 4,
+                               3, 4, 4,
+                               3, 4, 4)))
+
+plot(iris$Sepal.Length, main = "plot 1")
+plot(iris$Petal.Length, main = "plot 2")
+plot(iris$Sepal.Width, main = "plot 3")
+plot(iris$Petal.Width, main = "plot 4")
+```
+
+## 2. Initialisation du graphique
+
+- Avec la fonction de base `plot(x = VarX, y = VarY)` ou sous forme de formule `plot(varY ~ varX)`
+
+::: {.callout-note appearance="simple"}
+La fonction `plot()` s'adapte au type de données
+:::
+
+- Avec les fonctions pour un type spécifique  
+  - `hist()` : histogramme des fréquences d'une variable numérique  
+  - `boxplot()` : boîte à moustaches pour la distribution d'une variable continue   - `barplot()` : diagramme en barres pour la fréquence des valeurs d'une variable catégorielle  
+  - `pie()` : diagramme circulaire/graphique en secteurs/camembert pour la fréquence des valeurs d'une variable catégorielle **non ordonnée**  
+
+##  Fonction `plot()`
+
+:::: {.columns}
+::: {.column width="50%"}
+_1 variable QN_ - **Nuage de points ordonnés**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+plot(iris$Sepal.Length)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 0.5, r = 0))
+plot(iris$Sepal.Length)
+```
+
+_2 variables QN_ - **Nuage de points**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+plot(x = iris$Sepal.Length, y = iris$Petal.Length)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 0.5, r = 0))
+plot(x = iris$Sepal.Length, y = iris$Petal.Length)
+```
+:::
+
+::: {.column width="50%"} 
+_1 variable QN vs 1 variable QL_ - **Boxplot**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+plot(x = iris$Species, y = iris$Sepal.Length)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 0.5, r = 0))
+plot(x = iris$Species, y = iris$Sepal.Length)
+```
+
+_1 variable QL_ - **Diagramme en barres**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+plot(iris$Species)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 0.5, r = 0))
+plot(iris$Species)
+```
+:::
+::::
+
+##  Fonctions spécifiques
+
+:::: {.columns}
+::: {.column width="50%"}
+**Histogramme de distribution**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+hist(iris$Sepal.Length)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 1, r = 0))
+hist(iris$Sepal.Length)
+```
+
+**Camembert**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+pie(table(iris$Species))
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 1, r = 0))
+pie(table(iris$Species))
+```
+:::
+
+::: {.column width="50%"} 
+**Boxplot**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+boxplot(Sepal.Length ~ Species, data = iris)
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 1, r = 0))
+boxplot(Sepal.Length ~ Species, data = iris)
+```
+
+**Diagramme en barres**
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+barplot(table(iris$Species))
+```
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+#| fig-height: 3
+par(mar = c(b = 4, l = 4, t = 1, r = 0))
+barplot(table(iris$Species))
+```
+:::
+::::
+
+## 3. Ajout d'éléments au graphique 
+
+- `points()` : des points  
+- `lines()` : des points reliés par une ligne  
+- `abline()` : une ligne droite horizontale qui traverse la zone graphique  
+- `segments()` : un segment de droite  
+- `arrows()` : une flèche  
+- `rect()` : un rectangle  
+- `polygon()` :  un polygone  
+- `legend()`: une légende  
+- `axis()`: un axe  
+- `text()`: du texte dans la zone graphique  
+- `mtext()`: du texte dans les marges de la figure ou de la fenêtre graphique  
+- `title()`: du texte dans le titre, le sous-titre, les légendes des axes  
+- etc.
+
+##  Exemple de mise en forme d'un graphique {.scrollable}  
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| code-fold: TRUE
+# GRAPHIQUE
+plot(x = iris$Sepal.Length, y = iris$Petal.Length
+     , type = "p"                   # type de tracé : points ("p"), lignes ("l"), les deux ("b" ou "o")
+     , col = "#490092"              # couleur
+     , pch = 1                      # type de symboles (valeur entre 0 et 25)
+     , cex = 1.1                    # taille des symboles
+     , lty = 1                      # type de lignes (valeur entre 1 et 6)
+     , lwd = 1.4                    # épaisseur de lignes (valeur entre 1 et 9)
+     , xlim = c(0, 10)              # limites de l'axe des x
+     , ylim = c(0, 10)              # limites de l'axe des y
+     , xlab = "axe des abscisses"   # titre pour l'axe des x
+     , ylab = "axe des ordonnées")  # titre pour l'axe des y
+
+# Ajout d'un TITRE
+title(main = "Titre du graphique"
+      , cex.main = 1.2         # taille de la police
+      , font.main = 2          # style de la police (1 = plain, 2 = bold, 3 = italic, 4 = bold italic, 5 = symbol)
+      , col.main = "#004949")  # couleur de la police
+
+# Ajout d'une LEGENDE
+legend(x = 0               # emplacement de la légende (coin haut gauche)
+       , y = 10            # emplacement de la légende (coin haut gauche)
+       , legend = "Iris"   # titre la légende
+       , bg = "#B6DBFF"    # couleur de l'arrière-plan
+       , col = "#490092"   # couleur de la légende
+       , pch = 1           # symbole de la légende
+       , cex = 0.7)        # taille de la légende
+
+# Ajout d'une LIGNE (horizontale)
+abline(h = 0              # coupe l'axe des y à cette valeur 
+       , lty = 2          # type de ligne
+       , lwd = 0.5        # épaisseur de la ligne
+       , col = "grey50")  # couleur de la ligne
+
+# Ajout d'un POINT
+points(x = mean(iris$Sepal.Length)    # coordonnée x du point
+       , y = mean(iris$Petal.Length)  # coordonnée y du point
+       , col = "#FF6DB6"              # couleur du point
+       , pch = 15                     # type de symbole
+       , cex = 2)                     # taille du point
+
+# Ajout de TEXTE
+text("valeur moyenne"                     # texte à afficher
+     , x = mean(iris$Sepal.Length) + 1    # emplacement horizontal du texte (centre)
+     , y = mean(iris$Petal.Length) - 0.25  # emplacement vertical du texte (centre) 
+     , col = "#FF6DB6"                     # couleur du texte
+     , font = 3)                           # style de la police
+
+# Ajout de TEXTE dans la marge
+mtext(text = "Source : data(iris)" # texte à afficher
+      , side = 4                   # emplacement (1 = bottom, 2 = left, 3 = top, 4 = right)
+      , cex = 0.9                  # taille de la police
+      , col = "grey")              # couleur de la police
+```
+
+##  Éléments de personnalisation des graphiques
+
+:::: {.columns}
+::: {.column width="50%"}
+![Les épaisseurs de lignes](img/linewidths.png){height=2.75in}  
+
+![Les types de lignes](img/linetypes.png){height=2.75in}  
+:::
+
+::: {.column width="50%"}
+![Les symboles de points](img/pchsymbols.png){height=2.75in}  
+
+![Les couleurs (package `{RColorBrewer}`)](img/Rplotbrewer.png){height=2.75in}  
+:::
+::::
+
+##  Aide pour le choix des couleurs
+
+- Packages  
+   + `{paletteer}` : des milliers de palettes
+   + `{cols4all}` : une application shiny pour explorer les palettes
+- Sites
+   + informations sur une couleur : <https://chir.ag/projects/name-that-color/>
+   + un générateur de palettes de couleurs : <https://coolors.co/>
+   + palettes de couleurs prédéfinies : <https://flatuicolors.com/>
+   + palettes de couleurs pour la cartographie : <http://colorbrewer2.org> 
+
+##  Sauvegarde d'un graphique
+
+* Les graphiques créés s'affichent dans l'onglet 'Plots' de RStudio
+* Pour les enregistrer  
+
+  + cliquer sur 'Export' qui donne accès à trois options différentes :  
+    - save as image  
+    - save as PDF  
+    - copy to clipboard  
+    
+  + utiliser les fonctions `jpeg()`, `png()`, `bmp()`, `tiff()` ou `pdf()` du package `{grDevices}` pour enregistrer un graphique au format 'image' ou 'pdf', sans passer par l'onglet 'Plots'  
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+png(filename = "fichier.png")
+  plot(...)
+dev.off()
+```
+
+#   VISUALISATION GRAPHIQUE AVEC GGPLOT {.inverse}
+
+##  Le package ggplot2  
+
+:::: {.columns}
+::: {.column width="50%"}
+- **Installation**  
+   `install.packages("ggplot2")` 
+- **Chargement**  
+   `library(ggplot2)`  
+- **Fonction de base**  
+   `qplot(x, y, data = dataframe)`  
+- **Fonction pour graphiques plus perfectionnés**  
+   `ggplot(data = dataframe, aes = (x, y)) + layers`  
+   Initialisation du graphique auquel on ajoute des couches (_layers_) pour modifier la représentation  
+   $\Rightarrow$ _des graphiques complexes et au design moderne_
+:::
+
+::: {.column width="50%"}
+![](img/ggplot_gallery.png){.center}  
+Source : <https://r-charts.com/ggplot2/>{target="_blank"}  
+:::
+::::
+
+##  La grammaire ggplot  
+
+:::: {.columns}
+::: {.column width="65%"}
+- Graphique = succession de couches (_layers_) 
+
+  -   **data** : données (au format _data.frame_ ou _tibble_) à représenter  
+  -   **aesthetics** (aes) : variables à représenter  
+  -   **geometries** (geom_...) : type de représentation (nuage de points, histogramme, barplot, boxplot, etc.)  
+  -   **facets** : découpage des données, du graphique, en plusieurs facettes, selon les variables fournies dans la formule  
+  -   **statistics** (stat_...) : transformations sur les données nécessaires pour obtenir le graphique  
+  -   **coordinates** : espace de représentation, système de coordonnées  
+  -   **theme** : personnalisation du graphique (arrière-plan, taille des polices, etc.)
+
+- Couches reliées avec le symbole `+`
+:::
+
+::: {.column width="35%"}
+![](img/ggplot_layers.png)  
+Source : ThinkR (2016)\
+<https://thinkr.fr/guide-survie-ggplot2-datajournalistes/>{target="_blank"}
+:::
+::::
+
+##  Couches _data_ & _aes_ (1/2)
+
+- Couches qui suivent l'initialisation du graphique, réalisée avec `ggplot()`
+- Exemple de code de construction d'un graphique
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length)
+```
+
+##  Couches _data_ & _aes_ (2/2)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- À ce stade...
+   + on a le canevas du graphique
+   + les données ne sont pas encore représentées
+   + on peut préciser les éléments de style pour visualiser des variables
+:::
+
+::: {.column width="50%"}
+|**_Aesthetic_** | **Description**                           |
+|:---------------|:------------------------------------------|
+| x              | axe des abscisses                         |
+| y              | axe des ordonnées                         |
+| colour         | couleurs des points, lignes, etc.         |
+| fill           | couleur de remplissage                    |
+| size           | taille des points, épaisseur des lignes   |
+| alpha          | transparence                              |
+| linetype       | motif des tirets des lignes               |
+| labels         | texte du graphique ou des axes            |
+| shape          | type de formes                            |
+: **Arguments de `aes()`**
+:::
+::::
+
+##  Couche _geom_ (1/2)
+
+On détermine le type de graphique souhaité, en utilisant les fonctions préfixées par `geom_`  
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 3.5
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point()
+```
+
+::: {.callout-note appearance="simple"}
+L'ensemble des géométries est détaillé dans la partie "Geoms" de la _cheatsheet_ du package ggplot 
+
+- version anglaise : <https://rstudio.github.io/cheatsheets/data-visualization.pdf>{target="_blank"}  
+- version française : <https://rstudio.github.io/cheatsheets/translations/french/data-visualization_fr.pdf>{target="_blank"}
+:::
+
+##  Couche _geom_ (2/2)
+
+On peut superposer plusieurs couches *geom* sur un même graphique, en les ajoutant avec l'opérateur `+`  
+
+**Principaux _geometrics_**
+
+| **_Geom_**          | 	**Description** 	                                         | **_Aesthetics_**                        |
+|:--------------------|:-------------------------------------------------------------|:----------------------------------------|
+| `geom_point()` 	    | Nuage de points (équivalent de `plot()`)	                   | x, y, shape, fill                       | 
+|` geom_bar()` 	      | Diagramme en barres (équivalent de `barplot()`)	 | x, fill, linetype, weight               |
+| `geom_histogram()`  | Histogramme (équivalent de `hist()`)	           | x, fill, linetype, weight               |
+| `geom_boxplot()`    |	Boîte à moustaches 	                                         | x, fill, weight                         |
+| `geom_density()` 	  | Densité 	                                                   | x, y, fill, linetype                    |
+| `geom_line()`       |	Ligne, ordonnée selon x (= points reliés par un segment) 	   | x, y, linetype                          |
+| `geom_abline()` 	  | Ligne 	                                                     | slope, intercept                        |
+| `geom_text()` 	    | Texte 	                                                     | x, y, label, hjust, vjust               |
+| `geom_label()` 	    | Texte (identique à `geom_text()`, avec un rendu différent)   | x, y, label, hjust, vjust               |
+| `geom_rect()` 	    | Rectangle 	                                                 | xmin, xmax, ymin, ymax, fill, linetype  |
+| `geom_segment()` 	  | Segment 	                                                   | x, y, xend, yend, fill, linetype        |
+| **Tous** 	          |	                                                             | color, size, group                      |
+
+##  Couche _facet_ (1/4)
+
+Permet d'effectuer plusieurs fois le même graphique selon les valeurs d'une ou plusieurs variables qualitatives
+$\Rightarrow$ séparer la fenêtre graphique selon un facteur, selon 2 possibilités :
+
+- `facet_wrap` : affiche les graphiques les uns à côté des autres avec une répartition automatique dans la page
+- `facet_grid` : les graphiques sont disposés selon une grille en ligne ou en colonne
+
+##  Couche _facet_ (2/4)
+
+Avec `facet_wrap()`
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+# On représente les données en fonction de la variable "Species"   
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point() +
+  facet_wrap(vars(Species))
+``` 
+
+##  Couche _facet_ (3/4)
+
+Avec `facet_grid()`, répartition en colonne  
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+# On représente les données en fonction de la variable "Species"   
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point() +
+  facet_grid(cols = vars(Species))
+```
+
+##  Couche _facet_ (4/4)
+
+Avec `facet_grid()`, répartition en ligne  
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+# On représente les données en fonction de la variable "Species"   
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point() +
+  facet_grid(rows = vars(Species))
+```
+
+##  Couche _stat_
+
+Ajouter des indicateurs statistiques avec les fonctions `stat_()`
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+# Sur les boxplot de "Petal.Length" pour chaque modalité de "Species", on ajoute la valeur moyenne
+ggplot(data = iris) +
+  aes(x = Species, y = Petal.Length) +
+  geom_boxplot() +
+  stat_summary(fun = "mean", color = "green", shape = 2)
+```
+
+##  Couche _coord_ (1/2)
+
+- Permet de choisir le système de coordonnées dans lequel sont projetées les données
+- Par défaut, il s'agit du système cartésien, mais on trouve d'autres systèmes :
+
+   + `coord_equal()` : pour avoir la même échelle pour l'axe des abscisses et des ordonnées  (cartésiens)
+   + `coord_flip()`: pour inverser l'axe des abscisses et des ordonnées
+   + `coord_cartesian()` : pour fixer des limites
+   + `coord_polar()` : pour les graphiques circulaires
+   + `coord_map()` : pour différentes projections cartographiques
+
+##  Couche _coord_ (2/2)
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point() +
+  coord_flip()
+```
+
+##  Le thème
+
+Les thèmes prédéfinis  
+
+![](img/ggplot2_themes.png)
+
+##  Couches additionnelles (1/2)
+
+- `scale_...()` : modifier les attributs liés
+   - aux axes (échelles, limites, format des chiffres par exemple) 
+   - aux données représentées (couleurs, etc.)
+- `ggtitle()` : ajouter un titre au graphique
+- `xlab()` : modifier l'intitulé de l'axe des abscisses 
+- `ylab()` : modifier l'intitulé de l'axe des ordonnées
+
+##  Couches additionnelles (2/2)
+
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+#| fig-height: 4
+# On modifie les limites des axes des abscisses et des ordonnées et les titres
+ggplot(data = iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point() +
+  scale_x_continuous(limits = c(0, 8)) +
+  scale_y_continuous(limits = c(0, 8), breaks = seq(from = 0, to = 8, by = 1)) +
+  ggtitle("Exemple de création d'un graphique `ggplot`") +
+  xlab("Longueur des sépales") +
+  ylab("Longueur des pétales")
+```
+
+##  Sauvegarde des graphiques `ggplot`
+
+- Possibilité de faire comme expliqué précédemment pour les graphiques de base
+- On préfèrera utiliser la fonction `ggsave()` du package `{ggplot2}` à la fin de la création du graphique
+```{r}
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+ggplot(...) +
+  ...
+ggsave(filename = name.extension)
+```
+
+#   GRAPHIQUES ANIMÉS {.inverse}
+
+##  Avec le package `{plotly}`
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 4.5
+ggplot(iris) +
+  aes(x = Sepal.Length, y = Petal.Length, color = Species) +
+  geom_point() -> p
+# Afficher une infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
+plotly::ggplotly(p)
+```
+
+##  Avec le package `{gganimate}`{.smaller .r-stretch}
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 3
+ ggplot(iris) +
+  aes(x = Sepal.Length, y = Petal.Length) + 
+  geom_point() +
+  gganimate::transition_states(states = Species        # état
+                               , transition_length = 2 # durée de la transition entre les états
+                               , state_length = 3      # durée de la pause à chaque état
+                               , wrap = TRUE) +        # transition du dernier au premier état
+  labs(title = "{closest_state}") # affichage de la valeur de l'état dans le titre
+```
+
+##  Avec le package `{ggvis}`
+```{r}
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| fig-height: 4
+iris %>%
+    ggvis::ggvis(x = ~Sepal.Length, y = ~Petal.Length, fill = ~Species) %>%
+    ggvis::layer_points() %>% 
+    # Ajouter une infobulle pour afficher les valeurs de Species, Sepal.Length et Petal.Length au survol d'un point
+    ggvis::add_tooltip(function(df) paste0("Species: ", df$Species
+                                           , "<br>"
+                                           , "Petal Length: ", format(df$Petal.Length, digits = 2)
+                                           , "<br>"
+                                           , "Sepal Length: " , format(df$Sepal.Length , digits = 2)))
+```
+
+#   POUR CONCLURE {.inverse}
+
+##  De nombreuses ressources pour faciliter la création de graphique `ggplot` 
+
+- Le package [{ggrepel}](https://ggrepel.slowkow.com/){target="_blank"} pour placer les étiquettes dans les graphiques sans qu'elles ne se superposent
+- 2 _packages/addins_ 
+   - [{esquisse}](https://dreamrs.github.io/esquisse/){target="_blank"} : une interface "clic bouton" pour créér des graphiques, avec la possibilité de récupérer les lignes de code  
+   - [{ggThemeAssist}](https://github.com/calligross/ggthemeassist) : pour se familiariser avec les nombreux éléments personnalisables
+      - **Settings** : Plot dimensions
+      - **Panel & Background** : Plot Background ; Panel Background ; Grid Major ; Grid Minor
+      - **Axis** : Axis text ; Axis text.x ; Axis text.y ; Axis line ; Axis ticks
+      - **Title & label** : Labels ; Plot Title ; Axis Labels
+      - **Legend** : Legend position ; Legend Title ; Legend Text ; Legend Background ; Legend Keys
+      - **Subtitle & Caption**
+- Des ressources en ligne
+   - [{gplot2extensions}](https://exts.ggplot2.tidyverse.org/){target="_blank"} qui recense les extensions développées par les utilisateurs de R
+   - [{r-charts}](https://r-charts.com/){target="_blank"} pour trouver des exemples de code pour les graphiques (y compris graphiques en R de base) et les couleurs
+   - {{< fa book >}}   [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/){target="_blank"}
+    - {{< fa book >}}   [R Graphics Cookbook, 2nd edition](https://r-graphics.org/){target="_blank"}
+
+
+
