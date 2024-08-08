@@ -1,0 +1,38 @@
+/* Modifié le 07/08/2024 */
+
+/*-- scss:defaults --*/ 
+/* -- used to define variables that affect fonts, colors, borders, etc. (note that variables start with a $) -- */
+
+// Modification de la taille du titre h3
+$presentation-h3-font-size: 1em;
+
+// Modification de la taille du titre h4
+$presentation-h4-font-size: 0.9em;
+
+// Alignement vertical haut des diapos
+section.level2 {
+  top: 0px !important;
+}
+
+section.level3 {
+  top: 0px !important;
+}
+
+section.level4 {
+  top: 0px !important;
+}
+
+/*-- scss:rules --*/
+/* -- used to create CSS rules. Note that CSS rules that target Reveal content generally need to use the .reveal .slide prefix to successfully override the theme’s default styles. -- */
+
+// Taille titre niveau 3
+
+
+// taille du code des chunks
+.small-code{
+  font-size: 85%  
+}
+
+.tiny-code{
+  font-size: 70%  
+}
