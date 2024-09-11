@@ -1,6 +1,6 @@
 ---
 title: "Bulle d'R : Visualisations graphiques avec R"
-date: "2024-08-08"
+date: "2024-09-11"
 date-format: long
 lang: fr  
 author:
@@ -583,7 +583,7 @@ ggplot(data = iris) +
 _Les aspects esthétiques obligatoires sont indiqués en gras_
 
 
-**Les fonctions `geom_` s'ajoutent avec l'opérateur `+` (voir la _cheatsheet {ggplot2}_ pour le détail des fonctions ([version anglaise](https://rstudio.github.io/cheatsheets/data-visualization.pdf){target="_blank"} ou [version française](https://rstudio.github.io/cheatsheets/translations/french/data-visualization_fr.pdf){target="_blank"})**
+**Les fonctions `geom_` s'ajoutent avec l'opérateur `+` (l'ensemble des fonctions `geom_` est détaillé dans la _cheatsheet {ggplot2}_ ([version anglaise](https://rstudio.github.io/cheatsheets/data-visualization.pdf){target="_blank"} ou [version française](https://rstudio.github.io/cheatsheets/translations/french/data-visualization_fr.pdf){target="_blank"})**
 ::::
 :::::
 
@@ -779,7 +779,7 @@ ggplot(data = iris) +
 :::::
 ::::::
 
-####  Couche _coord_
+####  Couche _coord_ {.smaller}
 :::: {.columns}
 ::: {.column width="50%"}
 - Permet de choisir le système de coordonnées dans lequel sont projetées les données
@@ -866,6 +866,7 @@ ggplot() + ...
 1. Sélectionner le code du graphique
 2. Lancer la commande `ggThemeAssistAddin()`
 3. Effectuer les modifications souhaitées sur les différents éléments
+
 _Après validation dans l'interface, le code s'actualise dans le script_
 
 :::
@@ -901,7 +902,7 @@ ggplot(data = iris) +
 </div>
 
 ::: {.callout-tip appearance="minimal"}
-`r fontawesome::fa("globe", fill = "#A626A4")` Se reporter à la section [_theme_](https://ggplot2-book.org/themes){target="_blank"} de @Wickham2016 pour plus de détails   
+`r fontawesome::fa("globe", fill = "#A626A4")` Se reporter à la section [_theme_](https://ggplot2-book.org/themes){target="_blank"} de @Wickham2016ggplot2 pour plus de détails   
 :::
 
 ::::
