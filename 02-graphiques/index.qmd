@@ -1,6 +1,6 @@
 ---
 title: "Bulle d'R : Visualisations graphiques avec R"
-date: "2024-09-11"
+date: "2025-01-08"
 date-format: long
 lang: fr  
 author:
@@ -21,7 +21,7 @@ format:
     logo: img/bloc-etat.png
     include-after-body: revealjs-clean-title-slide.html
     title-slide-attributes:
-        data-footer: "<a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://www.etalab.gouv.fr/wp-content/uploads/2011/10/licence-ouverte-open-licence.gif' /><br></a>Présentation diffusée sous <a rel='license' href='https://www.etalab.gouv.fr/licence-ouverte-open-licence/'>Licence ouverte</a>."
+        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-SA 4.0</a>."
     theme: style_revealjs.scss
     fig-cap-location: top
 highlight-style: atom-one
@@ -34,7 +34,7 @@ editor_options:
   chunk_output_type: console
 execute: 
   cache: true
-# Dernière mise à jour le : 08 août 2024
+# Dernière mise à jour le : 08 janvier 2025
 ---
 
 ```{r, eval = TRUE, include = FALSE, echo = FALSE}
@@ -1163,5 +1163,5 @@ ggiraph::girafe(ggobj = p)
 
 ---
 nocite: |
-  @Tennekes2024cols4all, @Pedersen2024gganimate, @Gohel2024ggiraph, @Kahle2013ggmap, @Kahle2023ggmap, @Wickham2024ggplot2, @Wickham2016ggplot2, @Gross2016ggthemeassist, @Sievert2020plotly, @Sievert2020shiny, @Sarkar2008lattice, @Sarkar2024lattice, @Cheng2024leaflet, @Giraud2024mapsf, @Hvitfeldt2024paletteer, @Sievert2024plotly, @RCT2024, @Neuwirth2022rcolorbrewer, @Pebesma2024sf, @Chang2024shiny
+  @Tennekes2024cols4all, @Pedersen2024gganimate, @Gohel2024ggiraph, @Kahle2013ggmap, @Kahle2023ggmap, @Wickham2024ggplot2, @Wickham2016ggplot2, @Gross2016ggthemeassist, @Sievert2020plotly, @Sievert2020shiny, @Sarkar2008lattice, @Sarkar2024lattice, @Cheng2024leaflet, @Giraud2024mapsf, @Hvitfeldt2024paletteer, @Sievert2024plotly, @RCT2024, @Neuwirth2022rcolorbrewer, @Pebesma2024sf, @Chang2024shiny, @Insee2018GuideSemioGraph, @Insee2018GuideSemioCarto
 ---
