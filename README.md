@@ -12,6 +12,8 @@
 
 - [Cheatsheet](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf) (PDF)
 
+- Visualisations graphiques (base R et ggplot2): ["Visualisations graphiques"](https://statire.github.io/bulledr/02-graphiques/)
+
 # Quelques ressources
 
 ## Francophones
