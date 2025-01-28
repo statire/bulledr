@@ -12,7 +12,11 @@
 
 - [Cheatsheet](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf) (PDF)
 
+<<<<<<< HEAD
 - Visualisations graphiques (base R et ggplot2) : ["Visualisations graphiques"](https://statire.github.io/bulledr/02-graphiques/)
+=======
+- Visualisations graphiques (base R et ggplot2) : ["Visualisations graphiques"](https://statire.github.io/bulledr/02-graphiques/)
+>>>>>>> c67a152402aca9e7eb224cc21ee26d51813d765c
 
 # Quelques ressources
 
