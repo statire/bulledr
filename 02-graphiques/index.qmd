@@ -21,7 +21,7 @@ format:
     logo: img/bloc-etat.png
     include-after-body: revealjs-clean-title-slide.html
     title-slide-attributes:
-        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-SA 4.0</a>."
+        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."
     theme: style_revealjs.scss
     fig-cap-location: top
 highlight-style: atom-one

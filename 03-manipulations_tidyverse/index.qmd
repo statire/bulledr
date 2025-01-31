@@ -1,0 +1,129 @@
+---
+title: "Bulle d'R. Manipulation de données dans l'univers du tidyverse"
+date: "2025-02-18"
+date-format: long
+lang: fr  
+author:
+  - name: Sandrine LYSER
+    orcid: 0000-0001-6820-0672
+    email: sandrine.lyser@inrae.fr
+format: 
+  inrae-revealjs:
+    footer: "Bulle d'R | Manipulation de données"
+    width: 100%
+    height: 100%
+    # Par défaut, la taille est de 1050x700 pixels
+    margin: 0.1 # marge autour du contenu (par défaut 0.1)
+    min-scale: 0.2 # échelle minimale appliquée au contenu (par défaut 0.2)
+    max-scale: 2.0 # échelle maximale appliquée au contenu (par défaut 2.0)
+    transition: none
+    logo: img/bloc-etat.png
+    include-after-body: revealjs-clean-title-slide.html
+    title-slide-attributes:
+        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."
+    theme: style_revealjs.scss
+    fig-cap-location: top
+highlight-style: atom-one
+filters: [bg_style.lua]
+lightbox: true # pour avoir les images cliquables
+bibliography: references.bib
+revealjs-plugins:
+  - pointer
+from: markdown+emoji
+editor_options: 
+  chunk_output_type: console
+execute: 
+  cache: false
+# Dernière mise à jour le : 30 janvier 2025
+---
+
+```{r, eval = TRUE, include = FALSE, echo = FALSE}
+#| label: initR
+#| eval: true
+#| include: false
+#| echo: false
+
+
+#   ____________________________________________________________________________
+#   Chargement des packages                                                 ####
+library(tidyverse)    # v2.0.0
+library(questionr)    # v0.7.8
+
+#   ____________________________________________________________________________
+#   Chargement des données utilisées pour cette session                     ####
+data(hdv2003) 
+```
+
+#  Introduction
+
+## L'univers du `tidyverse`
+
+**Ensemble de packages partageant une même philosophie, structure et approche de la manipulation des données, conçus pour faciliter la manipulation, l'analyse et la visualisation des données**
+
+```{r}
+#| label: tidyverse
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+install.packages("tidyverse")  
+# installation simultanée de plusieurs packages
+
+library("tidyverse")
+# chargement des 9 packages au coeur du tidyverse
+```
+
+--- 
+
+![](img/tidyverse_workflow_2024.png){width="85%" fig-align="center" fig-alt="Datascience et tidyverse."}
+
+
+## Les packages utiles pour la manipulation des données  
+
+- **Les indispensables**
+
+  + [`{dplyr}`](https://dplyr.tidyverse.org/){target="_blank"} : manipulation des données
+  + [`{tidyr}`](https://tidyr.tidyverse.org/){target="_blank"} : nettoyage/remise en forme/formatage des données
+  + [`{stringr}`](https://stringr.tidyverse.org/){target="_blank"} : manipulation des chaînes de caractères
+  + [`{forcats}`](https://forcats.tidyverse.org/){target="_blank"} : traitement des variables qualitatives
+
+- **Pour les formats dates et heures**
+
+  + [`{lubridate}`](https://lubridate.tidyverse.org/){target="_blank"} : manipulation des dates et heures
+  + [`{hms}`](https://hms.tidyverse.org/){target="_blank"} : manipulation des heures du jour
+
+## Qu'est-ce-qu'un [`{tibble}`](https://tibble.tidyverse.org/){target="_blank"} ?
+
+= Une version modernisée des *dataframes*, plus pratique à utiliser que les *dataframes* "classiques"
+
+```{r}
+#| label: tibble
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  head(5)
+
+hdv2003 |> 
+  as_tibble() |> 
+  head(5)
+```
+## La commande pipe
+
+#  Manipulations des données 
+
+## Manipulations avec le package `{dplyr}`
+
+## Manipulations avec le package `{tidyr}`
+
+## Manipulations des chaînes de caractères avec le package `{stringr}`
+
+## Manipulation des facteurs avec le package `{forcats}`
+
+#  Ressources et références bibliographiques 
+
+
+
