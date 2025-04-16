@@ -41,14 +41,14 @@ $link-color: $indigo;
 $presentation-heading-color: $inrae-charte;
 $presentation-heading-line-height: 1.2;
 $presentation-h1-font-size: 1.4em;
-
-
+$toc-font-size: 1em;
 
 /*-- scss:rules --*/
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 // Text Format
+
 .reveal .slide-number-a {
  color: $inrae-sombre;
 }
@@ -88,7 +88,6 @@ $presentation-h1-font-size: 1.4em;
 
 .reveal p {
   color: $inrae-sombre;
-  font-size: 0.9em;
 }
 
 // Slides
@@ -114,41 +113,111 @@ $presentation-h1-font-size: 1.4em;
 //==========================================================================================================
 // Modifs SL
 
+// Taille de police et couleur
+.reveal {
+  font-size: 36px; /* Taille de base pour le texte */
+}
+
+.reveal h1 {
+  font-size: 1.5em; /* Taille pour les titres h1 */
+}
+
+.reveal h2 {
+  font-size: 1.2em; /* Taille pour les titres h2 */
+}
+
+.reveal h3 {
+  font-size: 1em; /* Taille pour les titres h3 */
+  color: #66c1bf !important;
+}
+
+.reveal h4 {
+  font-size: 0.95em; /* Taille pour les titres h4 */
+  color: #423089 !important;
+}
+
+.reveal h5 {
+  font-size: 0.90em; /* Taille pour les titres h5 */
+  color: #6859A1 !important;
+}
+
+.reveal p {
+  font-size: 0.85em; /* Taille pour 1es paragraphes */
+}
+
+.reveal li, .reveal ul, .reveal ol {
+  font-size: 0.9em; /* Taille pour 1er niveau de liste */
+}
+
+.reveal ul ul, .reveal ol ol {
+  font-size: 0.95em; /* Taille pour 2e niveau de liste */
+}
+
+// Lignes de code des blocs de code
+.reveal .slides code.sourceCode {
+  font-size: 0.85em;
+  background-color: #E0E0E0; /* Fond gris grey88 */
+}
+
+// Output des blocs de code
+.reveal .slides pre code {
+  font-size: 0.8em;
+  background-color: #EDEDED; /* Fond gris grey93 */
+}
+
 // Listes à puces
-
-.reveal ul{
-  font-size: 1.3em; 
+.reveal ol,
+.reveal dl,
+.reveal ul {
+  display: inline-block;
+  text-align: left;
+  margin-left: 15px !important; /* Ajuster la marge gauche */
+  margin-top: 0px !important;  /* Ajuster l'espace au-dessus */
+  margin-bottom: 0px !important; /* Ajuster l'espace en dessous */
+  padding-left: 15px !important; /* Ajuster l'indentation des puces */
 }
 
-.reveal ul ul{
-  font-size: 1.2em;
+.reveal ol {
+	list-style-type: decimal;
 }
 
-.reveal ol{
-  font-size: 1.3em; 
+.reveal ul {
+	list-style-type: disc;
 }
 
-.reveal ol ol{
-  font-size: 1.2em;
+.reveal ul ul {
+	list-style-type: square;
 }
 
-.reveal ul > li::marker {
-  font-size: 0.8em;
+.reveal ul ul ul {
+	list-style-type: circle;
 }
 
-.reveal ul ul > li::marker {
-  font-size: 0.7em;
+.reveal dt {
+	font-weight: bold;
 }
 
-.reveal ol > li::marker {
-  font-size: 0.8em;
+.reveal dd {
+	margin-left: 40px;
 }
 
-.reveal ol ol > li::marker {
-  font-size: 0.7em;
+.reveal table {
+  font-size: 25px !important; /* taille du texte */
+  width: 90% !important; /* Ajuste la largeur */
+  margin: auto; /* Centre le tableau */
 }
 
-/* Ajuster la taille du texte pour la diapositive de titre */
+.reveal th {
+  font-size: 30px !important; /* Taille des en-têtes */
+  font-weight: bold;
+}
+
+.reveal td {
+  font-size: 25px !important; /* Taille des cellules */
+}
+
+
+// Ajuster la taille du texte pour la diapositive de titre 
 .reveal .slides section.title-slide h1 {
     font-size: 2em;
 	text-align: left;

@@ -7,25 +7,81 @@ author:
   - name: Sandrine LYSER
     orcid: 0000-0001-6820-0672
     email: sandrine.lyser@inrae.fr
+    corresponding: true
+    affiliations:
+      - INRAE
+author-meta: "Sandrine LYSER"
+last-modified: "2025-04-01"
+lightbox: true # pour avoir les images cliquables
+title-slide-attributes:
+        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."    
+license: CC BY-NC-SA
 format: 
+  # pdf:
+  #   output-file: BulleR_ManipDonnees.pdf # nom du fichier de sortie
+  #   toc: true
+  #   toc-depth: 3
+  #   number-sections: true
+  #   colorlinks: true
+  #   documentclass: article
+  #   papersize: A4
+  #   geometry:
+  #     - top=20mm
+  #     - left=20mm
+  #     - right=20mm
+  #     - bottom=20mm
+  #   prefer-html: true
+  #   code-block-background: true
+  #   code-block-border-left: true
+  #   fig-width: 4.5 # par défaut
+  #   fig-height: 2.5 # par défaut
+  #   mainfont: "Raleway"
+  #   sansfont: "Avenir Next LT Pro"
+  #   monofont: "Consolas"
+  #   monofontoptions:
+  #     - Scale=0.9
+  #   fontsize: 10pt
+  html:
+    output-file: BulleR_ManipDonnees.html # nom du fichier de sortie
+    theme: "cosmo"
+    link-external-icon: false
+    link-external-newwindow: true
+    toc: true
+    toc-depth: 3
+    grid:
+      sidebar-width: 300px
+      body-width: 900px
+      margin-width: 300px
+      gutter-width: 1.5rem
+    code-copy: true
+    code-block-background: true
+    code-block-border-left: true
+    fig-width: 7 # par défaut
+    fig-height: 5 # par défaut
   inrae-revealjs:
+    # Par défaut, la taille est de 1050x700 pixels
+    output-file: BulleR_ManipDonnees_slides.html # nom du fichier de sortie
     footer: "Bulle d'R | Manipulation de données"
     width: 100%
     height: 100%
-    # Par défaut, la taille est de 1050x700 pixels
     margin: 0.1 # marge autour du contenu (par défaut 0.1)
     min-scale: 0.2 # échelle minimale appliquée au contenu (par défaut 0.2)
     max-scale: 2.0 # échelle maximale appliquée au contenu (par défaut 2.0)
     transition: none
     logo: img/bloc-etat.png
-    include-after-body: revealjs-clean-title-slide.html
-    title-slide-attributes:
-        data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."
+    template-partials:
+      - toc-slide.html
+    include-after-body: [revealjs-clean-title-slide.html, toc-add.html]
+    menu:
+      useTextContentForMissingTitles: false
+      hideMissingTitles: true
+      width: normal
     theme: style_revealjs.scss
     fig-cap-location: top
+    toc: true
+    toc-depth: 2
 highlight-style: atom-one
 filters: [bg_style.lua]
-lightbox: true # pour avoir les images cliquables
 bibliography: references.bib
 revealjs-plugins:
   - pointer
@@ -34,7 +90,14 @@ editor_options:
   chunk_output_type: console
 execute: 
   cache: false
-# Dernière mise à jour le : 30 janvier 2025
+# Dernière mise à jour le : 01 avril 2025
+# 1. AJOUTER \pagebreak AVANT LA 1RE SLIDE POUR OUTPUT pdf
+# 2. RENDER TOUS FORMATS (3)
+# quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to all
+# PB : REVEALJS NE COMPILE PAS BIEN
+#  ==> 3. METTRE TOUT LE PARAMÉTRAGE PDF DE L'EN-TÊTE EN COMMENTAIRE
+# 4. RENDER revealjs UNIQUEMENT
+# quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to revealjs
 ---
 
 ```{r, eval = TRUE, include = FALSE, echo = FALSE}
@@ -48,15 +111,137 @@ execute:
 #   Chargement des packages                                                 ####
 library(tidyverse)    # v2.0.0
 library(questionr)    # v0.7.8
+library(knitr)        # v1.49
+library(kableExtra)   # v1.4.0
 
 #   ____________________________________________________________________________
 #   Chargement des données utilisées pour cette session                     ####
 data(hdv2003) 
+
+#   ____________________________________________________________________________
+#   Fonction pour n'afficher que quelques lignes de l'output des chunks     ####
+## Source : https://forum.posit.co/t/showing-only-the-first-few-lines-of-the-results-of-a-code-chunk/6963
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines) == 1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
 ```
 
-#  Introduction
+## Préambule. Jeu de données utilisé dans cette session {background-color="#dfddec" .unnumbered}
 
-## L'univers du `tidyverse`
+::::{.columns}
+:::{.column width="30%"}
+**`hdv2003`** 
+
+- disponible dans le package [`{questionr}`](https://juba.github.io/questionr/index.html){target="_blank"}
+- échantillon tiré de l'enquête Histoire de vie, réalisée en 2003 en France, par l'Insee, auprès de la population âgée de 18 ans et plus
+- 2000 lignes et 20 variables
+
+:::
+:::{.column width="65%"}
+
+**Dictionnaire des variables**
+```{r}
+#| label: hdv
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+variables <- c("id"
+               , "age"
+               , "sexe"
+               , "nivetud"
+               , "poids"
+               , "occup"
+               , "qualif"
+               , "freres.soeurs"
+               , "clso"
+               , "relig"
+               , "trav.imp"
+               , "trav.satisf"
+               , "hard.rock"
+               , "lecture.bd"
+               , "peche.chasse"
+               , "cuisine"
+               , "bricol"
+               , "cinema"
+               , "sport"
+               , "heures.tv")
+
+descriptions <- c("Identifiant unique de l'individu"
+                  , "Âge de l'individu"
+                  , "Sexe de l'individu"
+                  , "Niveau d'études"
+                  , "Poids de l'individu dans l'échantillon"
+                  , "Occupation principale"
+                  , "Qualification professionnelle"
+                  , "Nombre de frères et soeurs"
+                  , "Classe sociale"
+                  , "Religion"
+                  , "Importance accordée au travail"
+                  , "Satisfaction au travail"
+                  , "Écoute du hard rock"
+                  , "Lecture de bandes dessinées"
+                  , "Pratique de la pêche ou de la chasse"
+                  , "Pratique de la cuisine"
+                  , "Pratique du bricolage"
+                  , "Fréquentation du cinéma"
+                  , "Pratique d'un sport"
+                  , "Nombre d'heures passées devant la télévision")
+
+types <- c("entier"
+           , "entier"
+           , "facteur (Femme, Homme)"
+           , "facteur (8 modalités)"
+           , "numérique"
+           , "facteur (7 modalités)"
+           , "facteur (7 modalités)"
+           , "entier"
+           , "facteur (3 modalités)"
+           , "facteur (6 modalités)"
+           , "facteur (4 modalités)"
+           , "facteur (3 modalités)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "numérique"
+)
+
+data.frame(Variable = variables
+                 , Description = descriptions
+                 , Type = types) -> df
+df |> 
+  kable() |> 
+  kable_paper("hover", full_width = F) |> 
+  scroll_box(height = "550px")
+```
+:::
+::::
+
+#  Quelques rappels
+
+## L'univers du [`tidyverse`](https://www.tidyverse.org/){target="_blank"}
 
 **Ensemble de packages partageant une même philosophie, structure et approche de la manipulation des données, conçus pour faciliter la manipulation, l'analyse et la visualisation des données**
 
@@ -74,10 +259,40 @@ library("tidyverse")
 # chargement des 9 packages au coeur du tidyverse
 ```
 
---- 
+##  {.unlisted .unnumbered}
 
-![](img/tidyverse_workflow_2024.png){width="85%" fig-align="center" fig-alt="Datascience et tidyverse."}
+![](img/tidyverse_workflow_2025_fondblanc.png){width="85%" fig-align="center" fig-alt="Datascience et tidyverse."}
 
+## La commande pipe
+
+- Le pipe `%>%`, introduit dès 2014 dans le package [`{magrittr}`](https://magrittr.tidyverse.org/index.html){target="_blank"}, permet d'effectuer des opérations successives de traitement
+- **Principe** : le pipe prend la sortie d'une fonction (ou d'une expression) et la passe automatiquement comme **premier** argument à la fonction suivante
+
+```{r}
+#| label: pipemagrittr
+#| eval: false 
+#| echo: true
+data %>% 
+  fonction1() %>% 
+  fonction2() %>% 
+  fonction3()
+# équivaut à 
+fonction3(fonction2(fonction1(data)))
+```
+
+- En 2021 (R version 4.1.0), sortie du pipe natif `|>`, dont le fonctionnement reste identique à l'autre pipe
+
+```{r}
+#| label: pipeR
+#| eval: false 
+#| echo: true
+data |>  
+  fonction1() |>  
+  fonction2() |>  
+  fonction3()
+```
+
+$\Rightarrow$ **Il est conseillé d'utiliser la commande `|>`**
 
 ## Les packages utiles pour la manipulation des données  
 
@@ -95,8 +310,37 @@ library("tidyverse")
 
 ## Qu'est-ce-qu'un [`{tibble}`](https://tibble.tidyverse.org/){target="_blank"} ?
 
-= Une version modernisée des *dataframes*, plus pratique à utiliser que les *dataframes* "classiques"
+**= Une version modernisée des *dataframes*, plus pratique à utiliser que les *dataframes* "classiques"**
 
+- *dataframe* vs *tibble*
+
+| Critère                     | dataframe                                     | tibble                                                                           |
+|:----------------------------|:----------------------------------------------|:---------------------------------------------------------------------------------|
+| **Affichage des données**   | Toutes par défaut                             | Les premières lignes (pas de nom de lignes) ; les colonnes s'ajustent à l'écran avec des informations supplémentaires (type de colonne, dimension) |
+| **Noms des colonnes**       | Restrictions                                  | Caractères spéciaux, accents ou espaces autorisés (mais pas recommandés !)       |
+| **Sélection d'une colonne** | La sélection d'une colonne devient un vecteur | La sélection d'une colonne reste un *tibble*                                     |
+
+- Les *tibbles* sont plus rapides à manipuler (et plus stables) que les *dataframes*
+- Possibilité de transformer un *dataframe* en *tibble* avec `tibble::as_tibble()`
+
+## {.unlisted .unnumbered}
+
+### Aperçu des 2 formats {.unlisted .unnumbered}
+
+#### Format *dataframe* {.unnumbered}
+```{r}
+#| label: dataframe
+#| eval: true
+#| include: true
+#| message: false
+#| echo: !expr c(2:3)
+
+options(width = 100)
+hdv2003 |> 
+  head(2)
+```
+
+#### Format *tibble*  {.unnumbered}
 ```{r}
 #| label: tibble
 #| eval: true
@@ -105,25 +349,2612 @@ library("tidyverse")
 #| echo: true
 
 hdv2003 |> 
-  head(5)
-
-hdv2003 |> 
   as_tibble() |> 
-  head(5)
+  head(2)
 ```
-## La commande pipe
+
+## {.unlisted .unnumbered}
+
+:::{.callout-note}
+Pour la suite de la présentation  
+
+- on utilise le jeu de données **`hdv2003`** au format *tibble*  
+```{r}
+#| label: hdvtibble
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Transformation au format tibble
+hdv2003 |> 
+  as_tibble() -> hdv2003
+```
+
+- on considère les variables 'sexe' et 'clso' comme des vecteurs de caractères, et non pas des facteurs  
+```{r}
+#| label: modifsexe
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Transformation de la variable sexe
+hdv2003 |> 
+  mutate(sexe = as.character(sexe)
+         , clso = as.character(clso)) -> hdv2003
+```
+:::
 
 #  Manipulations des données 
 
-## Manipulations avec le package `{dplyr}`
+## Manipulations avec le package [`{dplyr}`](https://dplyr.tidyverse.org/){target="_blank"}
 
-## Manipulations avec le package `{tidyr}`
+**Les fonctions utiles pour**  
 
-## Manipulations des chaînes de caractères avec le package `{stringr}`
+::::{.columns}
+:::{.column width="60%"}
+- **manipuler des lignes/observations**
+  
+  + `slice()` : sélectionner des lignes suivant leur position
+  + `filter()` : sélectionner/filtrer des observations
+  + `distinct()` : supprimer les doublons
+  + `arrange()` : trier les données par ordre croissant (ou décroissant)
 
-## Manipulation des facteurs avec le package `{forcats}`
+- **manipuler des colonnes/variables**
+  
+  + `select()` : sélectionner/extraire des variables
+  + `mutate()` : créer des variables
+  + `relocate()` : changer l'ordre d'une colonne
+  + `rename()` : changer le nom des variables
+  + `left_join()`, `right_join()`, `inner_join()` et `full_join()` : pour combiner les tables
+  + `rownames_to_column()` : ajouter le nom des lignes dans une variable
+:::
+:::{.column width="40%"}
+- **faire des résumés et des opérations groupées**
+
+  + `summarise()` : faire un résumé des données
+  + `count()` : compter le nombre d'observations 
+  + `group_by()` : regroupement de données
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Sélectionner des lignes avec la fonction `slice()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut afficher les 10 premières et les 10 dernières lignes du jeu de données</span>
+
+```{r}
+#| label: slice
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |>  
+  dplyr::slice(1:10, 1991:2000) 
+```
+
+## {.unlisted .unnumbered}
+
+### Filtrer des observations avec la fonction `filter()`
+
+#### Filtre sur un seul critère  
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On filtre les individus dont l'occupation principale est "Exerce une profession"</span>
+
+```{r}
+#| label: filtersimple
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(occup == "Exerce une profession")
+```
+
+:::{.callout-caution}
+**R est sensible à la casse !**  
+Bien faire attention aux majuscules/minuscules
+:::
+
+## {.unlisted .unnumbered}
+
+#### Filtre sur plusieurs critères
+
+Se fait grâce aux opérateurs `&` (ET) et `|` (OU)  
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On filtre les femmes dont l'occupation principale est "Exerce une profession"</span>
+
+```{r}
+#| label: filterAND
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(occup == "Exerce une profession" & sexe == "Femme")
+```
+
+## {.unlisted .unnumbered}
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite filtrer les personnes avec la qualification professionnelle "Ouvrier specialise" ainsi que "Ouvrier qualifie"</span>  
+
+::: {.panel-tabset}
+##### **| Avec l'opérateur `|` |**
+```{r}
+#| label: filteror
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(qualif == "Ouvrier specialise" | qualif == "Ouvrier qualifie")
+```
+
+##### **| Avec l'opérateur `%in%` |**
+```{r}
+#| label: filterin
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(qualif %in% c("Ouvrier specialise", "Ouvrier qualifie"))
+```
+
+##### **| Avec la fonction `str_detect()` du package `{stringr}` |**
+```{r}
+#| label: filterstrdetect
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(str_detect(qualif, "Ouvrier"))
+```
+:::
+
+## {.unlisted .unnumbered}
+
+::: {.callout-note title="Opérateurs logiques les plus courants"}
+
+| **Opérateur** | **Description**                 |
+|:--------------|:--------------------------------|
+| `<`           | Inférieur à                     |
+| `<=`          | Inférieur ou égal à             |
+| `>`           | Supérieur à                     |
+| `>=`          | Supérieur ou égal à             |
+| `==`          | Exactement égal à               |
+| `!=`          | Différent de                    |
+| `|`           | Ou                              |
+| `&`           | Et                              |
+| `%in%`        | Appartient à                    |
+| `is.na()`     | Est une donnée manquante        |
+| `!is.na()`    | N'est pas une donnée manquante  |
+
+:::
+
+## {.unlisted .unnumbered}
+
+### Supprimer les doublons avec la fonction `distinct()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On supprime les doublons à partir de la variable 'sexe' </span>
+
+```{r}
+#| label: distinct
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  distinct(sexe)
+```
+
+Il est possible de supprimer les doublons à partir de plusieurs critères
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On supprime les doublons à partir de la variable 'sexe' et 'relig' </span>
+
+```{r}
+#| label: distinctmult
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  distinct(sexe, relig)
+```
+
+## {.unlisted .unnumbered}
+
+### Trier les données avec la fonction `arrange()`
+
+#### Tri sur un seul critère  
+<span style="color:#AC44C5; font-size:0.8em"> >> On trie les données par ordre croissant de 'age'</span>
+
+```{r output.lines=8}
+#| label: arrangeasc
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  arrange(age)
+```
+
+:::{.callout-note appearance="simple"}
+La fonction `arrange()` trie les valeurs par ordre croissant par défaut, mais on peut trier par ordre décroissant grâce à la fonction `desc()`
+
+```{r}
+#| label: arrangedesc
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  arrange(desc(age))
+```
+:::
+
+## {.unlisted .unnumbered}
+
+#### Tri sur plusieurs critères  
+<span style="color:#AC44C5; font-size:0.8em"> >> On trie les données par ordre alphabétique croissant pour la variable 'sexe' et par valeurs décroissantes pour la variable 'age'</span>
+
+```{r}
+#| label: arrangemult
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  arrange(sexe, desc(age))
+```
+
+## {.unlisted .unnumbered}
+
+### Sélectionner des colonnes avec `select()`
+
+#### Sélection d'une seule variable
+
+**2 possibilités**, avec la fonction `select()` ou avec la fonction `pull()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On sélectionne la variable 'sexe'</span>
+
+::::{.columns}
+:::{.column width="45%"}
+```{r}
+#| label: select1
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  select(sexe)
+```
+:::
+:::{.column width="55%"}
+```{r output.lines=13}
+#| label: pull
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  pull(sexe)
+```
+:::
+::::
+
+::: {.callout-tip title="Quelle différence entre `pull()` et `select()` ?"}
+- La fonction `pull()` renvoie une seule colonne sous forme de vecteur.  
+- La fonction `select()` renvoie une ou plusieurs colonnes sous forme de *dataframe*.
+:::
+
+## {.unlisted .unnumbered}
+
+#### Sélectionner **plusieurs** variables avec `select()`
+
+::::{.columns}
+:::{.column width="45%"}
+<span style="color:#AC44C5; font-size:0.8em"> >> On sélectionne UNIQUEMENT les variables 'sexe' et 'age'</span>
+
+```{r}
+#| label: selectmult
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  select(sexe, age)
+```
+:::
+:::{.column width="55%"}
+<span style="color:#AC44C5; font-size:0.8em"> >> On sélectionne toutes les variables SAUF les variables 'sexe' et 'age'</span>
+
+```{r}
+#| label: selectnot
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  select(-c(sexe, age))
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On sélectionne toutes les variables dont le nom contient "trav"</span>
+
+```{r}
+#| label: selecttexte
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  select(contains("trav"))
+```
+
+::: {.callout-tip appearance="simple"}
+Les tests sur le nom des variables peuvent se faire avec différentes fonctions :
+
+- `contains()` 
+- `starts_with()`
+- `ends_with()` 
+- `matches()`
+
+Ce ne sont pas les seules fonctions pour sélectionner des variables, il existe bien d'autres façons, qui sont détaillées dans la page d'aide de la fonction `select()` du package `{dplyr}`.
+:::
+
+## {.unlisted .unnumbered}
+
+### Créer/ajouter de nouvelles variables avec `mutate()`
+
+:::::{.columns}
+::::{.column width="55%"}
+<span style="color:#AC44C5; font-size:0.8em"> >> On ajoute dans le jeu de données **`hdv2003`**, la variable 'an_nais' </span>
+  
+```{r}
+#| label: mutate
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(an_nais = 2003 - age) -> hdv2003
+```
+
+:::{.callout-important appearance="simple"}
+**Penser à affecter le résultat à un dataframe/tibble !**
+:::
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: mutateres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  names()
+```
+::::
+::::{.column width="5%"}
+::::
+:::{.column width="40%"}
+
+- La fonction `mutate()` peut également 
+
+  + modifier une variable existante si le nom est le même que celui d'une colonne existante
+  + supprimer une variable en fixant sa valeur à `NULL`
+
+```{r}
+#| label: mutateNULL
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(age = NULL) |> 
+  names()
+```
+::::
+:::::
+
+:::{.callout-tip appearance="simple"}
+Le package [`{fastDummies}`](https://jacobkap.github.io/fastDummies/){target="_blank"} est très utile pour créer rapidement des colonnes *dummy* à partir de variables catégorielles, avec la fonction `dummy_cols()`
+
+```{r output.lines=7}
+#| label: dummycols
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  select(sexe) |> 
+  fastDummies::dummy_cols()
+```
+Le nom des *dummies* créées automatiquement sont de la forme *`variable_modalite`*
+:::
+
+## {.unlisted .unnumbered}
+
+#### Effectuer des transformations sur plusieurs variables, en utilisant la fonction `across()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite transformer tous les facteurs en variables "character"</span>
+
+```{r}
+#| label: across
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(across(where(is.factor), as.character))
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="45%"}
+```{r output.lines= 15}
+#| label: acrossresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables initiales
+hdv2003 |> 
+  str()
+```
+:::
+:::{.column width="5%"}
+:::
+:::{.column width="50%"}
+```{r}
+#| label: acrossres
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables après modification
+hdv2003 |> 
+  str()
+```
+
+```{r}
+#| label: acrossresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+hdv2003 |> 
+  mutate(across(where(is.factor), as.character)) |> 
+  str()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+#### Effectuer des transformations en utilisant des conditions
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On ajoute dans le jeu de données **`hdv2003`**, la variable variable 'cl_age'</span>
+
+::: {.panel-tabset}
+##### **| Avec la fonction `if_else()` |** 
+
+```{r}
+#| label: ifelse
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(cl_age = if_else(age >= 15 & age <= 29, "15 à 29 ans",
+                          if_else(age >= 30  & age <= 44, "30 à 44 ans",
+                                  if_else(age >= 45 & age <= 59, "45 à 59 ans",
+                                          if_else(age >= 60 & age <= 75, "60 à 74 ans", 
+                                                  "75 ans et plus"))))) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: ifelseres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Distribution de la variable cl_age
+hdv2003 |> 
+  select(cl_age) |> 
+  questionr::freq(total = TRUE)
+```
+
+##### **| Avec la fonction `case_when()` |**
+
+```{r}
+#| label: casewhen
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(cl_age = case_when(age >= 15 & age <= 29 ~ "15 à 29 ans",
+                            age >= 30  & age <= 44 ~ "30 à 44 ans",
+                            age >= 45 & age <= 59 ~ "45 à 59 ans",
+                            age >= 60 & age <= 75 ~ "60 à 74 ans", 
+                            age >= 75 ~ "75 ans et plus",
+                            TRUE ~ "ERREUR")) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: casewhenres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Distribution de la variable cl_age
+hdv2003 |> 
+  select(cl_age) |> 
+  questionr::freq(total = TRUE)
+```
+:::
+
+## {.unlisted .unnumbered}
+
+### Réordonner les variables avec la fonction `relocate()`
+
+Les nouvelles variables ajoutées avec `mutate()` se positionnent toujours à la fin du jeu de données  
+
+Il est possible de les positionner où l'on souhaite, avec la fonction `relocate()`
+
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On positionne la variable 'an_nais' juste après la variable 'age' dans le jeu de données **`hdv2003`**</span>
+  
+```{r}
+#| label: relocateafter
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  relocate(an_nais, .after = age) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: relocateafterres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables après modification
+hdv2003 |> 
+  names()
+```
+
+On aurait également pu obtenir le même résultat en utilisant `.before` dans la fonction
+
+```{r}
+#| label: relocatebefore
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  relocate(an_nais, .before = sexe) -> hdv2003
+```
+
+:::{.callout-note appearance="simple"}
+La fonction `relocate()` s'utilise soit avec les paramètres `.before = ` ou `.after = ` et dans ces paramètres, on peut utiliser les fonctions `last_col()` (= dernière colonne) ou `everything()` (= toutes les variables)
+:::
+
+## {.unlisted .unnumbered}
+
+### Modifier le nom d'une variable avec `rename()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On renomme la variable 'an_nais' en 'an.naissance' dans **`hdv2003`**</span>
+  
+```{r}
+#| label: rename
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  rename(an.naissance = an_nais) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="45%"}
+```{r}
+#| label: renameresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables initiales
+hdv2003 |> 
+  names()
+```
+:::
+:::{.column width="5%"}
+:::
+:::{.column width="50%"}
+```{r}
+#| label: renameres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Variables après modification
+hdv2003 |> 
+  rename(an.naissance = an_nais) -> hdv2003
+```
+
+```{r}
+#| label: renameresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables après modification
+hdv2003 |> 
+  names()
+```
+:::
+::::
+
+:::::{.callout-tip appearance="simple"}
+Le package [`{janitor}`](https://sfirke.github.io/janitor/index.html){target="_blank"} (qui suit les principes du `tidyverse` et est parfaitement compatible avec le pipe), est utile pour nettoyer
+
+::::{.columns}
+:::{.column}
+- le nom des colonnes, avec la fonction `clean_names()`
+  
+  + convertit tous les noms en minuscules
+  + remplace les espaces et les caractères spéciaux par des `_`
+  + supprime les caractères non alphanumériques
+  + assure la cohérence du format des noms
+:::
+:::{.column}
+- les vecteurs (et donc le contenu des données), avec la fonction `make_clean_names()`, plus générale, qui permet de 
+
+  + choisir le format de casse (snake_case, camelCase, etc.)
+  + remplacer certains caractères spécifiques
+:::
+::::
+:::::
+
+## {.unlisted .unnumbered}
+
+### Combiner des jeux de données
+
+Pour combiner les données de 2 (ou plusieurs) jeux de données/tables, on effectue une **jointure**
+
+:::{.callout-note appearance="simple"}
+Il existe différentes jointures :
+
+- **jointure à gauche** (*left join*) : conserve toutes les observations de la table de gauche même si elles ne sont pas présentes dans la table de droite
+- **jointure à droite** (*right join*): conserve toutes les observations de la table de droite même si elles ne sont pas présentes dans la table de gauche
+- **jointure interne** (*inner join*) : conserve les observations qui sont présentes dans les 2 tables
+- **jointure externe** (*full join*) : conserve toutes les observations, présentes dans l'une ou l'autre des tables
+:::
+
+:::{.callout-important appearance="simple"}
+Pour pouvoir faire une jointure, il faut une **_clé_**, c'est à dire une variable commune aux 2 jeux de données, qui peut avoir ou non, le même nom
+:::
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On supppose que l'on souhaite regrouper les données de deux jeux de données, nommés **`data1`** et **`data2`** </span>
+
+::::{.columns}
+:::{.column width="40%"}
+```{r}
+#| label: data1
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Données data1
+data1 <- tibble(id = c(1, 2, 3, 4, 5),
+                sexe = c('F', 'H', 'H', 'F', 'F'),
+                age = c(25, 57, 88, 32, 44))
+print(data1)
+```
+:::
+:::{.column width="60%"}
+```{r}
+#| label: data2
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Données data2
+data2 <- tibble(ident = c(1, 3, 4, 6),
+                localisation = c("Bordeaux/33", "Cestas/33", "Bordeaux/33", "Dax/40"),
+                code = c("063", "122", "063", "088"),
+                revenu = c(2500, 3000, 3700, 1850))
+print(data2)
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+#### Jointure à gauche
+
+Cette jointure va ajouter à la suite des colonnes de **`data1`**, les colonnes de **`data2`**, en ne conservant que les lignes de **`data1`**  
+
+```{r}
+#| label: leftjoin
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data1 |> 
+  left_join(data2, by = c("id" = "ident")) -> data_leftjoin
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: leftjoinres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_leftjoin
+```
+
+:::{.callout-note appearance="simple"}
+- Les observations du jeu de données de gauche (**`data1`**) qui n'existent pas dans le jeu de données de droite (**`data2`**) sont conservées  
+- Pour ces observations, on a des données manquantes dans les colonnes de **`data2`**  
+:::
+
+:::{.callout-tip appearance="simple"}
+Dans le cas où la clé de jointure à le même nom dans les deux tables (par exemple "cle"), la fonction s'écrit comme suit
+
+```{r}
+#| label: cle
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+data1 |> 
+  left_join(data2, by = "cle") -> data_leftjoin
+```
+:::
+
+## {.unlisted .unnumbered}
+
+#### Jointure à droite
+
+Cette jointure va ajouter à la suite des colonnes de **`data1`**, les colonnes de **`data2`**, en ne conservant que les lignes de **`data2`**  
+
+```{r}
+#| label: rightjoin
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data1 |> 
+  right_join(data2, by = c("id" = "ident")) -> data_rightjoin
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: rightjoinres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_rightjoin
+```
+
+:::{.callout-note appearance="simple"}
+- Les observations du jeu de données de droite (**`data2`**) qui n'existent pas dans le jeu de données de gauche (**`data1`**) sont conservées  
+- Pour ces observations, on a des données manquantes dans les colonnes de **`data1`**
+:::
+
+## {.unlisted .unnumbered}
+
+#### Jointure interne
+
+Cette jointure va ajouter à la suite des colonnes de **`data1`**, les colonnes de **`data2`**, en ne conservant que les lignes communes à **`data1`** et **`data2`**    
+
+```{r}
+#| label: innerright
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data1 |> 
+  inner_join(data2, by = c("id" = "ident")) -> data_innerjoin
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: innerjoinres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_innerjoin
+```
+
+:::{.callout-note appearance="simple"}
+- Seules les observations communes aux deux jeux de données **`data1`** et **`data2`** sont conservées  
+- Il n'y a donc aucune valeur manquante dans le résultat de la jointure
+:::
+
+## {.unlisted .unnumbered}
+
+#### Jointure externe
+
+Cette jointure va ajouter à la suite des colonnes de **`data1`**, les colonnes de **`data2`**, en conservant toutes les lignes de **`data1`** et toutes les lignes de **`data2`**  
+
+```{r}
+#| label: fulljoin
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data1 |> 
+  full_join(data2, by = c("id" = "ident")) -> data_fulljoin
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: fulljoinres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin
+```
+
+:::{.callout-note appearance="simple"}
+- Toutes les observations sont conservées, à la fois celles de **`data1`** mais aussi celles de **`data2`**  
+- Il y a donc des valeurs manquantes dans 
+
+  + les colonnes de **`data1`** pour les observations de **`data2`** qui n'existent pas dans **`data1`**
+  + les colonnes de **`data2`** pour les observations de **`data1`** qui n'existent pas dans **`data2`**
+:::
+
+## {.unlisted .unnumbered}
+
+### Ajouter une colonne d'identifiants avec `rownames_to_column()`
+
+Pour les cas où il n'y a pas d'identifiant dans le jeu de données ou que l'identifiant n'est pas dans une colonne mais dans *rownames*, on utilise la fonction `rownames_to_column()` qui va ajouter les noms de lignes dans une colonne, qui contiendra ainsi un identifiant unique pour chaque observation
+
+```{r}
+#| label: rownamestocolumn
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |>
+  rownames_to_column(var = "identifiant")
+```
+
+## {.unlisted .unnumbered}
+
+### Calculer des statistiques récapitulatives
+
+#### avec la fonction `count()`
+Compte le nombre d'occurrences des modalités de(s) variable(s) spécifiée(s) = tableau de fréquences qui contient uniquement les effectifs  
+Peut être utile en amont d'un `geom_bar()`  
+
+:::::{.columns}
+::::{.column width="42%"}
+##### Pour une variable
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite compter le nombre d'occurrences pour la variable 'clso'</span>
+
+```{r}
+#| label: count
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  count(clso)
+```
+::::
+::::{.column width="3%"}
+::::
+::::{.column width="55%"}
+##### Pour plusieurs variables
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite à présent compter le nombre d'occurrences pour les variables 'sexe' et 'clso' </span>
+
+```{r}
+#| label: countmult
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdv2003 |>
+  count(sexe, clso)
+```
+::::
+:::::
+
+## {.unlisted .unnumbered}
+
+:::{.callout-note}
+Par défaut, les modalités sont affichés selon l'ordre alphanumérique pour les variables de type "character" ou l'ordre déterminé lors de leur création pour les facteurs. Pour afficher les données par ordre décroissant des fréquences, on ajoute `sort = TRUE` dans la fonction `count()` (fonctionne avec une ou plusieurs variables)
+
+```{r}
+#| label: countsort
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdv2003 |>
+  count(clso, sort = TRUE)
+```
+:::
+
+## {.unlisted .unnumbered}
+
+#### avec la fonction `summarise()`
+
+:::::{.columns}
+::::{.column width="45%"}
+##### Pour une variable
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite calculer différentes statistiques pour connaître la distribution de la variable 'age'</span>
+
+```{r}
+#| label: summarise
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  summarise(moyenne_age = mean(age, na.rm = TRUE), 
+            ecarttype_age = sd(age, na.rm = TRUE),
+            minimum_age = min(age, na.rm = TRUE),
+            mediane_age = median(age, na.rm = TRUE),
+            maximum_age = max(age, na.rm = TRUE))
+```
+::::
+::::{.column width="5%"}
+::::
+::::{.column width="50%"}
+##### Pour plusieurs variables simultanément
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite calculer différentes statistiques pour connaître la distribution de toutes les variables numériques du jeu de données (sauf 'id' et 'an.naissance')</span>
+
+```{r}
+#| label: summarisecross
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: !expr c(2:7)
+
+options(width = 100)
+
+hdv2003 |>
+  select(-c(id, an.naissance)) |> 
+  summarise(across(where(is.numeric),
+                   list(moyenne = mean,
+                        ecarttype = sd,
+                        mediane = median)))
+```
+
+:::{.callout-note appearance="simple"}
+Avec `summarise(across())`, les noms des nouvelles variables sont créés en concaténant les noms des variables initiales et les noms des fonctions indiqués dans `list()`, séparés par un `_`
+:::
+::::
+:::::
+
+## {.unlisted .unnumbered}
+
+### Effectuer des opérations groupées avec la fonction `group_by()`
+
+**La fonction `group_by()` permet de définir des groupes pour effectuer des fonctions par groupe plutôt que sur l'ensemble des données**  
+
+- On peut utiliser une ou plusieurs variables pour regrouper les données  
+- Cette fonction est souvent utilisée avec d'autres fonctions comme `mutate()`, `filter()` ou `summarise()` 
+
+::::{.columns}
+:::{.column width="45%"}
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite calculer l'âge moyen, minimum et maximum des personnes qui écoutent ou non du hard rock</span>
+
+```{r}
+#| label: groupby
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  group_by(hard.rock) |> 
+  summarise(moyenne_age = mean(age, na.rm = TRUE), 
+            minimum_age = min(age, na.rm = TRUE),
+            maximum_age = max(age, na.rm = TRUE))
+```
+:::
+:::{.column width="5%"}
+:::
+:::{.column width="50%"}
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite faire des groupes selon l'écoute de hard rock et la pratique de la pêche-chasse, pour calculer l'âge moyen, minimum et maximum de chacun des groupes constitués</span>
+
+```{r}
+#| label: groupbymult
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |>
+  group_by(hard.rock, peche.chasse) |>
+  summarise(moyenne_age = mean(age, na.rm = TRUE),
+            minimum_age = min(age, na.rm = TRUE),
+            maximum_age = max(age, na.rm = TRUE))
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+- On peut cumuler `group_by()` sur plusieurs variables avec `summarise()` de plusieurs variables
+```{r}
+#| label: groupbyacrossmult
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |>
+  select(-c(id, an.naissance)) |> 
+  group_by(hard.rock, peche.chasse) |> 
+  summarise(across(where(is.numeric),
+                   list(moyenne = mean,
+                        ecarttype = sd)))
+```
+
+- Pour annuler la structuration en groupes, on utilise la fonction `ungroup()`
+
+```{r}
+#| label: ungroup
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |>
+  select(-c(id, an.naissance)) |> 
+  ungroup() |>
+  summarise(across(where(is.numeric),
+                   list(moyenne = mean,
+                        ecarttype = sd)))
+```
+
+## {.unlisted .unnumbered}
+
+::: {.callout-warning appearance="simple"}
+`group_by()` fonctionne pour tous les verbes vus précédemment, sauf `arrange()`, qui trie la table sans tenir compte des groupes
+
+```{r}
+#| label: groupbyarrange
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdv2003 |>
+  group_by(sexe) |> 
+  arrange(desc(age))
+```
+
+Pour que le tri soit pris en compte avec la fonction `arrange()`, il faut ajouter `.by_group = TRUE` dans cette dernière
+
+```{r}
+#| label: arrangebygroup
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdv2003 |>
+  group_by(sexe) |> 
+  arrange(desc(age), .by_group = TRUE)
+```
+:::
+
+## {.unlisted .unnumbered}
+
+### Fiche aide-mémoire `{dplyr}`
+
+Toutes les fonctions du package `{dplyr}` sont disponibles dans la [[cheatsheet](https://rstudio.github.io/cheatsheets/html/data-transformation.html){target="_blank}] du package  
+
+<iframe src="https://rstudio.github.io/cheatsheets/data-transformation.pdf" width="100%" height="600px"></iframe>
+
+## Manipulations avec le package [`{tidyr}`](https://tidyr.tidyverse.org/){target="_blank"}
+
+**Les fonctions utiles pour**  
+
+- **réorganiser les données**
+  
+  + `pivot_longer()` : transformer des colonnes en lignes
+  + `pivot_wider()` : transformer des lignes en colonnes 
+- **manipuler les colonnes**
+
+  + `separate()` : séparer une colonne en plusieurs colonnes
+  + `unite()` : regrouper plusieurs colonnes en une seule
+
+- **gérer les données manquantes**
+
+  + `drop_na()` : supprimer les lignes contenant des valeurs manquantes
+  + `replace_na()` : remplacer les valeurs manquantes par des valeurs spécifiées
+
+## {.unlisted .unnumbered}
+
+### Transformer des colonnes en lignes avec `pivot_longer()`
+
+Cette fonction convertit plusieurs colonnes en deux nouvelles colonnes : une pour les noms des variables, une pour leurs valeurs correspondantes  
+$\Rightarrow$ réduit le nombre de colonnes mais augmente celui des lignes, rendant ainsi le jeu de données plus "long"
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On transforme les colonnes des différentes activités (hard.rock, lecture.bd, peche.chasse, cuisine, bricol) en un format long</span>
+
+```{r}
+#| label: pivotlonger
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdv2003 |> 
+  select(sexe, hard.rock, lecture.bd, peche.chasse, cuisine, bricol) |> 
+  pivot_longer(cols = c(hard.rock, lecture.bd, peche.chasse, cuisine, bricol),
+               names_to = "activite",
+               values_to = "pratique") -> hdvlong
+hdvlong
+```
+
+**Elle est particulièrement utile pour restructurer les données pour certaines analyses statistiques et représentations graphiques qui nécessitent un format long**
+
+## {.unlisted .unnumbered}
+
+### Transformer des lignes en colonnes avec `pivot_wider()`
+
+Cette fonction sert à transformer des données du format long au format large ("wide")
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut créer un tableau croisé montrant le nombre de personnes pratiquant chaque activité pour chaque modalité de la variable 'sexe'</span>
+
+```{r}
+#| label: pivotwider
+#| eval: true
+#| include: true
+#| message: false
+#| warning: false
+#| echo: true
+
+hdvlong |> 
+  filter(pratique == "Oui") |> 
+    group_by(sexe, activite) |> 
+    summarise(count = n()) |> 
+    pivot_wider(names_from = activite,
+                values_from = count,
+                values_fill = 0)
+```
+
+**Cette fonction est utile pour créer des tableaux croisés permettant de visualiser et comparer des catégories**  
+
+## {.unlisted .unnumbered}
+
+### Séparer une colonne en plusieurs colonnes avec `separate()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> Dans le jeu de données **`data_fulljoin`** créé précédemment, on va séparer les valeurs contenues dans la variable 'localisation' en 2 variables, l'une que l'on nommera 'ville', l'autre 'departement'</span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: printdatafulljoin
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Jeu de données data_fulljoin
+data_fulljoin
+```
+:::
+:::{.column}
+```{r}
+#| label: separate
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Séparation des valeurs de la variable localisation
+data_fulljoin |> 
+  separate(col = localisation,
+           into = c("ville", "departement"),
+           sep = "/", 
+           remove = FALSE) -> data_fulljoin
+data_fulljoin
+```
+:::
+::::
+
+:::{.callout-tip appearance="simple"}
+Pour supprimer la variable d'origine dans le jeu de données, il faut indiquer `remove = TRUE`
+:::
+
+## {.unlisted .unnumbered}
+
+### Regrouper plusieurs colonnes en une seule avec `unite()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> Dans **`data_fulljoin`**, on va regrouper les valeurs de "departement" et "code" pour reconstituer le code insee de la commune</span>
+
+```{r}
+#| label: unite
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin |> 
+  unite("code_insee", departement:code, sep= "", remove = FALSE) 
+```
+
+:::{.callout-tip appearance="simple"}
+Pour supprimer les variables d'origine dans le jeu de données, il faut indiquer `remove = TRUE`
+:::
+
+## {.unlisted .unnumbered}
+
+### Supprimer les lignes contenant des valeurs manquantes avec `drop_na()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On supprime les valeurs manquantes du jeu de données **`data_fulljoin`**</span>
+
+```{r}
+#| label: dropna
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin |> 
+  drop_na()
+```
+
+Il est possible de supprimer les valeurs manquantes pour une variable en particulier, en précisant son nom dans `drop_na()`
+
+```{r}
+#| label: dropnavar
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin |> 
+  drop_na(age)
+```
+
+## {.unlisted .unnumbered}
+
+### Remplacer les valeurs manquantes par des valeurs spécifiées avec `replace_na()`
+
+```{r}
+#| label: replacena
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin |> 
+  mutate(revenu = replace_na(revenu, -999)) 
+```
+
+:::{.callout-tip appearance="simple"}
+Il faut compléter avec une valeur du même type. Ici, pour revenu, il faut une valeur numérique.  Si l'on souhaite ajouter du texte dans une variable numérique, il faut modifier le type de la variable
+
+```{r}
+#| label: replacenatype
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+data_fulljoin |> 
+  mutate(revenu = replace_na(as.character(revenu), "Refus de répondre"))
+```
+:::
+
+## {.unlisted .unnumbered}
+
+### Fiche aide-mémoire `{tidyr}`
+
+Toutes les fonctions du package `{tidyr}` sont disponibles dans la [[cheatsheet](https://rstudio.github.io/cheatsheets/html/tidyr.html){target="_blank}] du package  
+
+<iframe src="https://rstudio.github.io/cheatsheets/tidyr.pdf" width="100%" height="600px"></iframe>
+
+
+## Manipulations des chaînes de caractères avec le package [`{stringr}`](https://stringr.tidyverse.org/){target="_blank"}
+
+**Les fonctions utiles pour**  
+
+- **la recherche et correspondance d'expression**  
+
+  + `str_detect()` : détecter la présence d'une expression (*pattern*) dans une chaîne de caractères 
+  + `str_starts()` : détecter la présence d'une expression au début d'une chîane de caractères
+  
+- **la transformation de chaînes**  
+
+  + `str_replace()` : remplacer une expression dans une chaîne de caractères spécifiée
+  + `str_to_upper()` : convertir une chaîne en majuscules
+  + `str_to_lower()` : convertir une chaîne en minuscules
+  + `str_to_title()` : convertir une chaîne en ne mettant que la 1re lettre des mots en majuscules
+
+## {.unlisted .unnumbered}
+
+### Détection d'une expression avec la fonction `str_detect()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite sélectionner les lignes qui contiennent l'expression "qualifie" dans la variable 'qualif'</span>
+
+```{r}
+#| label: strdetect
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(str_detect(qualif, "qualifie")) |> 
+# pour la vérification, on affiche seulement la variable qualif
+  select(qualif)
+```
+
+## {.unlisted .unnumbered}
+
+### Détection d'une expression avec la fonction `str_starts()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite sélectionner les lignes qui commencent par l'expression "Ouvrier" dans la variable 'qualif'</span>
+
+```{r}
+#| label: strstarts
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  filter(str_starts(qualif, "Ouvrier")) |> 
+# pour la vérification, on affiche seulement la variable qualif
+  select(qualif)
+```
+
+## {.unlisted .unnumbered}
+
+### Remplacement d'une expression avec la fonction `str_replace()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite remplacer l'expression "Ouvrier" par "Ouv." dans la variable 'qualif'</span>
+
+```{r}
+#| label: strreplace
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(qualif = str_replace(qualif, "Ouvrier", "Ouv.")) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+```{r}
+#| label: strreplaceres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable après modification
+hdv2003 |> 
+  select(qualif) |> 
+  questionr::freq()
+```
+
+## {.unlisted .unnumbered}
+
+### Conversion du texte en majuscules avec la fonction `str_to_upper()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite convertir les modalités de la variable 'hard.rock' en majuscules</span>
+
+```{r}
+#| label: strtoupper
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(hard.rock = str_to_upper(hard.rock)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: strtoupperinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable initiale
+hdv2003 |> 
+  select(hard.rock) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: strtoupperres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Variable après modification
+hdv2003 |> 
+  mutate(hard.rock = str_to_upper(hard.rock)) -> hdv2003
+```
+
+```{r}
+#| label: strtoupperresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable après modification
+hdv2003 |> 
+  select(hard.rock) |> 
+  questionr::freq()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Conversion du texte en minuscules avec la fonction `str_to_lower()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite convertir les modalités de la variable 'hard.rock' en minuscules</span>
+
+```{r}
+#| label: strtolower
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(hard.rock = str_to_lower(hard.rock)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: strtolowerinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable initiale
+hdv2003 |> 
+  select(hard.rock) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: strtolowerres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Variable après modification
+hdv2003 |> 
+  mutate(hard.rock = str_to_lower(hard.rock)) -> hdv2003
+```
+
+```{r}
+#| label: strtolowerresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable après modification
+hdv2003 |> 
+  select(hard.rock) |> 
+  questionr::freq()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Conversion du texte en minuscules avec la fonction `str_to_title()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite convertir le texte de la variable 'qualif' avec la première lettre des mots en majuscules</span>
+
+```{r}
+#| label: strtotitle
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(qualif = str_to_title(qualif)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: strtotitleresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable initiale
+hdv2003 |> 
+  select(qualif) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: strtotitleres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Variable après modification
+hdv2003 |> 
+  mutate(qualif = str_to_title(qualif)) -> hdv2003
+```
+```{r}
+#| label: strtotitleresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable après modification
+hdv2003 |> 
+  select(qualif) |> 
+  questionr::freq()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Fiche aide-mémoire `{stringr}`
+
+Toutes les fonctions du package `{stringr}` sont disponibles dans la [[cheatsheet](https://rstudio.github.io/cheatsheets/html/strings.html){target="_blank}] du package  
+
+<iframe src="https://rstudio.github.io/cheatsheets/strings.pdf" width="100%" height="600px"></iframe>
+
+## Manipulation des facteurs avec le package [`{forcats}`](https://forcats.tidyverse.org/index.html){target="_blank"}  
+
+**Les fonctions utiles pour**  
+
+::::{.columns}
+:::{.column}
+- **changer l'ordre des modalités (niveaux)**
+  
+  + `fct_infreq()`: réorganiser les niveaux du plus fréquent au moins fréquent
+  + `fct_relevel()` : réorganiser les niveaux d'un facteur selon un ordre spécifique défini par l'utilisateur
+  + `fct_reorder()` : réorganiser les niveaux d'un facteur selon les valeurs d'une autre variable (numérique)
+  + `fct_rev()` : inverser l'ordre des niveaux d'un facteur
+  
+- **modifier les valeurs des modalités**
+  
+  + `fct_recode()` : changer le niveau d'un facteur
+  + `fct_relabel()` : renommer les niveaux d'un facteur en appliquant une fonction à chaque niveau
+  + `fct_collapse()` : regrouper les niveaux d'un facteur
+  + `fct_lump()` : regrouper les niveaux peu fréquents d'un facteur en un nouveau niveau appelé "autre"
+  + `fct_anon()` : anonymiser les niveaux
+:::
+:::{.column}
+- **ajouter ou supprimer des modalités**
+
+  + `fct_expand()` : ajouter des niveaux supplémentaires à un facteur
+  + `fct_drop()` : supprimer les niveaux inutilisés d'un facteur
+
+- **faire des opérations sur les facteurs**
+
+  + `fct_unique()` : lister les niveaux d'un facteur
+  + `fct_count()` : compter le nombre d'observation pour chacun des niveaux d'un facteur
+  + `fct_cross()` : combiner les niveaux de plusieurs facteurs
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Réorganiser les niveaux d'un facteur selon leur importance avec `fct_infreq()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite réorganiser les niveaux de 'occup' selon leur importance </span>
+  
+```{r}
+#| label: fctinfreq
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(occup = forcats::fct_infreq(occup)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctinfreqresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(occup) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctinfreqres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(occup = forcats::fct_infreq(occup)) -> hdv2003
+```
+
+```{r}
+#| label: fctinfreqresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(occup) |> 
+  questionr::freq()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Réorganiser les niveaux des facteurs manuellement avec `fct_relevel()`
+  
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut avoir les niveaux de la variable 'trav.satisf' dans l'ordre suivant : "Insatisfaction", "Equilibre" et "Satisfaction"</span>
+
+```{r}
+#| label: fctrelevel
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(trav.satisf = fct_relevel(trav.satisf,
+                                   c("Insatisfaction", "Equilibre", "Satisfaction"))) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="35%"}
+```{r}
+#| label: fctrelevelresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(trav.satisf) |> 
+  levels()
+```
+:::
+:::{.column width="65%"}
+```{r}
+#| label: fctrelevelres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(trav.satisf = fct_relevel(trav.satisf, 
+                                   c("Insatisfaction", "Equilibre", "Satisfaction"))) -> hdv2003
+```
+
+```{r}
+#| label: fctrelevelresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(trav.satisf) |> 
+  levels()
+```
+:::
+::::
+
+:::{.callout-note title="Pour rappel"}
+Par défaut, les modalités d'une variable qualitative sont triées par ordre alphanumérique
+:::
+  
+## {.unlisted .unnumbered}
+  
+### Réorganiser les niveaux en fonction des valeurs d'une variable numérique avec `fct_reorder()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On réorganise les niveaux de 'relig' selon l'age moyen de chacune des modalités</span>
+
+```{r}
+#| label: fctreorder
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(relig = fct_reorder(relig, age, .fun = median, .desc = FALSE)) |> 
+  group_by(relig) |> 
+  summarise(age_median = median(age))
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctreorderinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Ordre initial
+hdv2003 |> 
+  group_by(relig) |> 
+  summarise(age_median = median(age))
+```
+:::
+:::{.column}
+```{r}
+#| label: fctreorderres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Ordre après modification
+hdv2003 |> 
+  mutate(relig = fct_reorder(relig, age, .fun = median, .desc = FALSE)) |> 
+  group_by(relig) |> 
+  summarise(age_median = median(age))
+```
+:::
+::::
+
+:::{.callout-note appearance="simple"}
+- Le paramètre `.fun` définit la fonction d'agrégation. Elle peut être `mean`, `median`, `sd`, etc.
+- Pour ordonner les valeurs par ordre décroissant, il faut définir le paramètre `.desc = TRUE` 
+
+**Cette fonction est particulièrement utile pour adapter l'ordre des modalités dans les visualisations graphiques ou pour comparer des groupes selon une variable quantitative**
+:::
+
+## {.unlisted .unnumbered}
+  
+### Inverser l'ordre des niveaux avec `fct_rev()`
+  
+<span style="color:#AC44C5; font-size:0.8em"> >> Dans la variable 'lecture.bd', on veut que les niveaux soient dans l'ordre suivant : "Oui" et "Non"</span>
+
+```{r}
+#| label: fctrev
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(lecture.bd = fct_rev(lecture.bd)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctrevresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(lecture.bd) |> 
+  levels()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctrevres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(lecture.bd = fct_rev(lecture.bd)) -> hdv2003
+```
+
+```{r}
+#| label: fctrevresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(lecture.bd) |> 
+  levels()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Changer le niveau d'un facteur avec `fct_recode()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On modifie le niveau "2eme cycle" de 'nivetud' en "2e cycle"</span>
+  
+```{r}
+#| label: fctrecode
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(nivetud = forcats::fct_recode(nivetud, "2e cycle" = "2eme cycle")) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="40%"}
+```{r}
+#| label: fctrecodresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(nivetud) |> 
+  levels()
+```
+:::
+:::{.column width="60%"}
+```{r}
+#| label: fctrecodres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(nivetud = forcats::fct_recode(nivetud, "2e cycle" = "2eme cycle")) -> hdv2003
+```
+
+```{r}
+#| label: fctrecodresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |>  
+  pull(nivetud) |> 
+  levels()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Modifier le nom des niveaux de manière globale avec `fct_relabel()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On passe les niveaux de la variable 'cuisine' en majuscules</span>
+
+```{r}
+#| label: fctrelabel
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(cuisine = forcats::fct_relabel(cuisine, toupper)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctrelabelresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(cuisine) |> 
+  levels()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctrelabelres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(cuisine = forcats::fct_relabel(cuisine, toupper)) -> hdv2003
+```
+
+```{r}
+#| label: fctrelabelresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(cuisine) |> 
+  levels()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Regrouper les niveaux d'un facteur en catégories manuellement définies avec `fct_collapse()`
+  
+<span style="color:#AC44C5; font-size:0.8em"> >> Dans la variable 'relig', on veut regrouper les niveaux "Pratiquant regulier" et "Pratiquant occasionnel" dans la modalité "Pratiquant"</span>
+  
+```{r}
+#| label: fctcollapse
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(relig = fct_collapse(relig, 
+                               "Pratiquant" = c("Pratiquant regulier", "Pratiquant occasionnel"))) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctcollapseresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(relig) |> 
+  levels()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctcollapseres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+hdv2003 |> 
+  mutate(relig = fct_collapse(relig, 
+                               "Pratiquant" = c("Pratiquant regulier", "Pratiquant occasionnel"))) -> hdv2003
+```
+
+```{r}
+#| label: fctcollapseresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(relig) |> 
+  levels()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Conserver le(s) niveau(x) le(s) plus commun(s) et grouper les autres avec `fct_lump()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut conserver le niveau le plus courant de la variable 'occup' et regrouper les autres niveaux dans un même niveau</span>
+
+```{r}
+#| label: fctlump
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(occup = fct_lump(occup, n = 1)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctlumpresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(occup) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctlumpres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+# Modalités après modification
+hdv2003 |> 
+  mutate(occup = fct_lump(occup, n = 1)) -> hdv2003
+```
+
+```{r}
+#| label: fctlumpresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(occup) |> 
+  questionr::freq()
+```
+:::
+::::
+
+::: {.callout-tip appearance="simple"}
+- On peut nommer le niveau `other_level` (ex : `other_level = "Autre"`).  
+- Avec `n` négatif, la fonction conserve les `n` niveaux les moins courants.
+- On peut donner une fréquence d'apparition, en changeant `n` par `prop` (ex : `prop = 0.2` conserve les niveaux qui représentent au moins 20% du vecteur).
+- Avec un `prop` négatif, on définit une marge maximale d'apparition. 
+:::
+
+## {.unlisted .unnumbered}
+
+### Anonymiser les niveaux avec `fct_anon()`
+
+Cette fonction est utile pour transformer le texte en codes numériques  
+NB1 : la variable anonymisée est toujours un facteur  
+NB2 : ni les valeurs ni l'ordre des niveaux ne sont conservés, les identifiants numériques sont arbitraires
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On remplace les niveaux de la variable 'bricol' par des identifiants numériques aléatoires</span>
+
+```{r}
+#| label: fctanon
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(bricol_anon = fct_anon(bricol)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="45%"}
+```{r}
+#| label: fctanonresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(bricol) |> 
+  levels()
+```
+:::
+:::{.column width="55%"}
+
+```{r}
+#| label: fctanonresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(bricol_anon) |> 
+  levels()
+```
+:::
+::::
+
+:::{.callout-tip appearance="simple"}
+Si on le souhaite, il est possible d'ajouter un préfixe aux nouveaux labels
+
+```{r}
+#| label: fctanonprefix
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(bricol_anon = fct_anon(bricol, prefix = "bricol_")) |> 
+  pull(bricol_anon) |> 
+  levels()
+```
+:::
+
+## {.unlisted .unnumbered}
+
+### Ajouter de nouveaux niveaux à un facteur avec `fct_expand()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut ajouter les niveaux "Ne se reconnaît pas dans ces catégories" et "Refus de répondre" dans la variable 'sexe'</span>
+
+```{r}
+#| label: fctexpand
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(sexe = fct_expand(sexe, 
+                           "Ne se reconnaît pas dans ces catégories", "Refus de répondre")) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column width="45%"}
+```{r}
+#| label: fctexpandresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(sexe) |> 
+  questionr::freq()
+```
+:::
+:::{.column width="55%"}
+```{r}
+#| label: fctexpandres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+hdv2003 |> 
+  mutate(sexe = fct_expand(sexe, 
+                           "Ne se reconnaît pas dans ces catégories", "Refus de répondre")) -> hdv2003
+```
+
+```{r}
+#| label: fctexpandresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(sexe) |> 
+  questionr::freq()
+```
+:::
+::::
+
+## {.unlisted .unnumbered}
+
+### Supprimer les niveaux de facteurs inutilisés avec `fct_drop()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut supprimer les niveaux inutilisés, pour lesquels on n'a pas d'observations, dans la variable 'sexe'</span>
+
+```{r}
+#| label: fctdrop
+#| eval: false
+#| include: true
+#| message: false
+#| echo: true
+#| results: hide
+
+hdv2003 |> 
+  mutate(sexe = fct_drop(sexe)) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+```{r}
+#| label: fctexpandeval
+#| eval: true
+#| include: false
+#| message: false
+#| echo: false
+#| results: hide
+
+hdv2003 |> 
+  mutate(sexe = fct_expand(sexe, 
+                           "Ne se reconnaît pas dans ces catégories", "Refus de répondre")) -> hdv2003
+```
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctdropresinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités initiales
+hdv2003 |> 
+  pull(sexe) |> 
+  questionr::freq()
+```
+:::
+:::{.column}
+```{r}
+#| label: fctdropres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+hdv2003 |> 
+  mutate(sexe = fct_drop(sexe)) -> hdv2003
+```
+
+```{r}
+#| label: fctdropresmodif
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Modalités après modification
+hdv2003 |> 
+  pull(sexe) |> 
+  questionr::freq()
+```
+:::
+::::
+
+::: {.callout-tip appearance="simple"}
+Avec `fct_drop(only = "...")`, on peut préciser les niveaux que l'on souhaite supprimer
+```{r}
+#| label: fctdroponly
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+hdv2003 |> 
+  mutate(sexe = fct_expand(sexe, 
+                           "Ne se reconnaît pas dans ces catégories", "Refus de répondre")) -> hdv2003
+```
+
+```{r}
+#| label: fctdroponlyres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(sexe = fct_drop(sexe, only = "Refus de répondre")) |> 
+  pull(sexe) |> 
+  questionr::freq()
+```
+
+:::
+
+## {.unlisted .unnumbered}
+
+### Lister les niveaux d'un facteur `fct_unique()`
+
+Cette fonction permet de vérifier l'ordre des modalités d'une variable facteur, ce qui peut s'avérer utile avant analyse, notamment pour les graphiques
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut connaître les niveaux de la variable 'occup' </span>
+
+```{r}
+#| label: fctunique
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  pull(occup) |> 
+  fct_unique()
+```
+
+## {.unlisted .unnumbered}
+
+### Compter la fréquence des niveaux d'un facteur `fct_count()`
+
+Cette fonction donne le tableau de fréquence des niveaux du facteur avec le nombre d'occurences pour chacun d'eux
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On souhaite compter le nombre d'occurrences pour la variable 'relig'</span>
+
+```{r}
+#| label: fctcount
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  pull(relig) |> 
+  fct_count(sort = FALSE, prop = FALSE)
+```
+
+:::{.callout-note}
+Il est possible de trier les niveaux par ordre décroissant des fréquences avec le paramètre `sort = TRUE`. 
+Avec le paramètre `prop = TRUE`, il est possible d'ajouter une colonne avec les 
+
+```{r}
+#| label: fctcountsortprop
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  pull(relig) |> 
+  fct_count(sort = TRUE, prop = TRUE)
+```
+
+:::
+
+## {.unlisted .unnumbered}
+
+### Combiner les niveaux de plusieurs facteurs`fct_cross()`
+
+<span style="color:#AC44C5; font-size:0.8em"> >> On veut créer une variable qui combine les niveaux des variables 'cinema' et 'lecture.bd' </span>
+
+```{r}
+#| label: fctcross
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+hdv2003 |> 
+  mutate(cinebd = fct_cross(cinema, lecture.bd, sep = ":")) -> hdv2003
+```
+
+<span style="color:#C5449D; font-size:0.7em"> >>> Vérification </span>
+
+::::{.columns}
+:::{.column}
+```{r}
+#| label: fctcrossinit
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variables initiales - "Tableau croisé"
+hdv2003 |> 
+  count(cinema, lecture.bd)
+```
+:::
+:::{.column}
+```{r}
+#| label: fctcrossres
+#| eval: true
+#| include: true
+#| message: false
+#| echo: true
+
+# Variable croisée
+hdv2003 |> 
+  pull(cinebd) |> 
+  questionr::freq()
+```
+:::
+::::
+
+:::{.callout-tip appearance="simple"}
+- On peut conserver les combinaisons qui n'ont aucune observation, en ajoutant le paramètre `keep_empty = TRUE` dans la fonction `fct_cross()`
+- On peut paramétrer le séparateur entre les niveaux (ex. : `_`, `.`, etc.)  
+- Il est possible de croiser plus de deux facteurs
+:::
+
+## {.unlisted .unnumbered}
+
+### Fiche aide-mémoire `{forcats}`
+
+Toutes les fonctions du package `{forcats}` sont disponibles dans la [[cheatsheet](https://rstudio.github.io/cheatsheets/html/factors.html){target="_blank}] du package  
+
+<iframe src="https://rstudio.github.io/cheatsheets/factors.pdf" width="100%" height="600px"></iframe>
+
 
 #  Ressources et références bibliographiques 
 
+## Aides et ressources en ligne {.unnumbered}
 
+`r fontawesome::fa("globe", fill = "#A626A4")` La page [Bulle d'R](https://github.com/statire/bulledr){target="_blank"}  
+`r fontawesome::fa("file-pdf", fill = "#A626A4")` La cheatsheet [Bonnes pratiques en R à ETTIS](https://github.com/statire/bulledr/blob/main/CheatSheet_bulledr_ETTIS.pdf){target="_blank"}  
+`r fontawesome::fa("globe", fill = "#A626A4")` Pour le package [forcats](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/){target="_blank"}
 
+## Packages
+
+---
+nocite: |
+  @Bache2022magrittr, @Wickham2023forcats, @Wickham2023dplyr, @Wickham2023stringr, @Wickham2024tidyr, @Kaplan2025fastDummies, @Firke2024janitor, @Wickham2024tidyr
+---
