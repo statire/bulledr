@@ -14,6 +14,8 @@
 
 - Visualisations graphiques (base R et ggplot2) : ["Visualisations graphiques"](https://statire.github.io/bulledr/02-graphiques/)
 
+- Manipulation des données (tidyverse) : ["Manipulation des données"](https://statire.github.io/bulledr/03-manipulations_tidyverse/)
+
 # Quelques ressources
 
 ## Francophones
