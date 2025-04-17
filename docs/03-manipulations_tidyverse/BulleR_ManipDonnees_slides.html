@@ -440,6 +440,7 @@ Sandrine LYSER <a href="https://orcid.org/0000-0001-6820-0672" class="quarto-tit
 	<nav id="toc-nav" role="doc-toc" "="">  
 					<h2 id="toc-title">Table des matières</h2>
 				<ul>
+<li></li>
 <li><a href="#/préambule.-jeu-de-données-utilisé-dans-cette-session" id="/toc-préambule.-jeu-de-données-utilisé-dans-cette-session">Préambule. Jeu de données utilisé dans cette session</a></li>
 <li><a href="#/quelques-rappels" id="/toc-quelques-rappels">Quelques rappels</a>
 <ul>
@@ -462,6 +463,10 @@ Sandrine LYSER <a href="https://orcid.org/0000-0001-6820-0672" class="quarto-tit
 </ul></li>
 </ul>
 	</nav>
+</section>
+<section class="slide level2">
+
+<p></p>
 </section>
 <section id="préambule.-jeu-de-données-utilisé-dans-cette-session" class="slide level2 unnumbered" data-background-color="#dfddec">
 <h2>Préambule. Jeu de données utilisé dans cette session</h2>
@@ -2245,25 +2250,25 @@ Peut être utile en amont d’un <code>geom_bar()</code></p>
 <p><span style="color:#AC44C5; font-size:0.8em"> &gt;&gt; On transforme les colonnes des différentes activités (hard.rock, lecture.bd, peche.chasse, cuisine, bricol) en un format long</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb109"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href=""></a>hdv2003 <span class="sc">|&gt;</span> </span>
-<span id="cb109-2"><a href=""></a>  <span class="fu">select</span>(sexe, hard.rock, lecture.bd, peche.chasse, cuisine, bricol) <span class="sc">|&gt;</span> </span>
+<span id="cb109-2"><a href=""></a>  <span class="fu">select</span>(id, sexe, hard.rock, lecture.bd, peche.chasse, cuisine, bricol) <span class="sc">|&gt;</span> </span>
 <span id="cb109-3"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(hard.rock, lecture.bd, peche.chasse, cuisine, bricol),</span>
 <span id="cb109-4"><a href=""></a>               <span class="at">names_to =</span> <span class="st">"activite"</span>,</span>
 <span id="cb109-5"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"pratique"</span>) <span class="ot">-&gt;</span> hdvlong</span>
 <span id="cb109-6"><a href=""></a>hdvlong</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10,000 × 3
-   sexe  activite     pratique
-   &lt;chr&gt; &lt;chr&gt;        &lt;fct&gt;   
- 1 Femme hard.rock    Non     
- 2 Femme lecture.bd   Non     
- 3 Femme peche.chasse Non     
- 4 Femme cuisine      Oui     
- 5 Femme bricol       Non     
- 6 Femme hard.rock    Non     
- 7 Femme lecture.bd   Non     
- 8 Femme peche.chasse Non     
- 9 Femme cuisine      Non     
-10 Femme bricol       Non     
+<pre><code># A tibble: 10,000 × 4
+      id sexe  activite     pratique
+   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;fct&gt;   
+ 1     1 Femme hard.rock    Non     
+ 2     1 Femme lecture.bd   Non     
+ 3     1 Femme peche.chasse Non     
+ 4     1 Femme cuisine      Oui     
+ 5     1 Femme bricol       Non     
+ 6     2 Femme hard.rock    Non     
+ 7     2 Femme lecture.bd   Non     
+ 8     2 Femme peche.chasse Non     
+ 9     2 Femme cuisine      Non     
+10     2 Femme bricol       Non     
 # ℹ 9,990 more rows</code></pre>
 </div>
 </div>
@@ -2467,7 +2472,7 @@ Peut être utile en amont d’un <code>geom_bar()</code></p>
 <li><p><strong>la recherche et correspondance d’expression</strong></p>
 <ul>
 <li><code>str_detect()</code> : détecter la présence d’une expression (<em>pattern</em>) dans une chaîne de caractères</li>
-<li><code>str_starts()</code> : détecter la présence d’une expression au début d’une chîane de caractères</li>
+<li><code>str_starts()</code> : détecter la présence d’une expression au début d’une chaîne de caractères</li>
 </ul></li>
 <li><p><strong>la transformation de chaînes</strong></p>
 <ul>
@@ -2821,7 +2826,7 @@ Retire des affaires     77  3.9  3.9</code></pre>
 <section id="section-48" class="slide level2 unlisted unnumbered">
 <h2></h2>
 <h3 id="réorganiser-les-niveaux-en-fonction-des-valeurs-dune-variable-numérique-avec-fct_reorder">Réorganiser les niveaux en fonction des valeurs d’une variable numérique avec <code>fct_reorder()</code></h3>
-<p><span style="color:#AC44C5; font-size:0.8em"> &gt;&gt; On réorganise les niveaux de ‘relig’ selon l’age moyen de chacune des modalités</span></p>
+<p><span style="color:#AC44C5; font-size:0.8em"> &gt;&gt; On réorganise les niveaux de ‘relig’ selon l’age médian de chacune des modalités</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb159"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href=""></a>hdv2003 <span class="sc">|&gt;</span> </span>
 <span id="cb159-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">relig =</span> <span class="fu">fct_reorder</span>(relig, age, <span class="at">.fun =</span> median, <span class="at">.desc =</span> <span class="cn">FALSE</span>)) <span class="sc">|&gt;</span> </span>
@@ -3309,7 +3314,7 @@ Levels: Exerce une profession Other</code></pre>
 </section>
 <section id="section-59" class="slide level2 unlisted unnumbered">
 <h2></h2>
-<h3 id="combiner-les-niveaux-de-plusieurs-facteursfct_cross">Combiner les niveaux de plusieurs facteurs<code>fct_cross()</code></h3>
+<h3 id="combiner-les-niveaux-de-plusieurs-facteurs-fct_cross">Combiner les niveaux de plusieurs facteurs <code>fct_cross()</code></h3>
 <p><span style="color:#AC44C5; font-size:0.8em"> &gt;&gt; On veut créer une variable qui combine les niveaux des variables ‘cinema’ et ‘lecture.bd’ </span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb215"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href=""></a>hdv2003 <span class="sc">|&gt;</span> </span>
@@ -3383,15 +3388,6 @@ Oui:Non  797 39.9 39.9</code></pre>
 </section>
 <section id="packages" class="slide level2 smaller scrollable">
 <h2>Packages</h2>
-<!-- 1. METTRE TOUT LE PARAMÉTRAGE PDF DE L'EN-TÊTE EN COMMENTAIRE  -->
-<!-- 2. RENDER html+revealjs -->
-<!-- quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to all -->
-<!-- 3. REACTIVER L'OUTPUT PDF ET AJOUTER \pagebreak AVANT LA 1RE SLIDE -->
-<!-- 4. RENDER pdf -->
-<!-- quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to pdf -->
-<!-- 5. RENDER html -->
-<!-- 6. REMETTRE TOUT LE PARAMÉTRAGE PDF DE L'EN-TÊTE EN COMMENTAIRE  -->
-<!-- 7. RENDER revealjs -->
 <div class="quarto-auto-generated-content">
 <p><img src="img/bloc-etat.png" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -4021,7 +4017,7 @@ Wickham, H., D. Vaughan, et M. Girlich. 2024. <em>tidyr: Tidy Messy Data</em>. <
       }
     });
     </script>
-    <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false});
+    <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom"});
     (function() {
       let previousOnload = window.onload;
       window.onload = () => {

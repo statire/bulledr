@@ -11,38 +11,38 @@ author:
     affiliations:
       - INRAE
 author-meta: "Sandrine LYSER"
-last-modified: "2025-04-01"
+last-modified: "2025-04-17"
 lightbox: true # pour avoir les images cliquables
 title-slide-attributes:
         data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."    
 license: CC BY-NC-SA
 format: 
-  # pdf:
-  #   output-file: BulleR_ManipDonnees.pdf # nom du fichier de sortie
-  #   toc: true
-  #   toc-depth: 3
-  #   number-sections: true
-  #   colorlinks: true
-  #   documentclass: article
-  #   papersize: A4
-  #   geometry:
-  #     - top=20mm
-  #     - left=20mm
-  #     - right=20mm
-  #     - bottom=20mm
-  #   prefer-html: true
-  #   code-block-background: true
-  #   code-block-border-left: true
-  #   fig-width: 4.5 # par défaut
-  #   fig-height: 2.5 # par défaut
-  #   mainfont: "Raleway"
-  #   sansfont: "Avenir Next LT Pro"
-  #   monofont: "Consolas"
-  #   monofontoptions:
-  #     - Scale=0.9
-  #   fontsize: 10pt
+  pdf:
+    output-file: BulleR_ManipDonnees.pdf # nom du fichier de sortie
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    documentclass: article
+    papersize: A4
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
+    prefer-html: true
+    code-block-background: true
+    code-block-border-left: true
+    fig-width: 4.5 # par défaut
+    fig-height: 2.5 # par défaut
+    mainfont: "Raleway"
+    sansfont: "Avenir Next LT Pro"
+    monofont: "Consolas"
+    monofontoptions:
+      - Scale=0.9
+    fontsize: 10pt
   html:
-    output-file: BulleR_ManipDonnees.html # nom du fichier de sortie
+    output-file: index.html # nom du fichier de sortie
     theme: "cosmo"
     link-external-icon: false
     link-external-newwindow: true
@@ -90,14 +90,7 @@ editor_options:
   chunk_output_type: console
 execute: 
   cache: false
-# Dernière mise à jour le : 01 avril 2025
-# 1. AJOUTER \pagebreak AVANT LA 1RE SLIDE POUR OUTPUT pdf
-# 2. RENDER TOUS FORMATS (3)
-# quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to all
-# PB : REVEALJS NE COMPILE PAS BIEN
-#  ==> 3. METTRE TOUT LE PARAMÉTRAGE PDF DE L'EN-TÊTE EN COMMENTAIRE
-# 4. RENDER revealjs UNIQUEMENT
-# quarto render E:/GitRepo/bulledr/03-manipulations_tidyverse/index.qmd --to revealjs
+# Dernière mise à jour le : 17 avril 2025
 ---
 
 ```{r, eval = TRUE, include = FALSE, echo = FALSE}
@@ -1586,7 +1579,7 @@ $\Rightarrow$ réduit le nombre de colonnes mais augmente celui des lignes, rend
 #| echo: true
 
 hdv2003 |> 
-  select(sexe, hard.rock, lecture.bd, peche.chasse, cuisine, bricol) |> 
+  select(id, sexe, hard.rock, lecture.bd, peche.chasse, cuisine, bricol) |> 
   pivot_longer(cols = c(hard.rock, lecture.bd, peche.chasse, cuisine, bricol),
                names_to = "activite",
                values_to = "pratique") -> hdvlong
@@ -1761,7 +1754,7 @@ Toutes les fonctions du package `{tidyr}` sont disponibles dans la [[cheatsheet]
 - **la recherche et correspondance d'expression**  
 
   + `str_detect()` : détecter la présence d'une expression (*pattern*) dans une chaîne de caractères 
-  + `str_starts()` : détecter la présence d'une expression au début d'une chîane de caractères
+  + `str_starts()` : détecter la présence d'une expression au début d'une chaîne de caractères
   
 - **la transformation de chaînes**  
 
@@ -2203,7 +2196,7 @@ Par défaut, les modalités d'une variable qualitative sont triées par ordre al
   
 ### Réorganiser les niveaux en fonction des valeurs d'une variable numérique avec `fct_reorder()`
 
-<span style="color:#AC44C5; font-size:0.8em"> >> On réorganise les niveaux de 'relig' selon l'age moyen de chacune des modalités</span>
+<span style="color:#AC44C5; font-size:0.8em"> >> On réorganise les niveaux de 'relig' selon l'age médian de chacune des modalités</span>
 
 ```{r}
 #| label: fctreorder
@@ -2882,7 +2875,7 @@ hdv2003 |>
 
 ## {.unlisted .unnumbered}
 
-### Combiner les niveaux de plusieurs facteurs`fct_cross()`
+### Combiner les niveaux de plusieurs facteurs `fct_cross()`
 
 <span style="color:#AC44C5; font-size:0.8em"> >> On veut créer une variable qui combine les niveaux des variables 'cinema' et 'lecture.bd' </span>
 
