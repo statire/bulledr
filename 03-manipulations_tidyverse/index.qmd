@@ -1,5 +1,5 @@
 ---
-title: "Bulle d'R.  Manipulation de données dans l'univers du tidyverse"
+title: "Bulle d'R. Manipulation de données dans l'univers du tidyverse"
 date: "2025-02-18"
 date-format: long
 lang: fr  
