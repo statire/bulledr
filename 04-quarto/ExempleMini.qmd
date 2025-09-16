@@ -1,0 +1,57 @@
+---
+title: "Analyse des données hdv2003"
+author: "Sandrine"
+format: html
+---
+
+```{r}
+#| include: false
+#| eval: true
+#| warning: false
+#| message: false
+#| label: setup
+
+library(tidyverse)
+library(questionr)
+data(hdv2003)
+```
+
+## Introduction
+
+Ce document présente une analyse simple du jeu de données hdv2003, dont voici les principales étapes :
+  
+  1. Chargement des packages
+```{r}
+#| echo: true
+#| eval: true
+#| label: libraries
+
+library(ggplot2)
+```
+
+  2. Chargement des données
+```{r}
+#| echo: true
+#| eval: true
+#| label: data
+
+data(hdv2003)
+```
+  
+  3. Graphique : heures passées devant la TV selon le sexe
+```{r}
+#| echo: true
+#| eval: true
+#| warning: false
+#| message: false
+#| results: hide
+#| label: fig-boxplot
+#| fig-cap: "Heures passées devant la TV"
+
+hdv2003 |> 
+  ggplot() +
+    aes(x = sexe, y = heures.tv) +
+  geom_boxplot()
+```
+
+Le graphique (@fig-boxplot) ne montre pas de différences entre les deux groupes. 

@@ -1,0 +1,1169 @@
+---
+title: "Découvrir <a rel='quarto' href='https://quarto.org'><img src='https://quarto.org/quarto.png' alt='Logo quarto' style='height:55px; vertical-align:middle;'>"
+date: "2025-06-26"
+date-format: long
+lang: fr  
+author:
+  - name: Sandrine LYSER
+    orcid: 0000-0001-6820-0672
+    email: sandrine.lyser@inrae.fr
+    corresponding: true
+    affiliations:
+      - INRAE
+author-meta: "Sandrine LYSER"
+last-modified: "2025-07-25"
+lightbox: true # pour avoir les images cliquables
+title-slide-attributes:
+  data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."    
+license: CC BY-NC-SA
+format:
+  html: 
+    embed-resources: true
+    output-file: index.html # nom du fichier de sortie
+    theme: "cosmo"
+    link-external-icon: false
+    toc: true
+    toc-depth: 3
+    grid:
+      sidebar-width: 300px
+      body-width: 900px
+      margin-width: 300px
+      gutter-width: 1.5rem
+    code-copy: true
+    code-block-background: true
+    code-block-border-left: true
+    fig-width: 7 # par défaut
+    fig-height: 5 # par défaut
+  inrae-revealjs:
+    # Par défaut, la taille est de 1050x700 pixels
+    output-file: BulleR_Quarto_slides.html # nom du fichier de sortie
+    footer: "Bulle d'R | Découvrir Quarto"
+    width: 100%
+    height: 100%
+    margin: 0.1 # marge autour du contenu (par défaut 0.1)
+    min-scale: 0.2 # échelle minimale appliquée au contenu (par défaut 0.2)
+    max-scale: 2.0 # échelle maximale appliquée au contenu (par défaut 2.0)
+    transition: none
+    logo: img/bloc-etat.png
+    template-partials:
+      - toc-slide.html
+    include-after-body: [revealjs-clean-title-slide.html, toc-add.html]
+    menu:
+      useTextContentForMissingTitles: false
+      hideMissingTitles: true
+      width: normal
+    theme: style_revealjs.scss
+    fig-cap-location: top
+    toc: true
+    toc-depth: 1
+    slide-level: 3 # niveau de titre qui déclenche la création d'une nouvelle diapo
+  pdf:
+    output-file: BulleR_Quarto.pdf # nom du fichier de sortie
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    colorlinks: true
+    documentclass: article
+    papersize: A4
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
+    prefer-html: true
+    code-block-background: true
+    code-block-border-left: true
+    fig-width: 4.5 # par défaut
+    fig-height: 2.5 # par défaut
+    mainfont: "Raleway"
+    sansfont: "Avenir Next LT Pro"
+    monofont: "Consolas"
+    monofontoptions:
+      - Scale=0.9
+    fontsize: 10pt
+link-external-newwindow: true
+revealjs-plugins:
+  - pointer
+format-links: [pdf, inrae-revealjs]
+highlight-style: atom-one
+filters: [bg_style.lua]
+bibliography: references.bib
+from: markdown+emoji
+editor_options: 
+  chunk_output_type: console
+execute: 
+  cache: false
+editor: source
+# Dernière mise à jour le : 16 septembre 2025
+---
+
+```{r}
+#| label: initR
+#| eval: true
+#| include: false
+#| echo: false
+
+# R version 4.5.1 (2025-06-13 ucrt) -- "Great Square Root"
+
+#   ____________________________________________________________________________
+#   Chargement des packages                                                 ####
+library(tidyverse)    # v2.0.0
+library(questionr)    # v0.8.1
+library(knitr)        # v1.49
+library(kableExtra)   # v1.4.0
+
+#   ____________________________________________________________________________
+#   Chargement des données utilisées pour cette session                     ####
+data(hdv2003)
+
+#   ____________________________________________________________________________
+#   Fonction pour n'afficher que quelques lignes de l'output des chunks     ####
+## Source : https://forum.posit.co/t/showing-only-the-first-few-lines-of-the-results-of-a-code-chunk/6963
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines) == 1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
+## Jeu de données utilisé dans cette session {.unnumbered background-color="#dfddec"}
+
+::::: columns
+::: {.column width="30%"}
+**`hdv2003`**
+
+- disponible dans le package [`{questionr}`](https://juba.github.io/questionr/index.html)
+- échantillon tiré de l'enquête Histoire de vie, réalisée en 2003 en France, par l'Insee, auprès de la population âgée de 18 ans et plus
+- 2000 lignes et 20 variables
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="65%"}
+**Dictionnaire des variables**
+
+```{r}
+#| label: hdv
+#| eval: true
+#| include: true
+#| message: false
+#| echo: false
+
+variables <- c("id"
+               , "age"
+               , "sexe"
+               , "nivetud"
+               , "poids"
+               , "occup"
+               , "qualif"
+               , "freres.soeurs"
+               , "clso"
+               , "relig"
+               , "trav.imp"
+               , "trav.satisf"
+               , "hard.rock"
+               , "lecture.bd"
+               , "peche.chasse"
+               , "cuisine"
+               , "bricol"
+               , "cinema"
+               , "sport"
+               , "heures.tv")
+
+descriptions <- c("Identifiant unique de l'individu"
+                  , "Âge de l'individu"
+                  , "Sexe de l'individu"
+                  , "Niveau d'études"
+                  , "Poids de l'individu dans l'échantillon"
+                  , "Occupation principale"
+                  , "Qualification professionnelle"
+                  , "Nombre de frères et soeurs"
+                  , "Classe sociale"
+                  , "Religion"
+                  , "Importance accordée au travail"
+                  , "Satisfaction au travail"
+                  , "Écoute du hard rock"
+                  , "Lecture de bandes dessinées"
+                  , "Pratique de la pêche ou de la chasse"
+                  , "Pratique de la cuisine"
+                  , "Pratique du bricolage"
+                  , "Fréquentation du cinéma"
+                  , "Pratique d'un sport"
+                  , "Nombre d'heures passées devant la télévision")
+
+types <- c("entier"
+           , "entier"
+           , "facteur (Femme, Homme)"
+           , "facteur (8 modalités)"
+           , "numérique"
+           , "facteur (7 modalités)"
+           , "facteur (7 modalités)"
+           , "entier"
+           , "facteur (3 modalités)"
+           , "facteur (6 modalités)"
+           , "facteur (4 modalités)"
+           , "facteur (3 modalités)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "facteur (Oui, Non)"
+           , "numérique"
+)
+
+data.frame(Variable = variables
+                 , Description = descriptions
+                 , Type = types) -> df
+df |> 
+  kable() |> 
+  kable_paper("hover", full_width = F) |> 
+  scroll_box(height = "550px")
+```
+:::
+:::::
+
+# Introduction générale
+
+## Vous vous demandez comment...
+
+- rendre votre travail intelligible pour vos collègues (et pour vous) ?
+- mettre à disposition du code ?
+- assurer une certaine reproductibilité de votre travail ?
+- éviter d'innombrables copier-coller de vos résultats pour que votre document Word corresponde bien aux résultats ?
+
+Ces questions ne sont pas nouvelles...  
+... il existe des outils pour résoudre ces problèmes liés au partage et la reproductibilité du travail
+
+## De la reproductibilité... à la programmation lettrée
+
+### Recherche reproductible
+
+- L'idée de **"recherche reproductible"** définie par John Claerbout [-@Claerbout1990], comme la possibilité de « réplication [d'un article] par d'autres scientifiques »
+$\Rightarrow$ Elle vise à garantir que les résultats scientifiques puissent être reproduits et vérifiés par d'autres
+
+- Une recherche/étude/projet est plus ou moins reproductible qu'une autre selon les données et le code disponibles  
+$\Rightarrow$ le niveau de reproductibilité dépend de la mise à disposition des données et du code informatique utilisés
+
+![](img/ReproducibilitySpectrum.jpeg){width="75%" fig-align="center" fig-alt="Spectre de la reproductibilité."}
+
+<small>Source : Peng, R. D. 2011. "Reproducible research in computational science", *Science* 334(6060): 1226–27. <https://doi.org/10.1126/science.1213847></small>
+
+### Programmation lettrée
+
+- La **"programmation lettrée"** (*literate programming*) est une approche conçue par Donald Knuth dès les années 1970  
+Elle consiste à changer de paradigme de programmation
+
+> « Au lieu de considérer que notre tâche principale est de dire à un ordinateur ce qu'il doit faire, appliquons-nous plutôt à expliquer à des êtres humains ce que nous voulons que l'ordinateur fasse. »  
+> <small>Knuth, D. 1984. "Literate Programming", *The Computer Journal* 27(2): 97–111. <https://doi.org/10.1093/comjnl/27.2.97></small>
+
+- L'idée est donc de **combiner du texte et du code dans un seul fichier**
+  + pour qu'il soit compréhensible à la fois par l'être humain et la machine  
+  + qui explique à la fois la logique et les résultats du code  
+  + qui va être interprété par des outils pour produire un document adapté à la lecture par des êtres humains
+
+---
+
+#### Exemple
+
+::::: columns
+::: {.column width="45%"}
+##### Programmation "classique"
+```         
+# Création d'un vecteur de nombres
+x <- c(1, 2, 3, 4, 5)
+
+# Calcul de la moyenne
+moyenne <- mean(x)
+
+# Affichage du résultat
+print(moyenne)
+```
+:::
+
+::: {.column width="55%"}
+##### Programmation lettrée
+```         
+# Calcul de la moyenne d'un vecteur en R
+
+Dans cet exemple, nous allons créer un vecteur de cinq nombres entiers et calculer sa moyenne à l'aide de la fonction `mean()`.
+
+# Création du vecteur
+x <- c(1, 2, 3, 4, 5)
+
+# Calcul de la moyenne
+moyenne <- mean(x)
+
+# Affichage du résultat
+print(moyenne)
+
+La fonction `mean()` calcule la moyenne arithmétique des valeurs contenues dans le vecteur `x`. Le résultat est ensuite affiché à l'écran.
+```
+:::
+:::::
+
+#### **Résumé de la différence**
+
+| Programmation classique | Programmation lettrée            |
+|:------------------------|:---------------------------------|
+| Fichier .R              | Fichier .rmd, .qmd               |
+| Code prédominant        | Texte prédominant                |
+| Commentaires brefs      | Explications détaillées en texte |
+| Lecture orientée code   | Lecture orientée documentation   |
+
+# Introduction à Quarto
+
+## Présentation de [`Quarto`](https://quarto.org/)
+
+- Système open-source de programmation lettrée, basé sur [`Pandoc`](https://pandoc.org/), qui
+  + permet de combiner code informatique et texte dans un même fichier  
+  + supporte plusieurs langages de programmation : [`R`](https://www.r-project.org/), [`Python`](https://www.python.org/), [`Julia`](https://julialang.org/), [`JavaScript`](https://developer.mozilla.org/fr/docs/Web/JavaScript)  
+  + propose une syntaxe [`Markdown`](https://www.markdownguide.org/) enrichie pour intégrer code, texte, équations, tableaux et graphiques dans un même fichier `.qmd`
+  + génère différents formats de rendu (simultanés) : site web, article PDF, document Word, livre électronique, présentation (notamment au format [`reveal.js`](https://revealjs.com/))  
+  + est compatible avec différents IDE : [`RStudio`](https://posit.co/products/open-source/rstudio/), [`VSCode`](https://code.visualstudio.com/) par exemple  
+  + contient des fonctionnalités avancées pour la gestion des références, des figures et des tableaux  
+  
+$\Rightarrow$ Avec [`Quarto`](https://quarto.org/), résultats et document sont toujours en phase !  
+
+- C'est une extension de [`R Markdown`](https://rmarkdown.rstudio.com/) qui ajoute de nouvelles possibilités pour une meilleure flexibilité et collaboration  
+
+$\Rightarrow$ C'est un outil très pratique pour la science reproductible
+
+::: {.callout-tip appearance="simple"}
+[`Quarto`](https://quarto.org/) facilite la reproductibilité en permettant de combiner texte explicatif, code source et résultats dans un même document, assurant ainsi la traçabilité et la reproductibilité des analyses
+:::
+
+## Exemple
+
+:::::: columns
+::: {.column width="30%"}
+- **Script R avec du code R**
+
+```{r}
+#| echo: true
+#| eval: false
+#| message: false
+#| warning: false
+#| results: markup
+#| label: scriptr
+
+#   __________________________________________________________________
+#   Script: Analyse des données hdv2003
+#   Author: Sandrine
+#   __________________________________________________________________
+
+# Chargement des packages
+library(ggplot2)
+
+# Chargement des données
+data(hdv2003)
+
+# Distribution du nombre d'heures passées devant la TV selon le sexe
+hdv2003 |> 
+  ggplot() +
+    aes(x = sexe, y = heures.tv) +
+  geom_boxplot()
+
+## ==> Pas de différences entre les groupes
+```
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="30%"}
+- **Script Quarto avec du code R**
+
+```{r}
+#| echo: false
+#| out-width: 80%
+#| fig-align: center
+#| label: scriptqmd
+
+knitr::include_graphics("./img/qmd-script-example.png")
+```
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="30%"}
+- **Sortie html d'un document Quarto avec du code R**
+
+```{r}
+#| echo: false
+#| out-width: 95%
+#| fig-align: center
+#| label: htmlqmd
+# image générée avec 
+# webshot2::webshot(url = "E:/GitRepo/bulledr/docs/04-quarto/ExempleMini.html"
+#                   , file = here::here("04-quarto/img", "qmd-report-example.png")
+#                   , vheight = 1200)
+knitr::include_graphics("./img/qmd-report-example.png")
+```
+:::
+::::::
+
+# Premiers pas avec Quarto dans RStudio
+
+## Création d'un premier document Quarto (.qmd)
+
+::::: columns
+::: {.column width="55%"}
+- Organiser son travail dans un projet RStudio (cf. [Bonnes pratiques à ETTIS](https://statire.github.io/bulledr/01-bonnes_pratiques/#/travailler-en-projets))  
+- Créer un nouveau document : Menu File > New file > Quarto document
+  + dans la fenêtre de dialogue
+    * donner un titre  
+    * indiquer éventuellement l'auteur  
+    * choisir le format de sortie : HTML, PDF ou Word  
+    * décocher la case "Use visual markdown editor" : **privilégier le mode "Source"** qui permet de contrôler plus précisément le code   
+![](img/nouveau_quarto.png){width="40%" fig-align="center" fig-alt="Créer un nouveau document Quarto."}  
+
+  + sauvegarder ce fichier (à la racine du projet ou dans un sous-dossier)  
+:::
+
+::: {.column width="45%"}
+- **Voici à quoi ressemble le fichier *.qmd* créé**
+
+![](img/premierQuarto.png){width="75%" fig-align="center" fig-alt="Aperçu du fichier qmd."}
+:::
+:::::
+
+## Structure d'un fichier .qmd
+
+### L'en-tête YAML : métadonnées et options du document
+
+- L'en-tête  
+  + s'écrit avec le langage YAML (initialement *Yet Another Markup Language* puis *YAML Ain't Markup Language*)  
+  + est délimitée en haut et en bas, par 3 tirets : “- - -”
+  + précise les métadonnées telles que le titre, l'auteur, le titre, la date, etc.
+  + permet de définir différentes options sur les formats de sorties et la mise en page  
+  + permet de paramétrer la langue pour la mise en page, notamment pour la sortie pdf, la génération de la table des matières
+
+::: {.callout-important appearance="simple"}
+-   Le YAML est le premier élément évalué lors de la compilation
+-   La syntaxe est très sensible à l'indentation : **ajouter 2 espaces pour chaque niveau d'indentation**  
+$\Rightarrow$ en cas d'erreur, la compilation s'arrête quasi instantanément !  
+:::
+
+::: {.callout-note appearance="simple"}
+La gestion de la ponctuation et des guillemets dépend du contenu en markdown ou en texte. Elle n'est pas gérée par une syntaxe spécifique à Quarto.
+
+Pour utiliser les guillemets français dans un document Quarto, il faut taper directement les guillemets français :  
+
+**Exemple**  
+« On utilise les guillemets français »
+:::
+
+---
+
+:::::: columns
+::: {.column width="45%"}
+#### Version minimale
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format: html
+---
+```
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%"}
+#### Version plus détaillée
+
+``` yaml
+---
+title: "Mon premier Quarto"
+subtitle: "Exemple d'en-tête YAML détaillée"
+date: 2025-06-26
+author: "Sandrine"
+institute: "Inrae ETTIS"
+lang: fr
+format: 
+  html:
+    toc: true
+    number-sections: true
+    css: styles.css
+editor: source
+---
+```
+:::
+::::::
+
+::: {.callout-note appearance="simple" title="Voir la documentation Quarto pour plus d'informations sur les nombreuses options disponibles"}
+-   section [Front matter](https://quarto.org/docs/authoring/front-matter.html)  
+-   pour le format [HTML](https://quarto.org/docs/reference/formats/html.html)  
+-   pour le format [PDF](https://quarto.org/docs/reference/formats/pdf.html)  
+-   pour le format [Word](https://quarto.org/docs/reference/formats/docx.html)  
+-   pour le format [Revealjs](https://quarto.org/docs/reference/formats/presentations/revealjs.html)  
+-   pour le format [Powerpoint](https://quarto.org/docs/reference/formats/presentations/pptx.html)  
+:::
+
+### Le corps du document : texte en [`markdown`](https://www.markdownguide.org/) enrichi
+
+-   Le texte est balisé avec le langage [`markdown`](https://www.markdownguide.org/) pour la mise en forme  
+-   **Il n'est pas possible de souligner du texte en `markdown`** : le soulignement est réservé aux liens hypertextes
+-   On peut ajouter du texte, des listes, des tableaux, des liens vers des pages web, des images, etc.  
+    `r fontawesome::fa("globe", fill = "#A626A4")` [Bases en markdown](https://quarto.org/docs/authoring/markdown-basics.html)  
+-   Cette syntaxe permet de gérer les [citations](https://quarto.org/docs/authoring/citations.html) et les [références croisées](https://quarto.org/docs/authoring/cross-references.html)
+
+------------------------------------------------------------------------
+
+#### Syntaxe [`markdown`](https://www.markdownguide.org/) pour la mise en forme du texte
+
++-----------------+--------------------------------------+------------------------------------+
+| Caractéristique | Syntaxe markdown                     | Résultat                           |
++=================+======================================+====================================+
+| italic          | `texte en *italique*`                | texte en *italique*                |
++-----------------+--------------------------------------+------------------------------------+
+| bold            | `texte en **gras**`                  | texte en **gras**                  |
++-----------------+--------------------------------------+------------------------------------+
+| superscript     | `superficie de 200 m^2^`             | superficie de 200 m^2^             |
++-----------------+--------------------------------------+------------------------------------+
+| subscript       | `Les individus notés n~i~`           | Les individus notés n~i~           |
++-----------------+--------------------------------------+------------------------------------+
+| strikethrough   | `texte ~~barré~~`                    | texte ~~barré~~                    |
++-----------------+--------------------------------------+------------------------------------+
+| headings        | `# Titre 1`                          | # Titre 1                          |
++-----------------+--------------------------------------+------------------------------------+
+|                 | `## Titre 2`                         | ## Titre 2                         |
++-----------------+--------------------------------------+------------------------------------+
+|                 | `### Titre 3`                        | ### Titre 3                        |
++-----------------+--------------------------------------+------------------------------------+
+|                 | `#### Titre 4`                       | #### Titre 4                       |
++-----------------+--------------------------------------+------------------------------------+
+|                 | `##### Titre 5`                      | ##### Titre 5                      |
++-----------------+--------------------------------------+------------------------------------+
+|                 | `###### Titre 6`                     | ###### Titre 6                     |
++-----------------+--------------------------------------+------------------------------------+
+| links           | Site `[Quarto](https://quarto.org/)` | Site [Quarto](https://quarto.org/) |
++-----------------+--------------------------------------+------------------------------------+
+| visible links   | le lien est `<https://quarto.org/>`  | le lien est <https://quarto.org>   |
++-----------------+--------------------------------------+------------------------------------+
+| quote           | `> ceci est important à retenir`     | > ceci est important à retenir     |
++-----------------+--------------------------------------+------------------------------------+
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour écrire du texte sur plusieurs colonnes
+
+Pour écrire du texte sur plusieurs colonnes, on utilise la balise `:::: {.columns}` puis les sous-blocs `::: {.column}` pour chaque colonne, pour laquelle on peut ajuster la largeur avec le paramètre `width="100%"`
+
+**Syntaxe markdown**
+
+```
+ :::: {.columns}
+
+ ::: {.column width="60%"}
+ Contenu de la colonne de gauche.  
+ Texte long possible.
+ :::
+
+ ::: {.column width="40%"}
+ Contenu de la colonne de droite.
+ :::
+
+ ::::
+```
+
+**Résultat**
+
+:::: {.columns}
+
+::: {.column width="60%"}
+Contenu de la colonne de gauche.  
+Texte long possible.
+:::
+
+::: {.column width="40%"}
+Contenu de la colonne de droite.
+:::
+
+::::
+
+:::{.callout-note}
+On ajoute autant de colonnes que nécessaire avec le bloc 
+
+    ::: {.column}
+    Le texte d'une colonne
+    :::
+:::
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour les listes
+
+::::: {.columns}
+:::: {.column width="45%"}
+##### non ordonnées
+
+**Syntaxe markdown**
+
+```         
+ * item 1  
+    + sous-item 1  
+    + sous-item 2  
+        - sous-sous item 1  
+        - sous-sous item 2  
+ * item 2
+```
+
+::: {.callout-warning appearance="minimal"}
+Indentation de 2 espaces entre chaque item
+:::
+
+**Résultat**
+
+-   item 1
+    -   sous-item 1  
+    -   sous-item 2  
+        -   sous-sous item 1  
+        -   sous-sous item 2  
+-   item 2  
+::::
+
+:::: {.column width="5%"}
+::::
+
+::::: {.column width="50%"}
+##### ordonnées
+
+**Syntaxe markdown**
+
+```         
+ 1. item 1  
+    a) sous-item 1  
+    b) sous-item 2  
+        i. sous-sous item 1  
+        ii. sous-sous item 2  
+ 2. item 2
+```
+
+::: {.callout-warning appearance="minimal"}
+Indentation de 4 espaces
+:::
+
+**Résultat**
+
+1.  item 1
+    a)  sous-item 1  
+    b) sous-item 2  
+        i. sous-sous item 1  
+        ii. sous-sous item 2  
+2.  item 2  
+::::
+:::::
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour l'ajout de tableaux
+
+::::: {.columns}
+:::: {.column width="40%"}
+##### Tableaux "manuels"
+
+**Syntaxe markdown**
+
+```         
+| Colonne 1   | Colonne 2   | Colonne 3   | Colonne 4   |
+|:------------|:-----------:|------------:| ----------- |
+| Alignement  | Alignement  | Alignement  | Alignement  |
+| à gauche    | centré      | à droite    | par défaut  |
+: Titre du tableau.
+```
+
+**Résultat**
+
+| Colonne 1  | Colonne 2  |  Colonne 3 | Colonne 4  |
+|:-----------|:----------:|-----------:|------------|
+| Alignement | Alignement | Alignement | Alignement |
+| à gauche   |   centré   |   à droite | par défaut |
+
+: Titre du tableau.
+
+::: {.callout-tip appearance="simple"}
+L'alignement dans les cellules est contrôlé avec les `:`  
+`r fontawesome::fa("globe", fill = "#A626A4")` Voir la [page d'aide Quarto dédiée](https://quarto.org/docs/authoring/tables.html) pour les options disponibles  
+`r fontawesome::fa("globe", fill = "#A626A4")` [Un outil en ligne](https://www.tablesgenerator.com/markdown_tables) pour générer des tableaux `markdown`
+:::
+::::
+
+:::: {.column width="5%"}
+::::
+
+:::: {.column width="55%"}
+##### Tableaux de résultats R
+
+-   Affichage par défaut des tableaux  
+
+```{r}
+#| echo: true
+#| eval: true
+#| message: false
+#| warning: false
+#| results: markup
+#| label: tab
+
+hdv2003 |> 
+  select(id:qualif) |> 
+  slice(1:2)
+```
+
+-   Affichage avec la fonction `kable()` du package [`{knitr}`](https://yihui.org/knitr/)
+
+```{r}
+#| echo: true
+#| eval: true
+#| message: false
+#| warning: false
+#| results: markup
+#| label: knittab
+
+hdv2003 |> 
+  select(id:qualif) |> 
+  slice(1:2) |> 
+  knitr::kable()
+```
+::::
+:::::
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour l'ajout d'images
+
+::::: {.columns}
+:::: {.column width="45%"}
+-   L'ajout d'images se fait avec la syntaxe générique suivante  
+<center>`![Légende](chemin/image.extension)`</center>
+
+**Syntaxe markdown**  
+`![Logo Quarto](img/quarto.png)`  
+
+**Résultat**
+
+![Logo Quarto](img/quarto.png){width="20%"}  
+
+-   Bonne pratique = ajouter une description alternative pour améliorer l'accessibilité pour les malvoyants  
+`![Logo Quarto](img/quarto.png){fig-alt="Logo de Quarto"}`
+
+-   Des paramétrages possibles pour
+    -   la taille de l'image  
+    -   l'alignement horizontal  
+    -   une disposition en lignes ou en colonnes dans le cas de plusieurs images
+
+    `r fontawesome::fa("globe", fill = "#A626A4")` Voir la [page d'aide Quarto dédiée](https://quarto.org/docs/authoring/figures.html) pour les options disponibles
+::::
+
+:::: {.column width="5%"}
+::::
+
+:::: {.column width="50%"}
+##### Exemple
+
+**Syntaxe markdown**
+
+```         
+::: {#fig-logos layout-ncol=2} 
+![logo1](img/logo_quarto.png){#fig-logo1 width="40%" fig-align="left" fig-alt="Logo de Quarto hexagonal"}  
+
+![logo2](img/quarto.png){#fig-logo2 fig-align="right" fig-alt="Logo de Quarto horizontal"}  
+
+Deux versions du logo quarto  
+:::
+```
+
+**Résultat**
+
+::: {#fig-logos layout-ncol="2"}
+![logo1](img/logo_quarto.png){#fig-logo1 width="40%" fig-align="left"}
+
+![logo2](img/quarto.png){#fig-logo2 fig-align="right"}
+
+Deux versions du logo quarto
+:::
+::::
+:::::
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour l'ajout d'équations
+
+L'écriture d'équations mathématiques est possible avec la syntaxe LaTeX, en ligne ou en "bloc"
+
+:::: {.columns}
+::: {.column width="45%"}
+##### Équation au sein d'un texte
+
+**Syntaxe**
+
+```         
+La célèbre équation d'Einstein est $E = mc^2$.
+```
+
+<br>
+
+**Résultat**  
+La célèbre équation d'Einstein est $E = mc^2$.
+:::
+
+::: {.column width="5%"}
+:::
+
+:::{.column width ="45%"}
+##### Équation en bloc centré
+
+**Syntaxe**
+
+```         
+La célèbre équation d'Einstein est 
+
+$$
+E = mc^2
+$$
+```
+
+<br>
+
+**Résultat**  
+La célèbre équation d'Einstein est  
+$$
+E = mc^2
+$$
+:::
+::::
+
+<!-- > :warning: **Warning:** Do not push the big red button. -->
+<!-- > :memo: **Note:** Sunrises are beautiful. -->
+<!-- > :bulb: **Tip:** Remember to appreciate the little things in life. -->
+<!-- Here's a paragraph that will be visible. -->
+<!-- [This is a comment that will be hidden.]: #  -->
+<!-- And here's another paragraph that's visible. -->
+
+
+------------------------------------------------------------------------
+
+#### Syntaxe pour l'ajout de blocs spéciaux (*callout blocks*)
+
+:::::{.columns}
+::::{.column width = "45%"}
+-   Ces blocs spéciaux sont utiles pour mettre en valeur une information importante (texte, conseil, avertissement, etc.)  
+- Il existe 5 types prédéfinis de *callout blocks* (note, tip, warning, caution et important) qui se différencient par leurs couleurs et icônes, et qui ont 3 formats de sortie possibles (default, simple ou minimal)  
+
+**Structure** 
+
+`:::{.callout-type}` *pour spécifier le type de bloc, avec éventuellement l'ajout d'un titre avec `title="Titre de mon bloc"` dans les accolades*  
+du texte  
+`:::` *pour fermer le bloc*
+
+`r fontawesome::fa("globe", fill = "#A626A4")` Voir la [page d'aide Quarto dédiée](https://quarto.org/docs/authoring/markdown-basics.html#callout-blocks) pour les options disponibles
+::::
+
+::::{.column width = "5%"}
+::::
+
+::::{.column width = "45%"}
+**Exemples**  
+
+:::{.callout-note title="*callout-note*" appearance="default"}
+Syntaxe d'un bloc de code 'note' avec titre et apparence par défaut
+    
+    :::{.callout-note title="*callout-note*" appearance="default"}
+    Apparence par défaut d'un bloc de code 'note' avec titre
+    :::
+:::
+
+:::{.callout-tip appearance="simple"}
+Apparence simple d'un bloc de code 'tip' sans titre
+
+    :::{.callout-tip appearance="simple"}
+    Apparence simple d'un bloc de code 'tip' sans titre
+    :::
+:::
+
+:::{.callout-warning appearance="minimal"}
+Apparence minimale d'un bloc de code 'warning' sans titre
+
+    :::{.callout-warning appearance="minimal"}
+    Apparence minimale d'un bloc de code 'warning' sans titre
+    :::
+:::
+
+
+
+:::{.callout-caution title="*callout-caution*" appearance="simple"}
+Apparence simple d'un bloc de code 'caution' avec titre
+
+    :::{.callout-caution title="*callout-caution*" appearance="simple"}
+    Apparence simple d'un bloc de code 'caution' avec titre
+    :::
+:::
+
+:::{.callout-important title="*callout-note*" appearance="minimal"}
+Apparence minimale d'un bloc de code 'important' avec titre
+
+    :::{.callout-mimportant title="*callout-caution*" appearance="minimal"}
+    Apparence simple d'un bloc de code 'caution' avec titre
+    :::
+:::
+
+::::
+:::::
+
+### Les blocs de code : import, manipulation, visualisation des données et résultats  
+
+-   Possibilité d'écrire du code (R, Python, HTML, SQL, Stata, etc.) directement dans le document, dans ce que l'on appelle des **blocs de code** (aussi appelés *chunks*)  
+-   Ce code est exécuté directement dans le document  
+-   Les résultats produits sont insérés automatiquement dans le rendu final
+-   De nombreuses options permettent de personnaliser l'exécution du code et l'affichage des résultats dans le document final  
+
+<br>
+
+#### Pourquoi c'est utile ?
+
+Les blocs permettent de  
+-   générer des rapports "dynamiques", où code et résultats sont intégrés directement dans le texte  
+-   garder une trace exacte du code utilisé, ce qui favorise la reproductibilité
+
+$\Rightarrow$ **Très utiles pour intégrer, exécuter et présenter du code et ses résultats dans un seul et même document**
+
+---
+
+#### Comment écrire un bloc de code ?
+
+- Un bloc de code s'ouvre avec 3 *backticks* ```` ``` ````
+- On spécifie le langage utilisé entre accolades `{}` sur la première ligne, à la suite des ```` ``` ````
+- On paramètre les options dans les lignes qui suivent
+  + qui commencent par le *hashpipe* `#|`  
+  + et s'écrivent avec la syntaxe suivante : `option: value`  
+- On écrit le code dans le langage spécifié  
+- On ferme le bloc avec 3 *backticks* ```` ``` ````
+
+::: {.callout-note appearance="simple"}
+**Il est également possible d'intégrer directement du code dans une phrase (*inline code*), pour mettre en évidence une commande ou afficher le résultat d'un calcul, sans interrompre le texte**
+
+Dans ce cas, on utilise un seul *backtick* ` pour encadrer le code
+
+**Syntaxe**  
+L'âge moyen des `{r} hdv2003 |> nrow()` observations de hdv2003 est égal à `{r} hdv2003 |> pull(age) |> mean(na.rm = TRUE)`  
+
+**Résultat**  
+L'âge moyen des `{r} hdv2003 |> nrow()` observations de hdv2003 est égal à `{r} hdv2003 |> pull(age) |> mean(na.rm = TRUE)`
+:::
+
+---
+
+#### Exemple de bloc de code
+
+```{r}
+#| echo: fenced
+#| label: fig-exemple
+#| eval: true
+#| warning: true
+#| message: false
+#| output: true
+#| fig-cap: Distribution des heures passées devant la télé selon le sexe
+#| fig-width: 3
+#| fig-height: 4
+#| fig-align: center
+
+hdv2003 |> 
+  ggplot() +
+  aes(x = sexe, y = heures.tv) +
+  geom_boxplot()
+```
+
+---
+
+#### Gestion de l'exécution du code de de l'affichage de son résultat
+
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| Option                           | Description                                                                                        |
++:=================================+:===================================================================================================+
+| `eval: true/false`               | Exécuter le code du bloc                                                                           |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `echo: true/false`               | Afficher le code dans le document final                                                            |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `include: true/false`            | Contrôler l'inclusion du code et/ou des résultats dans le document final (`false` : supprime tout) |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `output: true/false/asis`        | Afficher les résultats du code (`asis` pour du markdown brut)                                      |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `warning: true/false`            | Inclure les avertissements générés dans le document final                                          |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `message: true/false`            | Afficher dans le document final, les messages générés par le code                                  |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `label`                          | Donner un nom au bloc (utile pour le référencer et y faire appel dans le texte)                    |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `fig-cap`                        | Ajouter une légende à une figure générée par le code                                               |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+| `fig-width` / `fig-height`       | Définir la largeur/hauteur des figures produites par le code                                       |
++----------------------------------+----------------------------------------------------------------------------------------------------+
+
+: Principales options des blocs de code
+
+---
+
+##### Les labels des blocs de code
+
+- Quelques règles à respecter  
+  + les labels doivent être uniques dans le document  
+  + ils sont composés de chiffres et de lettres, les tirets `-` et les underscores `_` sont autorisés, les espaces et caractères spéciaux sont à éviter  
+  + placer le label de préférence en haut du bloc, avant les autres options  
+  + pour y faire référence dans le texte  
+    * les labels des tableaux, doivent être de la forme `tab-`*nom*  
+    * les labels des figures (images, graphiques) doivent être de la forme `fig`-*nom*  
+    * utiliser `@nom-du-label` dans le texte  
+- Exemple
+
+**Syntaxe**  
+`Comme illustré dans la @fig-exemple, il n'y a pas de différences entre les groupes.`
+
+**Résultat**  
+Comme illustré dans la @fig-exemple, il n'y a pas de différences entre les groupes.
+
+---
+
+### Aperçu des principaux formats de sortie (HTML, PDF, Word)
+
+- Le document source étant rédigé, il faut "l'interpréter" pour voir le rendu final  
+- Principaux formats de sortie  
+  + HTML : pour des documents interactifs ; format particulièrement bien adapté à la diffusion  
+  + PDF : pour des documents statiques, avec mise en page fixe ; format particulièrement bien adapté pour les publications scientifiques  
+  + docx : pour des documents éditables sous Word ; format particulièrement bien adapté au travail collaboratif
+  + *slides* : pour les présentations interactives au format HTML (RevealJS), PDF (Beamer) ou Powerpoint ; format particulièrement bien adapté aux présentations pour des colloques, des cours, etc.
+
+Il est donc possible de couvrir différents formats de sortie, à partir d'un même fichier source, en paramétrant le format et les options de rendu, dans l'en-tête YAML
+
+:::::: columns
+::: {.column width="45%"}
+#### Paramétrage pour un format de sortie particulier
+
+**Exemple pour un document au format html**
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format: html
+---
+```
+
+Le rendu est celui par défaut, sans paramétrage particulier
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="50%"}
+#### Paramétrage pour plusieurs formats simultanément
+
+**Exemple pour un document avec 3 formats de sortie (HTML, PDF, Word), avec paramétrage par défaut**
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format: 
+  html: default
+  pdf: default
+  docx: default
+---
+```
+:::
+::::::
+
+------------------------------------------------------------------------
+
+#### Personnaliser son document de sortie
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format:
+  html: 
+    output-file: index.html # nom du fichier de sortie
+    theme: "cosmo"
+---
+```
+
+##### Créer une table des matières
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format: html
+toc: true
+---
+```
+
+##### Insérer une bibliographie
+
+``` yaml
+---
+title: "Mon premier Quarto"
+author: "Sandrine"
+format: html
+bibliography: mon_fichier.bib
+---
+```
+
+##### Personnaliser l'apparence
+
+- Pour un document au format HTML : avec les thèmes prédéfinis ou en créant un fichier css
+
+- Pour un document au format Word : créer un modèle sous Word et y faire référence dans l'en-tête YAML
+
+<!-- # Pratique guidée - Création d'un document Quarto pas à pas {.unnumbered background-color="#dfddec"} -->
+
+<!-- ## A vous de jouer ! -->
+
+<!-- Exercice, à partir de vos propres données -->
+
+<!-- - Créer un projet RStudio   -->
+<!-- - Créer un fichier 'rapport.qmd'   -->
+<!-- - Importer des données   -->
+<!-- - Ajouter un titre, une section et un chunk de code qui affiche la structure du jeu de données   -->
+<!-- - Créer un graphique simple avec `{ggplot2}`(https://ggplot2.tidyverse.org/)    -->
+<!-- - Ajouter un tableau de résultats (avec le pagkage [`{gt}`](https://gt.rstudio.com/) ou la fonction `table()` du package [`{knitr}`](https://yihui.org/knitr/)   -->
+<!-- - Interpréter les résultats dans le texte -->
+<!-- - Ajouter des commentaires expliquant chaque étape -->
+
+# Ressources
+
+## Pour aller plus loin
+
+De nombreuses ressources en ligne
+
+`r fontawesome::fa("globe", fill = "#A626A4")` Documentation officielle [Quarto](https://quarto.org/)  
+`r fontawesome::fa("globe", fill = "#A626A4")` Tutoriel [Markdown](https://www.markdowntutorial.com/fr/)  
+`r fontawesome::fa("globe", fill = "#A626A4")` Tutoriel [Quarto](https://quarto.org/docs/get-started/hello/rstudio.html)  
+etc.
+
+## Références
+
+<!-- quarto render 04-quarto/index.qmd --to inrae-revealjs -->
+
+<!-- quarto preview 04-quarto/index.qmd --to all -->

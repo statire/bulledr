@@ -16,6 +16,8 @@
 
 - Manipulation des données (tidyverse) : ["Manipulation des données"](https://statire.github.io/bulledr/03-manipulations_tidyverse/)
 
+- Découvrir quarto : ["Découvrir quarto"](https://statire.github.io/bulledr/04-quarto/)
+
 # Quelques ressources
 
 ## Francophones
