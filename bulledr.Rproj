@@ -14,3 +14,5 @@ RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 AutoAppendNewline: Yes
+
+EditorTheme: Tomorrow Night Bright

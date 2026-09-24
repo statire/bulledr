@@ -18,6 +18,8 @@
 
 - Découvrir quarto : ["Découvrir quarto"](https://statire.github.io/bulledr/04-quarto/)
 
+- (Re)Découverte de R et RStudio : ["(Re)Découverte de R et RStudio](https://statire.github.io/bulledr/05-redecouverte/)
+
 # Quelques ressources
 
 ## Francophones

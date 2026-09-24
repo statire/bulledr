@@ -1,0 +1,180 @@
+#   ____________________________________________________________________________
+#   Script: Paramétrage des outputs Quarto
+#   Author: Sandrine.Lyser
+#   Créé le : 2026-09-18
+#   Dernière modification : 2026-09-24
+#   Text defaut encoding : UTF-8
+#   ____________________________________________________________________________
+
+# Fichier à stocker à la racine du projet
+
+project:
+  type: default
+
+abstract-title: "Résumé"
+
+bibliography: references.bib
+
+citeproc: false
+
+controls: false # afficher les flèches de navigation dans la présentation
+
+controls-layout: edges # type d'affichage des flèches de navigation
+
+crossref:
+  fig-prefix: figure
+  fig-title: Figure
+  ref-hyperlink: true
+  sec-labels: section
+  tbl-prefix: tableau
+  tbl-title: Tableau
+  title-delim: \. # pour ne pas avoir Tableau..
+
+csl: apa-single-spaced.csl # style de la biblio
+
+date-format: "YYYY-MM-DD"
+
+editor: source
+
+editor_options:
+  chunk_output_type: console
+
+execute:
+  cache: false
+  code-copy: true 
+  df_print: tibble
+  echo: true
+  eval: true
+  message: false
+  results: asis
+  out.width: "100%"
+  warning: false
+
+filters: [bg_style.lua]
+
+format:
+  inrae-revealjs:
+    # Par défaut, la taille est de 1050x700 pixels
+    fig-cap-location: top
+    fig-height: 5 # par défaut
+    fig-width: 9 # par défaut
+    footer: "Bulle d'R | (Re)Découverte de R et RStudio"
+    height: 100%
+    include-after-body: [revealjs-clean-title-slide.html, toc-add.html]
+    logo: img/bloc-etat.png
+    margin: 0.1 # marge autour du contenu (par défaut 0.1)
+    max-scale: 2.0 # échelle maximale appliquée au contenu (par défaut 2.0)
+    menu:
+      useTextContentForMissingTitles: false
+      hideMissingTitles: true
+      width: normal
+    min-scale: 0.2 # échelle minimale appliquée au contenu (par défaut 0.2)
+    output-file: BulleR_Decouverte_slides.html # nom du fichier de sortie
+    scrollable: true
+    slide-level: 3 # niveau de titre qui déclenche la création d'une nouvelle diapo
+    template-partials:
+      - toc-slide.html
+    theme: style_revealjs.scss
+    toc-depth: 2
+    transition: none
+    width: 100%
+  html:
+    code-block-background: true
+    code-block-border-left: true
+    code-fold: true
+    code-summary: "Afficher le code"
+    embed-resources: true # pour avoir les images contenues dans le fihier html
+    fig-height: 5 # par défaut
+    fig-width: 7 # par défaut
+    grid:
+      sidebar-width: 300px   # largeur maximale de la colonne de gauche (sidebar - par défaut 250px)
+      body-width: 900px      # largeur maximale de la colonne centrale (contenu principal - par défaut 800px)
+      margin-width: 300px    # largeur maximale de la colonne de droite (table des matières, notes, etc. - par défaut 250px)
+      gutter-width: 1.5rem   # espacement entre les colonnes (par défaut 1.5em)
+    output-file: index.html # nom du fichier de sortie
+    page-layout: full
+    theme:
+      light: cosmo
+      dark: darkly
+    toc-depth: 3
+    toc-expand: true
+  pdf:
+    code-block-background: true
+    code-block-border-left: true 
+    code-overflow: wrap
+    colorlinks: true
+    documentclass: article
+    fig-height: 2.5 # par défaut
+    fig-width: 4.5 # par défaut
+    fontsize: 10pt
+    geometry:
+      - top=20mm
+      - left=20mm
+      - right=20mm
+      - bottom=20mm
+    keep-tex: true
+    include-in-header:
+      text: |
+        \usepackage{graphicx} % pour insérer des images
+        \usepackage{fancyhdr} % gestion du header / footer
+        \pagestyle{plain}     % style par défaut avec numéro de page centré en bas
+
+        % STYLE « firstpage » : pied de page personnalisé pour la première page
+        \fancypagestyle{firstpage}{
+          % vide header et footer
+          \fancyhf{} % 
+          % --- suppression des lignes horizontales ---
+          \renewcommand{\headrulewidth}{0pt} % supprime la ligne horizontale de l'en-tête
+          \renewcommand{\footrulewidth}{0pt} % supprime la ligne horizontale du pied de page
+          % --- ajustement local de la distance du bas = augmenter \footskip localement avec \setlength ---
+          \setlength{\footskip}{1pt}
+          %  --- contenu du pied de page centré ---
+          \fancyfoot[C]{%
+            Diffusé sous licence~%
+            \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{%
+            \textbf{CC BY‑NC‑SA 4.0}%
+            } \\[6pt] % texte avec saut de ligne vertical
+            \includegraphics[height=1cm]{img/Licence_cc-by-nc-sa.png} \\[10pt] % logo en dessous puis ligne vide supplémentaire
+            }
+            }
+    latex-engine: pdflatex
+    mainfont: "Raleway"
+    monofont: "Consolas"
+    monofontoptions: 
+      - Scale=0.9
+    number-sections: true
+    output-file: BulleR_Decouverte.pdf # nom du fichier de sortie
+    papersize: A4
+    prefer-html: true
+    sansfont: "Avenir Next LT Pro"
+    toc-depth: 3 
+
+format-links: [pdf, inrae-revealjs]
+
+from: markdown+emoji
+
+highlight-style: atom-one
+
+lang: fr
+
+license: CC BY-NC-SA
+
+lightbox: true # pour avoir les images cliquables
+
+link-external-newwindow: true # pour ouvrir les liens dans un nouvel onglet
+
+link-external-icon: false # pour afficher une icône à côté du lien
+
+prefer-html: true
+
+revealjs-plugins:
+  - pointer
+
+title-slide-attributes:
+  data-footer: "<a rel='license' href='https://creativecommons.org/licenses/by-sa/4.0/'><img alt='Creative Commons License' style='border-width:0; width:200px' src='https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png' /><br></a>Présentation diffusée sous <a rel='license' href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>licence CC BY-NC-SA 4.0</a>."    
+
+toc:  true
+
+transition: none
+
+validate-yaml: false
