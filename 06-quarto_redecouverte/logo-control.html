@@ -1,0 +1,12 @@
+<script>
+document.addEventListener('slidechanged', function(event) {
+    var currentSlide = event.currentSlide;
+    var logo = document.querySelector('img.slide-logo');
+    
+    if (currentSlide.classList.contains('inverse')) {
+        if (logo) logo.style.display = 'none';
+    } else {
+        if (logo) logo.style.display = 'block';
+    }
+});
+</script>

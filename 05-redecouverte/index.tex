@@ -177,6 +177,12 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
+% Retour à la ligne du texte pour qu'il ne dépasse pas dans les marges du document
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\renewenvironment{verbatim}{\VerbatimEnvironment\begin{Verbatim}[breaklines=true,breakanywhere=true]}{\end{Verbatim}}
+
+
 \usepackage{graphicx} % pour insérer des images
 \usepackage{fancyhdr} % gestion du header / footer
 \pagestyle{plain}     % style par défaut avec numéro de page centré en bas
@@ -192,10 +198,7 @@
   \setlength{\footskip}{1pt}
   %  --- contenu du pied de page centré ---
   \fancyfoot[C]{%
-    Diffusé sous licence~%
-    \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{%
-    \textbf{CC BY‑NC‑SA 4.0}%
-    } \\[6pt] % texte avec saut de ligne vertical
+    Diffusé sous licence CC BY-NC-SA 4.0 \\[6pt] % texte avec saut de ligne vertical
     \includegraphics[height=1cm]{img/Licence_cc-by-nc-sa.png} \\[10pt] % logo en dessous puis ligne vide supplémentaire
     }
     }
@@ -298,9 +301,6 @@
 \setcounter{tocdepth}{3}
 \tableofcontents
 }
-
-\thispagestyle{firstpage}
-\pagebreak
 
 \section{Préambule}\label{pruxe9ambule}
 

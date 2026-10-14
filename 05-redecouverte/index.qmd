@@ -428,7 +428,7 @@ packages_utilises <- sessionInfo()
 
 ####  Que se passe-t'il quand on installe une nouvelle version de **R** ?
 
-- Seul les packages de base sont installés, dans leur version mise à jour
+- Seuls les packages de base sont installés, dans leur version mise à jour
 - Les packages qui ont été installés en fonction des besoins ne le sont pas, il faut les réinstaller
 
 :::{.callout-note appearance="simple"}

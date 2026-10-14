@@ -20,6 +20,8 @@
 
 - (Re)Découverte de R et RStudio : ["(Re)Découverte de R et RStudio](https://statire.github.io/bulledr/05-redecouverte/)
 
+- (Re)Découverte de Quarto sous R : ["(Re)Découverte de Quarto sous R](https://statire.github.io/bulledr/06-quarto_redecouverte/)
+
 # Quelques ressources
 
 ## Francophones

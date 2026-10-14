@@ -1,0 +1,72 @@
+---
+title: "Analyse des données hdv2003"
+author: "Sandrine"
+date: "2026-10-13"
+code-fold: false
+toc: true
+format:
+  html:
+    output-file: ExempleMini.html
+---
+
+```{r}
+#| label: setup
+#| echo: false
+
+# Packages
+library(tidyverse)  # v2.0.0
+library(questionr)  # v0.8.2
+
+# Données
+data(hdv2003)
+```
+
+#   Introduction
+Ce document présente une analyse simple du jeu de données hdv2003, dont voici les principales étapes :
+
+##  Étape 1. Chargement des packages
+Dans un premier temps on charge les packages **R**
+```{r}
+#| label: packages
+
+# Packages
+library(tidyverse)  # v2.0.0
+library(questionr)  # v0.8.2
+```
+
+##  Étape 2. Chargement des données
+Dans un second temps on charge les données
+```{r}
+#| label: data
+
+# Chargement des données depuis le package "questionr"
+data(hdv2003)
+```
+
+##  Étape 3. Analyses
+### Tableau
+Puis on crée un premier tableau qui montre la distribution de la variable sexe
+```{r}
+#| label: tbl-sexe
+#| tbl-cap: "Distribution de la variable 'Sexe'"
+
+hdv2003 |> 
+  select(sexe) |> 
+  questionr::freq(total = TRUE)
+```
+
+Les femmes sont légèrement majoritaires (@tbl-sexe).
+
+### Graphique
+Enfin, on crée un graphique, qui illustre la différence du nombre d'heures passées devant la télévision selon le sexe
+```{r}
+#| label: fig-boxplot
+#| fig-cap: "Heures passées devant la TV selon le sexe"
+
+ggplot(data = hdv2003) +
+  aes(heures.tv) + 
+  geom_boxplot() + 
+  facet_wrap(vars(sexe))
+```
+
+Le graphique @fig-boxplot ne montre pas de différences entre les deux groupes. 
