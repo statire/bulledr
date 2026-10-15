@@ -435,7 +435,6 @@ Un paragraphe explicatif
 |                 | `###### Titre 6`                     | ###### Titre 6                         |
 | links           | Site `[Quarto](https://quarto.org/)` | Site [**Quarto**](https://quarto.org/) |
 | visible links   | le lien est `<https://quarto.org/>`  | le lien est <https://quarto.org>       |
-| quote           | `> ceci est important à retenir`     | > ceci est important à retenir         |
 
 `r fontawesome::fa("lightbulb", fill = "#A626A4")` **Il n'est pas possible de souligner du texte en Markdown**, le soulignement étant réservé aux liens hypertextes
 
@@ -734,8 +733,8 @@ data(hdv2003)
 ::::{.columns}
 :::{.column width="30%"}
 ##### Bloc de code
-```{{r}}
-#| label: fig-sexeTV-demo
+````r
+#| label: fig-sexeTV
 #| fig-height: 2
 #| fig-width: 3
 #| fig-cap: "Relation entre heures passées devant la TV et sexe des individus."
@@ -744,7 +743,7 @@ hdv2003 |>
   ggplot() +
   aes(x = sexe, y = heures.tv) +
   geom_boxplot()
-```
+````
 :::
 
 :::{.column width="2%"}
